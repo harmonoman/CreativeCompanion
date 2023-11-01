@@ -1,0 +1,54 @@
+@startuml
+title Create Project
+
+actor Client
+participant "API Gateway" as APIGateway
+participant Lambda
+participant CreateProjectActivity
+participant ProjectDao
+participant ProjectServiceUtils
+participant ModelConverter
+database DynamoDB
+
+Client -> APIGateway : POST /project
+activate Client
+APIGateway -> Lambda
+activate Lambda
+activate CreateProjectActivity
+activate ProjectDao
+Lambda -> CreateProjectActivity :  handleRequest(CreateProjectRequest)
+''CreateProjectActivity -> ProjectServiceUtils : isValidString(projectName)
+''CreateProjectActivity -> ProjectServiceUtils : isValidString(userId)
+
+''alt if projectName or userId invalid
+''    CreateProjectActivity <-- ProjectServiceUtils : false
+''    Lambda <-- CreateProjectActivity : throw InvalidAttributeValueException
+''    APIGateway <-- Lambda
+''    Client <-- APIGateway : 4xx Response
+''else otherwise, continue
+''end
+
+CreateProjectActivity -> ProjectServiceUtils : generateProjectId()
+CreateProjectActivity <-- ProjectServiceUtils : new project ID
+
+CreateProjectActivity -> CreateProjectActivity : populate Project object
+
+CreateProjectActivity -> ProjectDao : saveProject(Project)
+ProjectDao -> DynamoDB : save project
+ProjectDao <-- DynamoDB
+CreateProjectActivity <-- ProjectDao : Project
+
+CreateProjectActivity -> ModelConverter : toProjectModel(Project)
+activate ModelConverter
+CreateProjectActivity <-- ModelConverter : ProjectModel
+deactivate ModelConverter
+
+Lambda <-- CreateProjectActivity : CreateProjectResponse
+deactivate ProjectDao
+deactivate CreateProjectActivity
+APIGateway <-- Lambda
+deactivate Lambda
+Client <-- APIGateway : 200 Response
+deactivate Client
+
+@enduml

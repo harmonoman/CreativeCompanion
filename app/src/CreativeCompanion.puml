@@ -1,0 +1,214 @@
+@startuml
+
+'''''''''' PROJECT ''''''''''
+class Project {
+- String projectId;
+- String projectName;
+- String userId;
+- Date creationDate;
+- Date lastModified;
+- List<String> wordPool;
+- List<String> workspace;
++ getProjectId() : String
++ getProjectName() : String
++ getWordPool() : List<String>
++ getWorkspace() : List<String>
+}
+
+'''''''''' PROJECT DAO ''''''''''
+class ProjectDao {
+- final DynamoDBMapper dynamoDbMapper;
+- final MetricsPublisher metricsPublisher;
++ getProject(String userId, String projectId) : Project
++ saveProject(Project) : Project
++ getUserProjects(String userId) : List<Project>
+}
+
+'''''''''' CREATE PROJECT ''''''''''
+class CreateProjectLambda {
++ handleRequest (AuthenticatedLambdaRequest<CreateProjectRequest>,
+                                          Context) : LambdaResponse
+}
+
+class CreateProjectActivity {
+- final ProjectDao projectDao;
++ handleRequest (final CreateProjectRequest) : CreateProjectResult
+}
+
+'''''''''' DELETE PROJECT ''''''''''
+class DeleteProjectLambda {
++ handleRequest (AuthenticatedLambdaRequest<DeleteProjectRequest>,
+                                          Context) : LambdaResponse
+}
+
+class DeleteProjectActivity {
+- final ProjectDao projectDao;
++ handleRequest (final DeleteProjectRequest) : DeleteProjectResult
+}
+
+'''''''''' GET PROJECT ''''''''''
+class GetProjectLambda {
++ handleRequest (AuthenticatedLambdaRequest<GetProjectRequest>,
+                                          Context) : LambdaResponse
+}
+
+class GetProjectActivity {
+- final ProjectDao projectDao;
++ handleRequest (final GetProjectRequest) : GetProjectResult
+}
+
+'''''''''' UPDATE PROJECT ''''''''''
+class UpdateProjectLambda {
++ handleRequest (AuthenticatedLambdaRequest<UpdateProjectRequest>,
+                                          Context) : LambdaResponse
+}
+
+class UpdateProjectActivity {
+- final ProjectDao projectDao;
+- final MetricsPublisher metricsPublisher;
++ handleRequest (final UpdateProjectRequest) : UpdateProjectResult
+}
+
+'''''''''' GET PROJECT LIST ''''''''''
+class GetProjectListLambda {
++ handleRequest (AuthenticatedLambdaRequest<GetProjectListRequest>,
+                                          Context) : LambdaResponse
+}
+
+class GetProjectListActivity {
+- final ProjectDao projectDao;
++ handleRequest(final GetProjectListRequest) : GetProjectListResult
+}
+
+
+'''''''''' WORDPOOL ''''''''''
+class Wordpool {
+- String userId;
+- String wordPoolName;
+- List<String> wordPool;
+''+ getProjectId() : String
++ getWordPoolName() : String
++ getWordPool() : List<String>
+}
+
+'''''''''' WORDPOOL DAO ''''''''''
+class WordpoolDao {
+- final DynamoDBMapper dynamoDbMapper;
+- final MetricsPublisher metricsPublisher;
++ getWordpool(String userId, String wordPoolId) : Wordpool
++ saveWordpool(Project) : Project
++ getUserWordpools(String userId) : List<Wordpool>
+}
+
+'''''''''' CREATE WORDPOOL ''''''''''
+class CreateWordpoolLambda {
++ handleRequest (AuthenticatedLambdaRequest<CreateWordpoolRequest>,
+                                          Context) : LambdaResponse
+}
+
+class CreateWordpoolActivity {
+- final WordpoolDao wordpoolDao;
++ handleRequest (final CreateWordpoolRequest) : CreateWordpoolResult
+}
+
+'''''''''' DELETE WORDPOOL ''''''''''
+class DeleteWordpoolLambda {
++ handleRequest (AuthenticatedLambdaRequest<DeleteWordpoolRequest>,
+                                          Context) : LambdaResponse
+}
+
+class DeleteWordpoolActivity {
+- final WordpoolDao wordPoolDao;
++ handleRequest (final DeleteWordpoolRequest) : DeleteWordpoolResult
+}
+
+'''''''''' GET WORDPOOL ''''''''''
+class GetWordpoolLambda {
++ handleRequest (AuthenticatedLambdaRequest<GetWordpoolRequest>,
+                                          Context) : LambdaResponse
+}
+
+class GetWordpoolActivity {
+- final WordpoolDao wordPoolDao;
++ handleRequest (final GetWordpoolRequest) : GetWordpoolResult
+}
+
+'''''''''' UPDATE WORDPOOL ''''''''''
+class UpdateWordpoolLambda {
++ handleRequest (AuthenticatedLambdaRequest<UpdateWordpoolRequest>,
+                                          Context) : LambdaResponse
+}
+
+class UpdateWordpoolActivity {
+- final WordpoolDao wordPoolDao;
+- final MetricsPublisher metricsPublisher;
++ handleRequest (final UpdateWordpoolRequest) : UpdateWordpoolResult
+}
+
+'''''''''' GET WORDPOOL LIST ''''''''''
+class GetWordpoolListLambda {
++ handleRequest (AuthenticatedLambdaRequest<GetWordpoolListRequest>,
+                                          Context) : LambdaResponse
+}
+
+class GetWordpoolListActivity {
+- final WordpoolDao wordPoolDao;
++ handleRequest(final GetWordpoolListRequest) : GetWordpoolListResult
+
+}
+
+'''''''''' DATABASE ''''''''''
+package database <<Database>> {
+}
+
+'''''''''' CONNECTIONS ''''''''''
+'''''''''' PROJECT ''''''''''
+CreateProjectActivity <-- ProjectDao
+CreateProjectLambda <-- CreateProjectActivity
+
+DeleteProjectActivity <-- ProjectDao
+DeleteProjectLambda <-- DeleteProjectActivity
+
+GetProjectActivity <-- ProjectDao
+GetProjectLambda <-- GetProjectActivity
+
+UpdateProjectActivity <-- ProjectDao
+UpdateProjectLambda <-- UpdateProjectActivity
+
+GetProjectListActivity <-- ProjectDao
+GetProjectListLambda <-- GetProjectListActivity
+
+database <-- Project
+ProjectDao <-- database
+
+'''''''''' WORDPOOL ''''''''''
+CreateWordpoolActivity <-- WordpoolDao
+CreateWordpoolLambda <-- CreateWordpoolActivity
+
+DeleteWordpoolActivity <-- WordpoolDao
+DeleteWordpoolLambda <-- DeleteWordpoolActivity
+
+GetWordpoolActivity <-- WordpoolDao
+GetWordpoolLambda <-- GetWordpoolActivity
+
+UpdateWordpoolActivity <-- WordpoolDao
+UpdateWordpoolLambda <-- UpdateWordpoolActivity
+
+GetWordpoolListActivity <-- WordpoolDao
+GetWordpoolListLambda <-- GetWordpoolListActivity
+
+database <-- Wordpool
+WordpoolDao <-- database
+
+'''''''''' EXCEPTIONS ''''''''''
+newpage
+
+class ProjectNotFoundException extends RuntimeException{
+- {static} final long serialVersionUID
+}
+
+class WordpoolNotFoundException extends RuntimeException{
+- {static} final long serialVersionUID
+}
+
+@enduml
