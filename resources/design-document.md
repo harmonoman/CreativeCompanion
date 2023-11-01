@@ -4,50 +4,76 @@
 
 ## 1. Problem Statement
 
-Develop a software program that populates a dynamic word pool by interfacing with external thesaurus and rhyming dictionary APIs. This word pool should then allow users to seamlessly drag and drop these words into a target field, facilitating the creation of original song lyrics, poetry, or prose. The software should also support the organization, rearrangement, and editing of these text elements. The content can be saved as individual projects to a database, ensuring that users can retrieve and further develop their work at any time.
+Develop a software program that populates a dynamic Word Pool by interfacing with an external thesaurus and rhyming dictionary API. This word pool should then allow users to seamlessly drag and drop these words into a target field, facilitating the creation of original song lyrics, poetry, or prose. The software should also support the organization, rearrangement, and editing of these text elements. The content can be saved as individual Projects and Word Pools to a database, ensuring that users can retrieve and further develop their work at any time.
 
 ## 2. Top Questions to Resolve in Review
 
 1. Scope: How many features should we have?
-2. How many of the items should be POJOs?
-3. What would be the best way to save the text contents of the fields to the database - as JSON strings?
-4. Do you know of any other teams out there who are working on related problems? Or might have the same concerns about how to best structure the data for use as well as database storage?
+2. What would be the best way to save the text contents of the fields to the database - as JSON strings?
+3. What information is needed to create a personal project or word pool? What should the user be able to name it?
+4. How should project deletion work? Is there any data retention policy?
+5. What are the specifics of sorting projects or word pools by date created, date modified, or alphabetically?
+6. How should changes to a project be saved? Is there an autosave feature?
+7. Do word pools share similar features with projects like creation, deletion, sorting, and editing?
+8. What are the integration requirements of the APIs used to populate the word pools?
 
 ## 3. Use Cases
+
+###### Project
 
 U1. As a CC customer, I want to be able to create a personal project
 
 U2. As a CC customer, I want to be able to delete a personal project
 
-U3. As a CC customer, I want to be able to view all my projects
+U3. As a CC customer, I want to be able to change the name of a project
 
-U4. As a CC customer, I want to be able to sort the projects by date created
+U4. As a CC customer, I want to be able to view all my projects
 
-U5. As a CC customer, I want to be able to sort the projects by date last modified
+U5. As a CC customer, I want to be able to sort the projects by date created
 
-U6. As a CC customer, I want to be able to sort the projects by A-Z or Z-A
+U6. As a CC customer, I want to be able to sort the projects by date last modified
 
-U7. As a CC customer, I want to be able to change the name of a project
+U7. As a CC customer, I want to be able to sort the projects by A-Z or Z-A
 
 U8. As a CC customer, I want to be able to open / import a selected project from the projects list to edit
 
 U9. As a CC customer, I want to be able to update / save changes to a project
 
-U10. As a CC customer, I want to be able to query a Thesaurus API to populate a word pool field with text in my project
+###### WordPool
 
-U11. As a CC customer, I want to be able to query a Rhyming Dictionary API to populate a word pool field with text in my project
+U10. As a CC customer, I want to be able to create a personal wordPool
 
-U12. As a CC customer, I want to be able to drag text from the word pool field and drop it in an editable work space (target field)
+U11. As a CC customer, I want to be able to delete a personal wordPool
 
-U13. As a CC customer, I want to be able to manually drag text from within the work space and drop it in a different location within the work space itself (target field)
+U12. As a CC customer, I want to be able to change the name of a wordPool
 
-U14. As a CC customer, I want to be able to sort words in the word pool - Alphabetically
+U13. As a CC customer, I want to be able to view all my wordPools
 
-U15. As a CC customer, I want to be able to sort words in the word pool - Randomly
+U14. As a CC customer, I want to be able to sort the wordPools by date created
 
-U16. As a CC customer, I want to be able to sort words in the work space - Alphabetically
+U15. As a CC customer, I want to be able to sort the wordPools by date last modified
 
-U17. As a CC customer, I want to be able to sort words in the work space - Randomly
+U16. As a CC customer, I want to be able to sort the wordPools by A-Z or Z-A
+
+U17. As a CC customer, I want to be able to open / import a selected wordPool from the wordPool list to edit
+
+U18. As a CC customer, I want to be able to update / save changes to a wordPool
+
+###### API Queries
+
+U19. As a CC customer, I want to be able to query a Thesaurus / Rhyming Dictionary API to populate a word pool field with text in my project
+
+U20. As a CC customer, I want to be able to drag text from the word pool field and drop it in an editable work space (target field)
+
+U21. As a CC customer, I want to be able to manually drag text from within the work space and drop it in a different location within the work space itself (target field)
+
+U22. As a CC customer, I want to be able to sort words in the word pool - Alphabetically
+
+U23. As a CC customer, I want to be able to sort words in the word pool - Randomly
+
+U24. As a CC customer, I want to be able to sort words in the work space - Alphabetically
+
+U25. As a CC customer, I want to be able to sort words in the work space - Randomly
 
 Stretch goals
 
@@ -71,7 +97,7 @@ S8. As a CC customer, I want to be able to have a display name separate from my 
 
 ### 4.1. In Scope
 
-* Create, delete, retrieve, sort and edit projects
+* Create, delete, retrieve, sort and edit projects and word pools
 * Query external APIs to populate word pool
 * Drag and drop text in the word pool and work space
 * Sorting text in the word pool and work space
@@ -109,7 +135,7 @@ The endpoints defined in section 6.2 are designed to facilitate various project-
 * Project Deletion: An endpoint to delete a project.
 * Project Retrieval: Endpoints for retrieving project details and content.
 * Project Update: Endpoints for updating existing projects.
-* Word Pool Population: Endpoints for fetching content from external APIs to populate the word pool.
+* Word Pool Population: Endpoints for fetching content from external APIs to populate a word pool.
 * Workspace Customization: Endpoints for customizing the workspace within a project.
 
 ###### Functionality:
@@ -133,7 +159,7 @@ The endpoints defined in section 6.2 are designed to facilitate various project-
 
 ###### Customization:
 
-* Users will have the ability to customize and modify the content within their projects to suit their specific requirements.
+* Users will have the ability to customize and modify the content within their projects and word pools to suit their specific requirements.
 
 
 # 6. API
@@ -141,39 +167,30 @@ The endpoints defined in section 6.2 are designed to facilitate various project-
 ## 6.1. Public Models
 
 ```
-// UserModel 
-String userId; 
-String displayName; 
-********List userProjects; //S = projectId
-
-```
-
-```
 // ProjectModel
 
+String userId;
 String projectId;
 String projectName;
-String userId;
 Date creationDate;
 Date lastModified;
 List<String> wordPool;
 List<String> workspace;
+```
+```
+// WordpoolModel
+
+String userId;
+String wordPoolId;
+String wordPoolName;
+Date creationDate;
+Date lastModified;
+List<String> wordPool;
 
 ```
 
 
 ## 6.2. Endpoints
-
-### User
-
-* Accepts POST requests to /user
-###### Accepts a displayName and unique userId and returns the corresponding UserModel.
-
-* Accepts PUT requests to /user
-###### Accepts data to update a displayName.
-
-* Accepts GET requests to /user/{userId}
-###### Accepts a userId and returns corresponding user.
 
 ### Project
 
@@ -190,28 +207,45 @@ List<String> workspace;
 ###### Accepts data to update a project including an updated projectName.
 
 
+### WordPool
 
+* Accepts POST requests to /wordPool
+###### Accepts a wordPoolName and userId and returns the corresponding WordPoolModel including a unique wordPoolId assigned by the WordPool Service.
+
+* Accepts DELETE requests to /wordPool
+###### Accepts a userId and a wordPoolId and removes a wordPool from user’s wordPools.
+
+* Accepts GET requests to /wordPool/{wordPoolId}
+###### Accepts a userId and a wordPoolId and returns the corresponding WordPoolModel.
+
+* Accepts PUT requests to /wordPool/{wordPoolId}
+###### Accepts data to update a wordPool including an updated wordPoolName.
 
 
 
 # 7. Tables
 
-### 7.1. `User`
+### 7.1. `Project`
 
 ```
 userId // partition key, string
-displayName // string
-```
-### 7.2. `Project`
-
-```
-id // partition key, string
-pantryName // sort string, string
-userId // string
+projectId // sort key, string
+projectName // string
 creationDate // Date (string?)
 lastModified // Date (string?)
 wordPool // List<String> (JSON string?)
 workspace // List<String> (JSON string?)
+```
+
+### 7.2. `WordPool`
+
+```
+userId // partition key, string
+wordPoolId // sort key, string
+wordPoolName // string
+creationDate // Date (string?)
+lastModified // Date (string?)
+wordPool // List<String> (JSON string?)
 ```
 
 # 8. Pages
@@ -223,5 +257,11 @@ workspace // List<String> (JSON string?)
 ![](images/CC_3.png)
 
 ![](images/CC_4.png)
+
+![](images/CC_5.png)
+
+![](images/CC_6.png)
+
+![](images/CC_7.png)
 
 
