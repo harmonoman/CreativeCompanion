@@ -4,7 +4,7 @@
 
 ## 1. Problem Statement
 
-Develop a software program that populates a dynamic Word Pool by interfacing with an external thesaurus and rhyming dictionary API. This word pool should then allow users to seamlessly drag and drop these words into a target field, facilitating the creation of original song lyrics, poetry, or prose. The software should also support the organization, rearrangement, and editing of these text elements. The content can be saved as individual Projects and Word Pools to a database, ensuring that users can retrieve and further develop their work at any time.
+Create a software program that seamlessly integrates with external thesaurus and rhyming dictionary APIs, empowering writers, poets, and lyricists to construct dynamic "Word Pools." These Word Pools facilitate the creation of song lyrics, poetry, or prose within dedicated workspaces. Each user's creative work is efficiently managed as individual "Projects," where they can organize, edit, and securely store their content for easy retrieval and further development. This versatile solution serves as an essential tool for artists, enabling creative expression and streamlined content management.
 
 ## 2. Top Questions to Resolve in Review
 
@@ -19,9 +19,9 @@ Develop a software program that populates a dynamic Word Pool by interfacing wit
 
 ## 3. Use Cases
 
-###### Project
+###### Projects
 
-U1. As a CC customer, I want to be able to create a personal project
+U1. As a CC customer, I want to be able to create a personal project that consists of a project wordpool and a project workspace
 
 U2. As a CC customer, I want to be able to delete a personal project
 
@@ -29,51 +29,39 @@ U3. As a CC customer, I want to be able to change the name of a project
 
 U4. As a CC customer, I want to be able to view all my projects
 
-U5. As a CC customer, I want to be able to sort the projects by date created
+U7. As a CC customer, I want to be able to sort the projects by projectName (A-Z or Z-A)
 
-U6. As a CC customer, I want to be able to sort the projects by date last modified
+U8. As a CC customer, I want to be able to open / import a selected project (which includes the project wordpool and workspace contents) from the projects list to edit
 
-U7. As a CC customer, I want to be able to sort the projects by A-Z or Z-A
+U9. As a CC customer, I want to be able to update / save changes (to the project wordpool and workspace) as a project to the database
 
-U8. As a CC customer, I want to be able to open / import a selected project from the projects list to edit
+###### WordPools
 
-U9. As a CC customer, I want to be able to update / save changes to a project
+U10. As a CC customer, I want to be able to create an independent wordpool 
 
-###### WordPool
+U11. As a CC customer, I want to be able to delete an independent wordpool
 
-U10. As a CC customer, I want to be able to create a personal wordPool
+U12. As a CC customer, I want to be able to change the name of an independent wordpool
 
-U11. As a CC customer, I want to be able to delete a personal wordPool
+U13. As a CC customer, I want to be able to view all my independent wordpools
 
-U12. As a CC customer, I want to be able to change the name of a wordPool
+U16. As a CC customer, I want to be able to sort the independent wordpools by A-Z or Z-A
 
-U13. As a CC customer, I want to be able to view all my wordPools
+U17. As a CC customer, I want to be able to open / import a selected wordpool from the independent wordpools list into a project wordpool to edit
 
-U14. As a CC customer, I want to be able to sort the wordPools by date created
+U18. As a CC customer, I want to be able to update / save changes to an independent wordpool
 
-U15. As a CC customer, I want to be able to sort the wordPools by date last modified
+###### Thesaurus / Rhyming Dictionary Sources
 
-U16. As a CC customer, I want to be able to sort the wordPools by A-Z or Z-A
+U19. As a CC customer, I want to be able to query a Thesaurus / Rhyming Dictionary API to populate a project wordpool field with text in my project
 
-U17. As a CC customer, I want to be able to open / import a selected wordPool from the wordPool list to edit
+U20. As a CC customer, I want to be able to query a Thesaurus / Rhyming Dictionary API to populate a field with text in an independent wordpool
 
-U18. As a CC customer, I want to be able to update / save changes to a wordPool
+###### Drag and Drop 
 
-###### API Queries
+U20. As a CC customer, I want to be able to drag text from the project wordpool field and drop it in an editable workspace inside the chosen project
 
-U19. As a CC customer, I want to be able to query a Thesaurus / Rhyming Dictionary API to populate a word pool field with text in my project
-
-U20. As a CC customer, I want to be able to drag text from the word pool field and drop it in an editable work space (target field)
-
-U21. As a CC customer, I want to be able to manually drag text from within the work space and drop it in a different location within the work space itself (target field)
-
-U22. As a CC customer, I want to be able to sort words in the word pool - Alphabetically
-
-U23. As a CC customer, I want to be able to sort words in the word pool - Randomly
-
-U24. As a CC customer, I want to be able to sort words in the work space - Alphabetically
-
-U25. As a CC customer, I want to be able to sort words in the work space - Randomly
+U21. As a CC customer, I want to be able to manually drag text from within the project workspace and drop it in a different location within the same project workspace itself
 
 Stretch goals
 
@@ -91,16 +79,32 @@ S6. As a CC customer, I want to be able to search projects containing a certain 
 
 S7. As a CC customer, I want to be able to use an LLM or existing Java libraries to populate the word pool
 
-S8. As a CC customer, I want to be able to have a display name separate from my UserId
+S8. As a CC customer, I want to be able to have a display name separate from my userId
+
+U5. As a CC customer, I want to be able to sort the projects by date created
+
+U6. As a CC customer, I want to be able to sort the projects by date last modified
+
+U14. As a CC customer, I want to be able to sort the wordpools by date created
+
+U15. As a CC customer, I want to be able to sort the wordpools by date last modified
+
+U22. As a CC customer, I want to be able to sort words in the word pool - Alphabetically
+
+U23. As a CC customer, I want to be able to sort words in the word pool - Randomly
+
+U24. As a CC customer, I want to be able to sort words in the workspace - Alphabetically
+
+U25. As a CC customer, I want to be able to sort words in the workspace - Randomly
 
 ## 4. Project Scope
 
 ### 4.1. In Scope
 
-* Create, delete, retrieve, sort and edit projects and word pools
-* Query external APIs to populate word pool
-* Drag and drop text in the word pool and work space
-* Sorting text in the word pool and work space
+* Create, delete, retrieve, sort and edit projects
+* Create, delete, retrieve, sort and edit independent wordpools
+* Query external APIs to populate project wordpools and independent wordpools
+* Drag and drop text from the project wordpool to project workspace
 
 ### 4.2. Out of Scope
 
@@ -110,12 +114,13 @@ S8. As a CC customer, I want to be able to have a display name separate from my 
 * Searching projects for a certain word or phrase
 * Implement an LLM or existing Java libraries to populate the word pool
 * Update a display name separate from UserId
+* Sorting text in the wordpool and workspace
 
 # 5. Proposed Architecture Overview
 
 ## Project Phase: Minimum Lovable Product (MLP) Delivery
 ### Description:
-In this initial phase, our goal is to deliver the Minimum Lovable Product (MLP) for our software project. The MLP will encompass core functionalities, including project creation, retrieval, and updating. Additionally, it will involve fetching content from external APIs to populate a word pool and workspace, allowing customization to meet specific user needs.
+In this initial phase, our goal is to deliver the Minimum Lovable Product (MLP) for our software project. The MLP will encompass core functionalities, including project creation, deletion, retrieval, and updating. Additionally, it will involve fetching content from external APIs to populate a word pool and workspace, allowing customization to meet specific user needs.
 
 ### Key Components:
 
@@ -159,7 +164,7 @@ The endpoints defined in section 6.2 are designed to facilitate various project-
 
 ###### Customization:
 
-* Users will have the ability to customize and modify the content within their projects and word pools to suit their specific requirements.
+* Users will have the ability to customize and modify the content within their projects and wordpools to suit their specific requirements.
 
 
 # 6. API
@@ -172,80 +177,78 @@ The endpoints defined in section 6.2 are designed to facilitate various project-
 String userId;
 String projectId;
 String projectName;
-Date creationDate;
-Date lastModified;
-List<String> wordPool;
+List<String> wordpool;
 List<String> workspace;
 ```
 ```
 // WordpoolModel
 
 String userId;
-String wordPoolId;
-String wordPoolName;
-Date creationDate;
-Date lastModified;
-List<String> wordPool;
+String wordpoolId;
+String wordpoolName;
+List<String> wordpool;
 
 ```
 
 
 ## 6.2. Endpoints
 
-### Project
+### Projects
 
-* Accepts POST requests to /project
-###### Accepts a projectName and userId and returns the corresponding ProjectModel including a unique projectId assigned by the Project Service.
+* Accepts POST requests to /projects
+###### Accepts a projectName and returns the corresponding ProjectModel including a unique projectId assigned by the Project Service.
 
-* Accepts DELETE requests to /project
+* Accepts DELETE requests to /projects/{projectid}
 ###### Accepts a userId and a projectId and removes a project from user’s projects.
 
-* Accepts GET requests to /project/{projectId}
+* Accepts GET requests to /projects/{projectid}
 ###### Accepts a userId and a projectId and returns the corresponding ProjectModel.
 
-* Accepts PUT requests to /project/{projectId}
+* Accepts GET requests to /projects
+###### Accepts a userId and returns a list of corresponding ProjectModels.
+
+* Accepts PUT requests to /projects/{projectid}
 ###### Accepts data to update a project including an updated projectName.
 
 
-### WordPool
+### Wordpools
 
-* Accepts POST requests to /wordPool
-###### Accepts a wordPoolName and userId and returns the corresponding WordPoolModel including a unique wordPoolId assigned by the WordPool Service.
+* Accepts POST requests to /wordpools
+###### Accepts a wordpoolName and returns the corresponding WordpoolModel including a unique wordpoolId assigned by the Wordpool Service.
 
-* Accepts DELETE requests to /wordPool
-###### Accepts a userId and a wordPoolId and removes a wordPool from user’s wordPools.
+* Accepts DELETE requests to /wordpools/{wordpoolid}
+###### Accepts a userId and a wordpoolId and removes a wordpool from user’s wordpools.
 
-* Accepts GET requests to /wordPool/{wordPoolId}
-###### Accepts a userId and a wordPoolId and returns the corresponding WordPoolModel.
+* Accepts GET requests to /wordpools/{wordpoolid}
+###### Accepts a userId and a wordpoolId and returns the corresponding WordpoolModel.
 
-* Accepts PUT requests to /wordPool/{wordPoolId}
-###### Accepts data to update a wordPool including an updated wordPoolName.
+* Accepts GET requests to /wordpools
+###### Accepts a userId and returns a list of corresponding WordpoolModels.
+
+* Accepts PUT requests to /wordpools/{wordpoolid}
+###### Accepts data to update a wordpool including an updated wordpoolName.
 
 
 
 # 7. Tables
 
-### 7.1. `Project`
+### 7.1. `Projects`
 
 ```
-userId // partition key, string
-projectId // sort key, string
-projectName // string
-creationDate // Date (string?)
-lastModified // Date (string?)
-wordPool // List<String> (JSON string?)
-workspace // List<String> (JSON string?)
+userid // partition key, string
+projectid // sort key, string
+projectname // string
+projectwordpool // List
+workspace // List
 ```
 
-### 7.2. `WordPool`
+### 7.2. `WordPools`
 
 ```
-userId // partition key, string
-wordPoolId // sort key, string
-wordPoolName // string
-creationDate // Date (string?)
-lastModified // Date (string?)
-wordPool // List<String> (JSON string?)
+userid // partition key, string
+wordpoolid // sort key, string
+wordpoolname // string
+wordpool // List
 ```
 
 # 8. Pages
