@@ -14,6 +14,8 @@ import java.util.function.Function;
  */
 public class AuthenticatedLambdaRequest<T> extends LambdaRequest<T> {
 
+    private static final long serialVersionUID = 5641352074302616204L;
+
     /**
      * Use the given converter to create an instance of T from the claims included in the request's JWT token.
      * @param converter Contains the conversion code
@@ -50,7 +52,7 @@ public class AuthenticatedLambdaRequest<T> extends LambdaRequest<T> {
         String[] sections = jwt.split("\\.");
         String payload = new String(decoder.decode(sections[1]));
 
-        return super.MAPPER.readValue(payload, new TypeReference<HashMap<String, String>>() {
+        return MAPPER.readValue(payload, new TypeReference<HashMap<String, String>>() {
         });
     }
 }

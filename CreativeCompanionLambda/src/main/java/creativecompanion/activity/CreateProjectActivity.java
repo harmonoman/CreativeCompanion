@@ -2,6 +2,10 @@ package creativecompanion.activity;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import creativecompanion.dynamodb.ProjectDao;
+import creativecompanion.dynamodb.models.ModelConverter;
+import creativecompanion.dynamodb.models.Project;
+import creativecompanion.dynamodb.models.ProjectModel;
 import creativecompanion.requests.CreateProjectRequest;
 import creativecompanion.results.CreateProjectResult;
 import creativecompanion.utils.DigitalProjectServiceUtils;
