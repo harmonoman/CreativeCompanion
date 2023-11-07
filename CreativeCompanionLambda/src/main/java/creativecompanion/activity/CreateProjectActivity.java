@@ -2,6 +2,14 @@ package creativecompanion.activity;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import creativecompanion.requests.CreateProjectRequest;
+import creativecompanion.results.CreateProjectResult;
+import creativecompanion.utils.DigitalProjectServiceUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.inject.Inject;
+
 public class CreateProjectActivity {
     private final Logger log = LogManager.getLogger();
     private final ProjectDao projectDao;

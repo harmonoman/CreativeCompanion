@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'CreativeCompanion'
-include('app')
+include('CreativeCompanionLambda')

@@ -3,6 +3,7 @@ package creativecompanion.lambda;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import creativecompanion.requests.CreateProjectRequest;
+import creativecompanion.results.CreateProjectResult;
 
 public class CreateProjectLambda {
      extends LambdaActivityRunner<CreateProjectRequest, CreateProjectResult>
