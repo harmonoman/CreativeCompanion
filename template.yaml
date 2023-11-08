@@ -227,7 +227,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: CreativeCompanionLambda
-      Handler: com.nashss.se.creativecompanionservice.lambda.CreateProjectLambda::handleRequest
+      Handler: com.nashss.se.creativecompanion.lambda.CreateProjectLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -247,7 +247,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: CreativeCompanionLambda
-      Handler: com.nashss.se.creativecompanionservice.lambda.DeleteProjectLambda::handleRequest
+      Handler: com.nashss.se.creativecompanion.lambda.DeleteProjectLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -267,7 +267,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: CreativeCompanionLambda
-      Handler: com.nashss.se.creativecompanionservice.lambda.GetProjectLambda::handleRequest
+      Handler: com.nashss.se.creativecompanion.lambda.GetProjectLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -287,7 +287,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: CreativeCompanionLambda
-      Handler: com.nashss.se.creativecompanionservice.lambda.GetProjectListLambda::handleRequest
+      Handler: com.nashss.se.creativecompanion.lambda.GetProjectListLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -307,7 +307,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: CreativeCompanionLambda
-      Handler: com.nashss.se.creativecompanionservice.lambda.UpdateProjectLambda::handleRequest
+      Handler: com.nashss.se.creativecompanion.lambda.UpdateProjectLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -330,7 +330,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: CreativeCompanionLambda
-      Handler: com.nashss.se.creativecompanionservice.lambda.CreateWordPoolLambda::handleRequest
+      Handler: com.nashss.se.creativecompanion.lambda.CreateWordPoolLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -350,7 +350,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: CreativeCompanionLambda
-      Handler: com.nashss.se.creativecompanionservice.lambda.DeleteWordPoolLambda::handleRequest
+      Handler: com.nashss.se.creativecompanion.lambda.DeleteWordPoolLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -370,7 +370,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: CreativeCompanionLambda
-      Handler: com.nashss.se.creativecompanionservice.lambda.GetWordPoolLambda::handleRequest
+      Handler: com.nashss.se.creativecompanion.lambda.GetWordPoolLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -390,7 +390,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: CreativeCompanionLambda
-      Handler: com.nashss.se.creativecompanionservice.lambda.GetWordPoolListLambda::handleRequest
+      Handler: com.nashss.se.creativecompanion.lambda.GetWordPoolListLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
@@ -410,7 +410,7 @@ Resources:
     Properties:
       Role: !GetAtt AccessRole.Arn
       CodeUri: CreativeCompanionLambda
-      Handler: com.nashss.se.creativecompanionservice.lambda.UpdateWordPoolLambda::handleRequest
+      Handler: com.nashss.se.creativecompanion.lambda.UpdateWordPoolLambda::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
