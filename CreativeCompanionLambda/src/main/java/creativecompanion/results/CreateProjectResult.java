@@ -1,5 +1,7 @@
 package creativecompanion.results;
 
+import creativecompanion.dynamodb.models.ProjectModel;
+
 public class CreateProjectResult {
     private final ProjectModel project;
 

@@ -1,5 +1,7 @@
 package creativecompanion.requests;
 
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 public class CreateProjectRequest {
     private final String projectName;
     private final String userId;
@@ -36,7 +38,7 @@ public class CreateProjectRequest {
         private String projectName;
         private String userId;
 
-        public Builder withPantryName(String projectName) {
+        public Builder withProjectName(String projectName) {
             this.projectName = projectName;
             return this;
         }
