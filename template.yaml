@@ -226,7 +226,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
-      CodeUri: CreativeCompanionServiceLambda
+      CodeUri: CreativeCompanionLambda
       Handler: com.nashss.se.creativecompanionservice.lambda.CreateProjectLambda::handleRequest
       Runtime: java11
       Architectures:
@@ -246,7 +246,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
-      CodeUri: CreativeCompanionServiceLambda
+      CodeUri: CreativeCompanionLambda
       Handler: com.nashss.se.creativecompanionservice.lambda.DeleteProjectLambda::handleRequest
       Runtime: java11
       Architectures:
@@ -266,7 +266,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
-      CodeUri: CreativeCompanionServiceLambda
+      CodeUri: CreativeCompanionLambda
       Handler: com.nashss.se.creativecompanionservice.lambda.GetProjectLambda::handleRequest
       Runtime: java11
       Architectures:
@@ -286,7 +286,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
-      CodeUri: CreativeCompanionServiceLambda
+      CodeUri: CreativeCompanionLambda
       Handler: com.nashss.se.creativecompanionservice.lambda.GetProjectListLambda::handleRequest
       Runtime: java11
       Architectures:
@@ -306,7 +306,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
-      CodeUri: CreativeCompanionServiceLambda
+      CodeUri: CreativeCompanionLambda
       Handler: com.nashss.se.creativecompanionservice.lambda.UpdateProjectLambda::handleRequest
       Runtime: java11
       Architectures:
@@ -329,7 +329,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
-      CodeUri: CreativeCompanionServiceLambda
+      CodeUri: CreativeCompanionLambda
       Handler: com.nashss.se.creativecompanionservice.lambda.CreateWordPoolLambda::handleRequest
       Runtime: java11
       Architectures:
@@ -349,7 +349,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
-      CodeUri: CreativeCompanionServiceLambda
+      CodeUri: CreativeCompanionLambda
       Handler: com.nashss.se.creativecompanionservice.lambda.DeleteWordPoolLambda::handleRequest
       Runtime: java11
       Architectures:
@@ -369,7 +369,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
-      CodeUri: CreativeCompanionServiceLambda
+      CodeUri: CreativeCompanionLambda
       Handler: com.nashss.se.creativecompanionservice.lambda.GetWordPoolLambda::handleRequest
       Runtime: java11
       Architectures:
@@ -389,7 +389,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
-      CodeUri: CreativeCompanionServiceLambda
+      CodeUri: CreativeCompanionLambda
       Handler: com.nashss.se.creativecompanionservice.lambda.GetWordPoolListLambda::handleRequest
       Runtime: java11
       Architectures:
@@ -409,7 +409,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Role: !GetAtt AccessRole.Arn
-      CodeUri: CreativeCompanionServiceLambda
+      CodeUri: CreativeCompanionLambda
       Handler: com.nashss.se.creativecompanionservice.lambda.UpdateWordPoolLambda::handleRequest
       Runtime: java11
       Architectures:
