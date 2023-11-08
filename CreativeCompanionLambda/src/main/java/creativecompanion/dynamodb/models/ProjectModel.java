@@ -1,6 +1,8 @@
 package creativecompanion.dynamodb.models;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class ProjectModel {
     private final String userId;
