@@ -35,7 +35,7 @@ export default class Header extends BindingClass {
         const homeButton = document.createElement('a');
         homeButton.classList.add('header_home');
         homeButton.href = 'index.html';
-        homeButton.innerText = 'Home';
+        homeButton.innerText = 'Creative Companion';
 
         const siteTitle = document.createElement('div');
         siteTitle.classList.add('site-title');
@@ -58,11 +58,28 @@ export default class Header extends BindingClass {
     }
 
     createLoginButton() {
-        return this.createButton('Login', this.client.login);
+         return this.createButton('Login', this.client.login);
+//        const loginButton = document.createElement('button');
+//                loginButton.classList.add('login-button');
+//                loginButton.innerText = 'Login';
+//
+//                return loginButton;
     }
 
     createLogoutButton(currentUser) {
-        return this.createButton(`Logout: ${currentUser.name}`, this.client.logout);
+         return this.createButton(`Logout: ${currentUser.name}`, this.client.logout);
+//        const logoutButton = document.createElement('button');
+//                logoutButton.classList.add('logout-button');
+//                logoutButton.innerText = 'Logout';
+//
+//                // Add event listener for logout functionality if the user is logged in
+//                if (currentUser) {
+//                    logoutButton.addEventListener('click', () => {
+//                        // Implement your logout logic here
+//                    });
+//                }
+//
+//                return logoutButton;
     }
 
     createButton(text, clickHandler) {
