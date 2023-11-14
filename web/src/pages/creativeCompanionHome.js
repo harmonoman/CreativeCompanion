@@ -29,9 +29,9 @@ class CreativeCompanionHome extends BindingClass {
     constructor() {
         super();
 
-        this.bindClassMethods(['mount', 'clientLoaded', 'displaySearchResults', 'getHTMLForSearchResults'], this);
+        this.bindClassMethods(['mount', 'clientLoaded', /*'displaySearchResults',*/ /*'getHTMLForSearchResults'*/], this);
 
-        // Create a enw datastore with an initial "empty" state.
+        // Create a new datastore with an initial "empty" state.
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
         this.header = new Header(this.dataStore);
         this.dataStore.addChangeListener(this.displaySearchResults);
@@ -60,43 +60,54 @@ class CreativeCompanionHome extends BindingClass {
         const userName = await this.client.getUserName();
 
         if (userName == undefined){
-            document.getElementById("home-page").innerText = 'Welcome! Please sign in before continuing.';
+            document.getElementById("welcome-message").innerText = 'Welcome! Please sign in before continuing.';
         } else {
-            document.getElementById("home-page").innerText = 'Welcome, ' + userName + '!';
+            document.getElementById("welcome-message").innerText = 'Welcome, ' + userName + '!';
         }
 
     }
+
+    createLoginButton() {
+             return this.createButton('Login', this.client.login);
+    //        const loginButton = document.createElement('button');
+    //                loginButton.classList.add('login-button');
+    //                loginButton.innerText = 'Login';
+    //
+    //                return loginButton;
+        }
+
+
 
     /**
      * Pulls search results from the datastore and displays them on the html page.
      */
-    displaySearchResults() {
-        const searchCriteria = this.dataStore.get(SEARCH_CRITERIA_KEY);
-        const searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
+    //displaySearchResults() {
+//        const searchCriteria = this.dataStore.get(SEARCH_CRITERIA_KEY);
+//        const searchResults = this.dataStore.get(SEARCH_RESULTS_KEY);
+//
+//        const searchResultsContainer = document.getElementById('search-results-container');
+//        const searchCriteriaDisplay = document.getElementById('search-criteria-display');
+//        const searchResultsDisplay = document.getElementById('search-results-display');
+//
+//        if (searchCriteria === '') {
+//            searchResultsContainer.classList.add('hidden');
+//            searchCriteriaDisplay.innerHTML = '';
+//            searchResultsDisplay.innerHTML = '';
+//        } else {
+//            searchResultsContainer.classList.remove('hidden');
+//            searchCriteriaDisplay.innerHTML = `"${searchCriteria}"`;
+//            searchResultsDisplay.innerHTML = this.getHTMLForSearchResults(searchResults);
+//        }
 
-        const searchResultsContainer = document.getElementById('search-results-container');
-        const searchCriteriaDisplay = document.getElementById('search-criteria-display');
-        const searchResultsDisplay = document.getElementById('search-results-display');
 
-        if (searchCriteria === '') {
-            searchResultsContainer.classList.add('hidden');
-            searchCriteriaDisplay.innerHTML = '';
-            searchResultsDisplay.innerHTML = '';
-        } else {
-            searchResultsContainer.classList.remove('hidden');
-            searchCriteriaDisplay.innerHTML = `"${searchCriteria}"`;
-            searchResultsDisplay.innerHTML = this.getHTMLForSearchResults(searchResults);
-        }
-
-
-    }
+    //}
 //      DO I NEED THIS FOR THIS PAGE? I PROBABLY DO NEED TO COME BACK TO THIS TO FOR MY GetProjectList vertical
-//    /**
-//     * Create appropriate HTML for displaying searchResults on the page.
-//     * @param searchResults An array of playlists objects to be displayed on the page.
-//     * @returns A string of HTML suitable for being dropped on the page.
-//     */
-//    getHTMLForSearchResults(searchResults) {
+    /**
+     * Create appropriate HTML for displaying searchResults on the page.
+     * @param searchResults An array of playlists objects to be displayed on the page.
+     * @returns A string of HTML suitable for being dropped on the page.
+     */
+    //getHTMLForSearchResults(searchResults) {
 //        if (searchResults.length === 0) {
 //            return '<h4>No results found</h4>';
 //        }
@@ -115,7 +126,7 @@ class CreativeCompanionHome extends BindingClass {
 //        html += '</table>';
 //
 //        return html;
-//    }
+    //}
 
 }
 

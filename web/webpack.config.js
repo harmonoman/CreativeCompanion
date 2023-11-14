@@ -23,9 +23,12 @@ module.exports = {
     usedExports: true
   },
   entry: {
-    createPlaylist: path.resolve(__dirname, 'src', 'pages', 'createPlaylist.js'),
-    viewPlaylist: path.resolve(__dirname, 'src', 'pages', 'viewPlaylist.js'),
-    searchPlaylists: path.resolve(__dirname, 'src', 'pages', 'searchPlaylists.js'),
+//    createPlaylist: path.resolve(__dirname, 'src', 'pages', 'createPlaylist.js'),
+//    viewPlaylist: path.resolve(__dirname, 'src', 'pages', 'viewPlaylist.js'),
+//    searchPlaylists: path.resolve(__dirname, 'src', 'pages', 'searchPlaylists.js'),
+//    creativeCompanionTest: path.resolve(__dirname, 'src', 'pages', 'creativeCompanionTest.js')
+
+    creativeCompanionHome: path.resolve(__dirname, 'src', 'pages', 'creativeCompanionHome.js')
   },
   output: {
     path: path.resolve(__dirname, 'build', 'assets'),

@@ -453,10 +453,6 @@ Resources:
               KeyType: "HASH"
           Projection:
             ProjectionType: ALL
-          ProvisionedThroughput:
-            ReadCapacityUnits: 5
-            WriteCapacityUnits: 1
-
 
   WordPoolsTable:
     Type: AWS::DynamoDB::Table
@@ -482,9 +478,6 @@ Resources:
               KeyType: "HASH"
           Projection:
             ProjectionType: ALL
-          ProvisionedThroughput:
-            ReadCapacityUnits: 5
-            WriteCapacityUnits: 1
 
 #-----------------------------------------------------
 # The outputs defined below will be printed

@@ -1,13 +1,13 @@
 :root {
     /* css variables: https://developer.mozilla.org/en-US/docs/Web/CSS/var */
-    --primary-color: #5D5E5E;
+    --primary-color: #007a99;
     --secondary-color: #ffffff;
-    --tertiary-color: #F5881F;
+    --tertiary-color: #cc7a00;
     --error-color: #EE3A23;
 }
 
 .background {
-    background-color: #8A8C8F;
+    background-color: #e6faff;
     margin: 0;
     counter-reset: section;
     font-family: "Helvetica Neue",Helvetica,sans-serif;
@@ -15,12 +15,63 @@
 
 .header {
     /* Flexbox: https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
-    display: flex;
+    /* display: flex;*/
     justify-content: space-between;
-    align-items: center;
     background-color: var(--primary-color);
     color: var(--secondary-color);
     padding: 4px 20px;
+
+}
+
+.header_home {
+     font-size: 36px;
+     line-height: 40px;
+     height: 100px;
+     text-decoration: none;
+     color: #111;
+}
+
+#welcome-message {
+     /* display: flex;
+     justify-content: space-between;
+     align-items: center;
+     text-align: center;
+     background-color: var(--primary-color);
+     color: var(--secondary-color);
+     padding: 4px 20px; */
+     text-align: center;
+     font-size: 25px;
+     margin-top: 50px;
+     color: #333; /* Default text color */
+     padding: 50px 16px;
+
+}
+
+.site-title {
+    /*flex: 1; /* Takes up remaining space, centering the title */
+    text-align: center;
+    color: #999;
+}
+
+.login-button {
+    /* Styles for the login button, adjust as needed */
+    background-color: #333;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+        /*float: right;*/
+}
+
+.logout-button {
+    /* Styles for the logout button, adjust as needed */
+    background-color: #cc0000;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .button {
@@ -32,26 +83,26 @@
   font-weight: bold;
   text-decoration: none;
   cursor: pointer;
+  margin-bottom: 20px; /* Adjust the value to set the desired space between buttons */
+      align-items: center;
+
 }
 
 .button-group {
     display: flex;
+    flex-direction: column; /* Change to column for vertical stacking */
     justify-content: space-between;
+    align-items: center;
 }
 
-.header_home {
-    font-size: 36px;
-    line-height: 40px;
-    height: 100px;
-    text-decoration: none;
-    color: var(--secondary-color);
-}
+
 
 .card {
     color: var(--primary-color);
     background-color: var(--secondary-color);
     margin: 20px;
     padding: 10px 20px;
+
 }
 
 .error {
