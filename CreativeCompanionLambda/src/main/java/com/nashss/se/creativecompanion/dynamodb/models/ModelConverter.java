@@ -19,4 +19,21 @@ public class ModelConverter {
                 .build();
 
     }
+
+    /**
+     * Converts a provided {@link WordPool} into a {@link WordPoolModel} representation.
+     *
+     * @param wordPool the project to convert
+     * @return the converted project
+     */
+    public WordPoolModel toWordPoolModel(WordPool wordPool) {
+
+        return WordPoolModel.builder()
+                .withUserId(wordPool.getUserId())
+                .withWordPoolId(wordPool.getWordPoolId())
+                .withWordPoolName(wordPool.getWordPoolName())
+                .withWordPool(wordPool.getWordPool())
+                .build();
+
+    }
 }

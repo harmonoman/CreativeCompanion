@@ -8,7 +8,7 @@ import com.nashss.se.creativecompanion.dynamodb.models.Project;
 import com.nashss.se.creativecompanion.dynamodb.models.ProjectModel;
 import com.nashss.se.creativecompanion.requests.CreateProjectRequest;
 import com.nashss.se.creativecompanion.results.CreateProjectResult;
-import com.nashss.se.creativecompanion.utils.DigitalProjectServiceUtils;
+import com.nashss.se.creativecompanion.utils.ServiceUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -47,7 +47,7 @@ public class CreateProjectActivity {
 
         Project newProject = new Project();
         newProject.setUserId(createProjectRequest.getUserId());
-        newProject.setProjectId(DigitalProjectServiceUtils.generateProjectId());
+        newProject.setProjectId(ServiceUtils.generateProjectId());
         newProject.setProjectName(createProjectRequest.getProjectName());
         newProject.setWordPool(new ArrayList<>());
         newProject.setWorkspace(new ArrayList<>());

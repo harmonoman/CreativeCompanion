@@ -11,21 +11,19 @@ public class CreateProjectRequest {
         this.projectName = projectName;
 
     }
+    public String getUserId() {
+        return userId;
+    }
 
     public String getProjectName() {
         return projectName;
     }
 
-
-    public String getUserId() {
-        return userId;
-    }
-
     @Override
     public String toString() {
         return "CreateProjectRequest{" +
-                "projectName='" + projectName + '\'' +
-                ", userId='" + userId + '\'' +
+                "userId='" + userId + '\'' +
+                ", projectName='" + projectName + '\'' +
                 '}';
     }
 
@@ -49,7 +47,6 @@ public class CreateProjectRequest {
             this.projectName = projectName;
             return this;
         }
-
 
         public CreateProjectRequest build() {
             return new CreateProjectRequest(userId, projectName);
