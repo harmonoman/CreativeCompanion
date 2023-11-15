@@ -23,9 +23,9 @@ const EMPTY_DATASTORE_STATE = {
 
 
 /**
- * Logic needed for the search playlist page of the website.
+ * Logic needed for the home page of the website.
  */
-class CreativeCompanionHome extends BindingClass {
+class CreativeCompanionIndex extends BindingClass {
     constructor() {
         super();
 
@@ -35,7 +35,7 @@ class CreativeCompanionHome extends BindingClass {
         this.dataStore = new DataStore(EMPTY_DATASTORE_STATE);
         this.header = new Header(this.dataStore);
         this.dataStore.addChangeListener(this.displaySearchResults);
-        console.log("creativeCompanionHome constructor");
+        console.log("creativeCompanionIndex constructor");
     }
 
     /**
@@ -134,8 +134,8 @@ class CreativeCompanionHome extends BindingClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const creativeCompanionHome = new CreativeCompanionHome();
-    creativeCompanionHome.mount();
+    const creativeCompanionIndex = new CreativeCompanionIndex();
+    creativeCompanionIndex.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

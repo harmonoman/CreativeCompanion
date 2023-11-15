@@ -11,9 +11,9 @@ public class ModelConverter {
     public ProjectModel toProjectModel(Project project) {
 
         return ProjectModel.builder()
+                .withUserId(project.getUserId())
                 .withProjectId(project.getProjectId())
                 .withProjectName(project.getProjectName())
-                .withUserId(project.getUserId())
                 .withWordPool(project.getWordPool())
                 .withWorkspace(project.getWorkspace())
                 .build();
