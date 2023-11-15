@@ -21,16 +21,16 @@ public class ProjectModel {
         this.workspace = workspace;
     }
 
+    public String getUserId() {
+        return this.userId;
+    }
+
     public String getProjectId() {
         return this.projectId;
     }
 
     public String getProjectName() {
         return this.projectName;
-    }
-
-    public String getUserId() {
-        return this.userId;
     }
 
     public List<String> getWordPool() {
@@ -74,7 +74,10 @@ public class ProjectModel {
         private List<String> workspace;
 
 
-
+        public Builder withUserId(String userId) {
+            this.userId = userId;
+            return this;
+        }
         public Builder withProjectId(String projectId) {
             this.projectId = projectId;
             return this;
@@ -82,11 +85,6 @@ public class ProjectModel {
 
         public Builder withProjectName(String projectName) {
             this.projectName = projectName;
-            return this;
-        }
-
-        public Builder withUserId(String userId) {
-            this.userId = userId;
             return this;
         }
 
@@ -102,7 +100,7 @@ public class ProjectModel {
 
 
         public ProjectModel build() {
-            return new ProjectModel(projectId, projectName, userId, wordPool, workspace);
+            return new ProjectModel(userId, projectId, projectName , wordPool, workspace);
         }
     }
 }

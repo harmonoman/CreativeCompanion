@@ -28,7 +28,7 @@ module.exports = {
 //    searchPlaylists: path.resolve(__dirname, 'src', 'pages', 'searchPlaylists.js'),
 //    creativeCompanionTest: path.resolve(__dirname, 'src', 'pages', 'creativeCompanionTest.js')
 
-    creativeCompanionHome: path.resolve(__dirname, 'src', 'pages', 'creativeCompanionHome.js')
+    creativeCompanionIndex: path.resolve(__dirname, 'src', 'pages', 'creativeCompanionIndex.js')
   },
   output: {
     path: path.resolve(__dirname, 'build', 'assets'),

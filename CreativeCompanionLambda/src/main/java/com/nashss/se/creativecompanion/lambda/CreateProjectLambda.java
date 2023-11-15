@@ -14,8 +14,8 @@ public class CreateProjectLambda extends LambdaActivityRunner<CreateProjectReque
                 CreateProjectRequest unauthenticatedRequest = input.fromBody(CreateProjectRequest.class);
                 return input.fromUserClaims(claims ->
                             CreateProjectRequest.builder()
-                                    .withProjectName(unauthenticatedRequest.getProjectName())
                                     .withUserId(claims.get("email"))
+                                    .withProjectName(unauthenticatedRequest.getProjectName())
                                     .build());
             }, (request, serviceComponent) ->
                         serviceComponent.provideCreateProjectActivity().handleRequest(request)

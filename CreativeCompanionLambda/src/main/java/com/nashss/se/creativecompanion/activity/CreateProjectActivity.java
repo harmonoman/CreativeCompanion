@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 
 public class CreateProjectActivity {
     private final Logger log = LogManager.getLogger();
@@ -45,9 +46,13 @@ public class CreateProjectActivity {
         log.info("Received CreateProjectRequest {}", createProjectRequest);
 
         Project newProject = new Project();
+        newProject.setUserId(createProjectRequest.getUserId());
         newProject.setProjectId(DigitalProjectServiceUtils.generateProjectId());
         newProject.setProjectName(createProjectRequest.getProjectName());
-        newProject.setUserId(createProjectRequest.getUserId());
+        newProject.setWordPool(new ArrayList<>());
+        newProject.setWorkspace(new ArrayList<>());
+
+
         //newProject.setInventory(new HashSet<>()); // what should this be? what does a Project hold?
 
         projectDao.saveProject(newProject);
