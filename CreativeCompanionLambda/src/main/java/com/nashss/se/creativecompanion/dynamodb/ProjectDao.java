@@ -23,7 +23,7 @@ public class ProjectDao {
     private final MetricsPublisher metricsPublisher;
 
     /**
-     * Instantiates a PantryDao object.
+     * Instantiates a ProjectDao object.
      *
      * @param dynamoDbMapper   the {@link DynamoDBMapper} used to interact with the projects table
      * @param metricsPublisher the {@link MetricsPublisher} used to record metrics.
@@ -65,7 +65,7 @@ public class ProjectDao {
     }
 
     /**
-     * Perform a search (via a "scan") of the project table for projects matching the given criteria.
+     * Perform a search (via a "scan") of the projects table for projects matching the given criteria.
      *
      * @param userId a String containing the UserId.
      * @return a List of Project objects that were made by the User.

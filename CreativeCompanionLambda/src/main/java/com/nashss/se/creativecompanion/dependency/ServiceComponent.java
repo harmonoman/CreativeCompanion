@@ -3,6 +3,7 @@ package com.nashss.se.creativecompanion.dependency;
 //import com.nashss.se.musicplaylistservice.activity.*;
 import com.nashss.se.creativecompanion.activity.CreateProjectActivity;
 
+import com.nashss.se.creativecompanion.activity.CreateWordPoolActivity;
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -19,6 +20,8 @@ public interface ServiceComponent {
      * @return CreatePantryActivity
      */
     CreateProjectActivity provideCreateProjectActivity();
+
+    CreateWordPoolActivity provideCreateWordPoolActivity();
 
 
 }

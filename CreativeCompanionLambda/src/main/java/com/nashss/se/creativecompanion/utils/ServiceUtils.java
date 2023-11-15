@@ -2,10 +2,10 @@ package com.nashss.se.creativecompanion.utils;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
-public final class DigitalProjectServiceUtils {
+public final class ServiceUtils {
     static final int GENERATED_ID_LENGTH = 5;
 
-    private DigitalProjectServiceUtils() {
+    private ServiceUtils() {
     }
 
     /**

@@ -12,4 +12,5 @@ public class MetricsConstants {
     public static final String SERVICE = "Service";
     public static final String SERVICE_NAME = "DigitalProjectService";
     public static final String NAMESPACE_NAME = "U7/DigitalProjectService";
+    public static final String GETWORDPOOL_WORDPOOLNOTFOUND_COUNT = "GetWordPool.WordPoolNotFoundException.Count";
 }

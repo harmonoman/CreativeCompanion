@@ -38,8 +38,8 @@ public class CreateProjectActivityTest {
         //List<String> workspace = List.of("this", "is", "a" , "workspace", "list");
 
         CreateProjectRequest request = CreateProjectRequest.builder()
-                .withProjectName(expectedProjectName)
                 .withUserId(expectedUserId)
+                .withProjectName(expectedProjectName)
                 .build();
 
         // WHEN
