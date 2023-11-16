@@ -1,7 +1,5 @@
 package com.nashss.se.creativecompanion.activity;
 
-
-
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
 import com.nashss.se.creativecompanion.dynamodb.models.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.models.Project;

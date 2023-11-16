@@ -1,6 +1,5 @@
 package com.nashss.se.creativecompanion;
 
-import com.google.common.collect.Sets;
 import com.nashss.se.creativecompanion.activity.GetProjectActivity;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
 import com.nashss.se.creativecompanion.dynamodb.models.Project;
@@ -15,7 +14,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 public class GetProjectActivityTest {
 
