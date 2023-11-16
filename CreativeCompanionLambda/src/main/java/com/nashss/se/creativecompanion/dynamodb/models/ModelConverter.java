@@ -1,5 +1,8 @@
 package com.nashss.se.creativecompanion.dynamodb.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ModelConverter {
 
     /**
@@ -35,5 +38,21 @@ public class ModelConverter {
                 .withWordPool(wordPool.getWordPool())
                 .build();
 
+    }
+
+    /**
+     * Converts a list of Projects to a list of ProjectModels.
+     *
+     * @param projects The Projects to convert to ProjectModels
+     * @return The converted list of ProjectModels
+     */
+    public List<ProjectModel> toProjectModelList(List<Project> projects) {
+        List<ProjectModel> projectModels = new ArrayList<>();
+
+        for (Project project : projects) {
+            projectModels.add(toProjectModel(project));
+        }
+
+        return projectModels;
     }
 }

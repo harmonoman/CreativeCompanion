@@ -1,7 +1,5 @@
 package com.nashss.se.creativecompanion.results;
 
-import com.nashss.se.creativecompanion.dynamodb.models.ProjectModel;
-import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
 import com.nashss.se.creativecompanion.dynamodb.models.WordPoolModel;
 
 public class GetWordPoolResult {

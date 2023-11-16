@@ -2,11 +2,8 @@ package com.nashss.se.creativecompanion.dependency;
 
 //import com.nashss.se.musicplaylistservice.activity.*;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.nashss.se.creativecompanion.activity.CreateProjectActivity;
+import com.nashss.se.creativecompanion.activity.*;
 
-import com.nashss.se.creativecompanion.activity.CreateWordPoolActivity;
-import com.nashss.se.creativecompanion.activity.GetProjectActivity;
-import com.nashss.se.creativecompanion.activity.GetWordPoolActivity;
 import com.nashss.se.creativecompanion.requests.GetProjectRequest;
 import dagger.Component;
 
@@ -30,5 +27,7 @@ public interface ServiceComponent {
     GetProjectActivity provideGetProjectActivity();
 
     GetWordPoolActivity provideGetWordPoolActivity();
+
+    GetProjectListActivity provideGetProjectListActivity();
 
 }

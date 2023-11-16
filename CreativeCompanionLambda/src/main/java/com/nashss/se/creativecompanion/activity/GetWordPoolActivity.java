@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 
 /**
- * Implementation of the GetWordPoolActivity for the WordPoolService's GetWordPool API.
+ * Implementation of the GetWordPoolActivity for the CreativeCompanionService's GetWordPool API.
  * <p>
  * This API allows the customer to see the details of a specific wordPool.
  */
