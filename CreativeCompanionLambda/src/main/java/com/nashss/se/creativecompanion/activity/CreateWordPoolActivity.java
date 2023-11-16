@@ -13,6 +13,12 @@ import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+
+/**
+ * Implementation of the CreateWordPoolActivity for the CreativeCompanionService's CreateWordPool API.
+ * <p>
+ * This API allows the customer to create a new wordPool with no data.
+ */
 public class CreateWordPoolActivity {
 
     private final Logger log = LogManager.getLogger();

@@ -15,6 +15,11 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 import java.util.ArrayList;
 
+/**
+ * Implementation of the CreateProjectActivity for the CreativeCompanionService's CreateProject API.
+ * <p>
+ * This API allows the customer to create a new project with no data.
+ */
 public class CreateProjectActivity {
     private final Logger log = LogManager.getLogger();
     private final ProjectDao projectDao;

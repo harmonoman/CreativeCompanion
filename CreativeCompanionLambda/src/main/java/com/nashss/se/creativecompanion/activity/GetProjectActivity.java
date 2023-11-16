@@ -12,9 +12,9 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 
 /**
- * Implementation of the GetProjectActivity for the ProjectService's GetProject API.
+ * Implementation of the GetProjectActivity for the CreativeCompanionService's GetProject API.
  * <p>
- * This API allows the customer to see the details of a specfic project.
+ * This API allows the customer to see the details of a specific project.
  */
 public class GetProjectActivity {
 

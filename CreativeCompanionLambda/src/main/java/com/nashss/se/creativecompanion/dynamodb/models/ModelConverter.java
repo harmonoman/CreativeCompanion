@@ -54,4 +54,19 @@ public class ModelConverter {
         return wordPoolModels;
     }
 
+    /**
+     * Converts a list of Projects to a list of ProjectModels.
+     *
+     * @param projects The Projects to convert to ProjectModels
+     * @return The converted list of ProjectModels
+     */
+    public List<ProjectModel> toProjectModelList(List<Project> projects) {
+        List<ProjectModel> projectModels = new ArrayList<>();
+
+        for (Project project : projects) {
+            projectModels.add(toProjectModel(project));
+        }
+
+        return projectModels;
+    }
 }

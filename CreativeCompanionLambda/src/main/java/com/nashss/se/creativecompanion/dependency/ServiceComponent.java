@@ -28,6 +28,8 @@ public interface ServiceComponent {
 
     GetWordPoolActivity provideGetWordPoolActivity();
 
+    GetProjectListActivity provideGetProjectListActivity();
+
     GetWordPoolListActivity provideGetWordPoolListActivity();
 
 }
