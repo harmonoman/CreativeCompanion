@@ -20,7 +20,6 @@ public class ModelConverter {
                 .withWordPool(project.getWordPool())
                 .withWorkspace(project.getWorkspace())
                 .build();
-
     }
 
     /**
@@ -37,7 +36,22 @@ public class ModelConverter {
                 .withWordPoolName(wordPool.getWordPoolName())
                 .withWordPool(wordPool.getWordPool())
                 .build();
+    }
 
+    /**
+     * Converts a list of WordPools to a list of WordPoolModels.
+     *
+     * @param wordPools The WordPools to convert to WordPoolModels
+     * @return The converted list of WordPoolModels
+     */
+    public List<WordPoolModel> toWordPoolModelList(List<WordPool> wordPools) {
+        List<WordPoolModel> wordPoolModels = new ArrayList<>();
+
+        for (WordPool wordPool : wordPools) {
+            wordPoolModels.add(toWordPoolModel(wordPool));
+        }
+
+        return wordPoolModels;
     }
 
     /**

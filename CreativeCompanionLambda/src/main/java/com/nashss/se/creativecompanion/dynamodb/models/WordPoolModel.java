@@ -49,8 +49,8 @@ public class WordPoolModel {
         return Objects.hash(userId, wordPoolId, wordPoolName, wordPool);
     }
 
-    public static WordPoolModel.Builder builder() {
-        return new WordPoolModel.Builder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder {
@@ -59,22 +59,22 @@ public class WordPoolModel {
         private String wordPoolName;
         private List<String> wordPool;
 
-        public WordPoolModel.Builder withUserId(String userId) {
+        public Builder withUserId(String userId) {
             this.userId = userId;
             return this;
         }
 
-        public WordPoolModel.Builder withWordPoolId(String wordPoolId) {
+        public Builder withWordPoolId(String wordPoolId) {
             this.wordPoolId = wordPoolId;
             return this;
         }
 
-        public WordPoolModel.Builder withWordPoolName(String wordPoolName) {
+        public Builder withWordPoolName(String wordPoolName) {
             this.wordPoolName = wordPoolName;
             return this;
         }
 
-        public WordPoolModel.Builder withWordPool(List<String> wordPool) {
+        public Builder withWordPool(List<String> wordPool) {
             this.wordPool = new ArrayList<>(wordPool);
             return this;
         }
