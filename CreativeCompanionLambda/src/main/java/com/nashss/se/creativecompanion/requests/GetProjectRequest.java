@@ -48,5 +48,4 @@ public class GetProjectRequest {
             return new GetProjectRequest(userId, projectId);
         }
     }
-
 }

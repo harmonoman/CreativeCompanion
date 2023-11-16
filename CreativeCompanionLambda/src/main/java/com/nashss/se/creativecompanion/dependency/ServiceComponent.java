@@ -6,6 +6,7 @@ import com.nashss.se.creativecompanion.activity.CreateProjectActivity;
 
 import com.nashss.se.creativecompanion.activity.CreateWordPoolActivity;
 import com.nashss.se.creativecompanion.activity.GetProjectActivity;
+import com.nashss.se.creativecompanion.activity.GetWordPoolActivity;
 import com.nashss.se.creativecompanion.requests.GetProjectRequest;
 import dagger.Component;
 
@@ -27,5 +28,7 @@ public interface ServiceComponent {
     CreateWordPoolActivity provideCreateWordPoolActivity();
 
     GetProjectActivity provideGetProjectActivity();
+
+    GetWordPoolActivity provideGetWordPoolActivity();
 
 }
