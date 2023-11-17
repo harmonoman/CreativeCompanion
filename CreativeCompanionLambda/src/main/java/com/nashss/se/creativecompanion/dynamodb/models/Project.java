@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * Represents a record in the projects table.
  */
-@DynamoDBTable(tableName = "Projects")
+@DynamoDBTable(tableName = "projects")
 public class Project {
     private String userId;
     private String projectId;
