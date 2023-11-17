@@ -1,7 +1,9 @@
 package com.nashss.se.creativecompanion.requests;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+@JsonDeserialize(builder = CreateWordPoolRequest.Builder.class)
 public class CreateWordPoolRequest {
 
     private final String userId;
@@ -29,7 +31,7 @@ public class CreateWordPoolRequest {
     }
 
     //CHECKSTYLE:OFF:Builder
-    public static CreateWordPoolRequest.Builder builder() {
+    public static Builder builder() {
         return new CreateWordPoolRequest.Builder();
     }
 
@@ -39,12 +41,12 @@ public class CreateWordPoolRequest {
         private String wordPoolName;
 
 
-        public CreateWordPoolRequest.Builder withUserId(String userId) {
+        public Builder withUserId(String userId) {
             this.userId = userId;
             return this;
         }
 
-        public CreateWordPoolRequest.Builder withWordPoolName(String wordPoolName) {
+        public Builder withWordPoolName(String wordPoolName) {
             this.wordPoolName = wordPoolName;
             return this;
         }

@@ -1,6 +1,5 @@
 package com.nashss.se.creativecompanion.lambda;
 
-//import com.nashss.se.creativecompanion.dependency.DaggerServiceComponent;
 import com.nashss.se.creativecompanion.dependency.DaggerServiceComponent;
 import com.nashss.se.creativecompanion.dependency.ServiceComponent;
 
