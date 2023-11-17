@@ -461,7 +461,7 @@ Resources:
         - AttributeName: "userId"
           AttributeType: "S"
         - AttributeName: "wordPoolId"
-          AttributeType: "N"
+          AttributeType: "S"
         - AttributeName: "wordPoolName"
           AttributeType: "S"
       KeySchema:
