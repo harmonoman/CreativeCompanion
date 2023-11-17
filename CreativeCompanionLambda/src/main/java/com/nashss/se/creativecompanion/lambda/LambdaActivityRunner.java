@@ -1,6 +1,7 @@
 package com.nashss.se.creativecompanion.lambda;
 
 //import com.nashss.se.creativecompanion.dependency.DaggerServiceComponent;
+import com.nashss.se.creativecompanion.dependency.DaggerServiceComponent;
 import com.nashss.se.creativecompanion.dependency.ServiceComponent;
 
 import org.apache.logging.log4j.LogManager;
@@ -51,7 +52,7 @@ public class LambdaActivityRunner<TRequest, TResult> {
 
     private ServiceComponent getService() {
         if (service == null) {
-            service = null; //DaggerServiceComponent.create();
+            service = DaggerServiceComponent.create();
         }
         return service;
     }

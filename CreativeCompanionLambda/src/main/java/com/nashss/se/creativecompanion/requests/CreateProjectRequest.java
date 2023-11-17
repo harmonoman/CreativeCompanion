@@ -1,7 +1,9 @@
 package com.nashss.se.creativecompanion.requests;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+@JsonDeserialize(builder = CreateProjectRequest.Builder.class)
 public class CreateProjectRequest {
     private final String userId;
     private final String projectName;
