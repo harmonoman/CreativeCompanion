@@ -14,7 +14,8 @@ public class UpdateProjectRequest {
     private final List<String> wordPool;
     private final List<String> workspace;
 
-    private UpdateProjectRequest(String userId, String projectId, String projectName, List<String> wordPool, List<String> workspace) {
+    private UpdateProjectRequest(String userId, String projectId, String projectName, List<String> wordPool,
+                                 List<String> workspace) {
         this.userId = userId;
         this.projectId = projectId;
         this.projectName = projectName;
