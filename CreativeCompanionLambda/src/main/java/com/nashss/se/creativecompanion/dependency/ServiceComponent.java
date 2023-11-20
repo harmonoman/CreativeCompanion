@@ -32,4 +32,6 @@ public interface ServiceComponent {
 
     GetWordPoolListActivity provideGetWordPoolListActivity();
 
+    UpdateProjectActivity provideUpdateProjectActivity();
+
 }
