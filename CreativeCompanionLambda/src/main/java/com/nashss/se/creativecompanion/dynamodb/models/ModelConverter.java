@@ -5,6 +5,8 @@ import java.util.List;
 
 public class ModelConverter {
 
+    // ---------- PROJECT ----------
+
     /**
      * Converts a provided {@link Project} into a {@link ProjectModel} representation.
      *
@@ -22,37 +24,7 @@ public class ModelConverter {
                 .build();
     }
 
-    /**
-     * Converts a provided {@link WordPool} into a {@link WordPoolModel} representation.
-     *
-     * @param wordPool the project to convert
-     * @return the converted project
-     */
-    public WordPoolModel toWordPoolModel(WordPool wordPool) {
-
-        return WordPoolModel.builder()
-                .withUserId(wordPool.getUserId())
-                .withWordPoolId(wordPool.getWordPoolId())
-                .withWordPoolName(wordPool.getWordPoolName())
-                .withWordPool(wordPool.getWordPool())
-                .build();
-    }
-
-    /**
-     * Converts a list of WordPools to a list of WordPoolModels.
-     *
-     * @param wordPools The WordPools to convert to WordPoolModels
-     * @return The converted list of WordPoolModels
-     */
-    public List<WordPoolModel> toWordPoolModelList(List<WordPool> wordPools) {
-        List<WordPoolModel> wordPoolModels = new ArrayList<>();
-
-        for (WordPool wordPool : wordPools) {
-            wordPoolModels.add(toWordPoolModel(wordPool));
-        }
-
-        return wordPoolModels;
-    }
+    // ---------- PROJECT LIST ----------
 
     /**
      * Converts a list of Projects to a list of ProjectModels.
@@ -69,4 +41,41 @@ public class ModelConverter {
 
         return projectModels;
     }
+
+    // ---------- WORDPOOL ----------
+
+    /**
+     * Converts a provided {@link WordPool} into a {@link WordPoolModel} representation.
+     *
+     * @param wordPool the project to convert
+     * @return the converted project
+     */
+    public WordPoolModel toWordPoolModel(WordPool wordPool) {
+
+        return WordPoolModel.builder()
+                .withUserId(wordPool.getUserId())
+                .withWordPoolId(wordPool.getWordPoolId())
+                .withWordPoolName(wordPool.getWordPoolName())
+                .withWordPool(wordPool.getWordPool())
+                .build();
+    }
+
+    // ---------- WORDPOOL LIST ----------
+
+    /**
+     * Converts a list of WordPools to a list of WordPoolModels.
+     *
+     * @param wordPools The WordPools to convert to WordPoolModels
+     * @return The converted list of WordPoolModels
+     */
+    public List<WordPoolModel> toWordPoolModelList(List<WordPool> wordPools) {
+        List<WordPoolModel> wordPoolModels = new ArrayList<>();
+
+        for (WordPool wordPool : wordPools) {
+            wordPoolModels.add(toWordPoolModel(wordPool));
+        }
+
+        return wordPoolModels;
+    }
 }
+
