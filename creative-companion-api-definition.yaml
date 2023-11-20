@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  title: Creative Companion
+  description: "This is the API definition for the Creative Companion Service."
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+
+tags:
+  - name: Project
+    description: Create, delete, view, and update a project
+
+  - name: WordPool
+    description: Create, delete, view, and update a wordPool
+
+
+paths:
+
+  /project:
+    post:
+      tags:
+        - Project
+      summary: Create a new project (CreateProjectLambda)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                projectId:
+                  type: string
+                projectName:
+                  type: string
+                creationDate:
+                  type: string
+                lastModified:
+                  type: string
+                wordPool:
+                  type:
+                workspace:
+                  type:
+      responses:
+        "200":
+          description: A pantry object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pantryName:
+                    type: string
+                  pantryId:
+                    type: string
+                  userId:
+                    type: string
+                  inventory:
+                    type: array
