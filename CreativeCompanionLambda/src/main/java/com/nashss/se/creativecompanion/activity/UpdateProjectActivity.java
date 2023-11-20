@@ -51,16 +51,18 @@ public class UpdateProjectActivity {
     public UpdateProjectResult handleRequest(final UpdateProjectRequest updateProjectRequest) {
         log.info("Received UpdateProjectRequest {}", updateProjectRequest);
 
-
-        Project project = projectDao.getProject(updateProjectRequest.getUserId(), updateProjectRequest.getProjectId());
-
+        Project project = new Project();
+        project.setUserId(updateProjectRequest.getUserId());
+        project.setProjectId(updateProjectRequest.getProjectId());
         project.setProjectName(updateProjectRequest.getProjectName());
         project.setWordPool(updateProjectRequest.getWordPool());
         project.setWorkspace(updateProjectRequest.getWorkspace());
         project = projectDao.saveProject(project);
 
+        ProjectModel projectModel = new ModelConverter().toProjectModel(project);
+
         return UpdateProjectResult.builder()
-                .withProject(new ModelConverter().toProjectModel(project))
+                .withProject(projectModel)
                 .build();
     }
 }

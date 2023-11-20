@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import com.nashss.se.creativecompanion.metrics.MetricsPublisher;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -57,6 +58,8 @@ public class UpdateProjectActivityTest {
         newProject.setUserId(expectedUserId);
         newProject.setProjectId(expectedProjectId);
         newProject.setProjectName(expectedProjectName);
+        newProject.setWordPool(wordPool);
+        newProject.setWorkspace(workspace);
 
         when(projectDao.getProject(expectedUserId, expectedProjectId)).thenReturn(newProject);
         when(projectDao.saveProject(newProject)).thenReturn(newProject);
