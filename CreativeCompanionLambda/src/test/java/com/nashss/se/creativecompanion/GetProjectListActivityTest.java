@@ -33,7 +33,7 @@ public class GetProjectListActivityTest {
     }
 
     @Test
-    void handleRequest_userIdWithPantries_returnsListOfPantries() {
+    void handleRequest_userIdWithProjects_returnsListOfProjects() {
         // GIVEN
         Project project = new Project();
         Project project2 = new Project();

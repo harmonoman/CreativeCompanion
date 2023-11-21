@@ -81,4 +81,21 @@ public class ProjectDao {
         PaginatedQueryList<Project> projectList = mapper.query(Project.class, dynamoDBQueryExpression);
         return projectList;
     }
+
+    /**
+     * Deletes the project corresponding to the specified id.
+     *
+     * @param userId    the User ID
+     * @param projectId the Project ID
+     * @return true if the deletion was successful, false otherwise
+     */
+    public boolean deleteProject(String userId, String projectId) {
+        Project project = getProject(userId, projectId); // Check if the project exists before deletion
+        if (project != null) {
+            this.dynamoDbMapper.delete(project);
+            return true; // Deletion successful
+        } else {
+            return false; // Project not found, deletion unsuccessful
+        }
+    }
 }

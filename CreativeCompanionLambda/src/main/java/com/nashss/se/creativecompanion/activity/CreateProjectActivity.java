@@ -9,11 +9,12 @@ import com.nashss.se.creativecompanion.dynamodb.models.ProjectModel;
 import com.nashss.se.creativecompanion.requests.CreateProjectRequest;
 import com.nashss.se.creativecompanion.results.CreateProjectResult;
 import com.nashss.se.creativecompanion.utils.ServiceUtils;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
+import javax.inject.Inject;
 
 /**
  * Implementation of the CreateProjectActivity for the CreativeCompanionService's CreateProject API.

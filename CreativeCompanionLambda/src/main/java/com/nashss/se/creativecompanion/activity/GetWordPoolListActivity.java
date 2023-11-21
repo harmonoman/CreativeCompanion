@@ -6,6 +6,7 @@ import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
 import com.nashss.se.creativecompanion.dynamodb.models.WordPoolModel;
 import com.nashss.se.creativecompanion.requests.GetWordPoolListRequest;
 import com.nashss.se.creativecompanion.results.GetWordPoolListResult;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

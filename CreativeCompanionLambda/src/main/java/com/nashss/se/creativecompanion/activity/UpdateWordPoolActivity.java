@@ -2,10 +2,11 @@ package com.nashss.se.creativecompanion.activity;
 
 import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
 import com.nashss.se.creativecompanion.dynamodb.models.*;
-import com.nashss.se.creativecompanion.requests.UpdateWordPoolRequest;
 import com.nashss.se.creativecompanion.metrics.MetricsPublisher;
+import com.nashss.se.creativecompanion.requests.UpdateWordPoolRequest;
 
 import com.nashss.se.creativecompanion.results.UpdateWordPoolResult;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

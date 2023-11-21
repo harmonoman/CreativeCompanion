@@ -3,9 +3,9 @@ package com.nashss.se.creativecompanion.activity;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
 import com.nashss.se.creativecompanion.dynamodb.models.Project;
 import com.nashss.se.creativecompanion.requests.UpdateProjectRequest;
-import com.nashss.se.creativecompanion.results.UpdateProjectResult;
 import com.nashss.se.creativecompanion.dynamodb.models.ModelConverter;
 import com.nashss.se.creativecompanion.metrics.MetricsPublisher;
+import com.nashss.se.creativecompanion.results.UpdateProjectResult;
 import com.nashss.se.creativecompanion.dynamodb.models.ProjectModel;
 
 import org.apache.logging.log4j.LogManager;

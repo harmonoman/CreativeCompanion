@@ -5,14 +5,14 @@ package com.nashss.se.creativecompanion.activity;
 import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
 import com.nashss.se.creativecompanion.dynamodb.models.*;
 import com.nashss.se.creativecompanion.requests.CreateWordPoolRequest;
-import com.nashss.se.creativecompanion.results.CreateProjectResult;
 import com.nashss.se.creativecompanion.results.CreateWordPoolResult;
 import com.nashss.se.creativecompanion.utils.ServiceUtils;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
+import javax.inject.Inject;
 
 /**
  * Implementation of the CreateWordPoolActivity for the CreativeCompanionService's CreateWordPool API.
