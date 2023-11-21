@@ -39,4 +39,6 @@ public interface ServiceComponent {
 
     DeleteProjectActivity provideDeleteProjectActivity();
 
+    DeleteWordPoolActivity provideDeleteWordPoolActivity();
+
 }

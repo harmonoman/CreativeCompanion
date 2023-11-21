@@ -34,7 +34,7 @@ public class DeleteProjectActivity {
      * @return deleteProjectResult result object containing the project requested that were created by that User ID
      */
     public DeleteProjectResult handleRequest(final DeleteProjectRequest deleteProjectRequest) {
-        log.info("Received GetProjectRequest {}", deleteProjectRequest);
+        log.info("Received DeleteProjectRequest {}", deleteProjectRequest);
 
         Boolean result = projectDao.deleteProject(deleteProjectRequest.getUserId(), deleteProjectRequest.getProjectId());
 
