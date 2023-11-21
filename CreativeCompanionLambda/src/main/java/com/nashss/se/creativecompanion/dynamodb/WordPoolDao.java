@@ -78,4 +78,21 @@ public class WordPoolDao {
         PaginatedQueryList<WordPool> wordPoolList = mapper.query(WordPool.class, dynamoDBQueryExpression);
         return wordPoolList;
     }
+
+    /**
+     * Deletes the wordPool corresponding to the specified id.
+     *
+     * @param userId    the User ID
+     * @param wordPoolId the WordPool ID
+     * @return true if the deletion was successful, false otherwise
+     */
+    public boolean deleteWordPool(String userId, String wordPoolId) {
+        WordPool wordPool = getWordPool(userId, wordPoolId); // Check if the wordPool exists before deletion
+        if (wordPool != null) {
+            this.dynamoDbMapper.delete(wordPool);
+            return true; // Deletion successful
+        } else {
+            return false; // WordPool not found, deletion unsuccessful
+        }
+    }
 }
