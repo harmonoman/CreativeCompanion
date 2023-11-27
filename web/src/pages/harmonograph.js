@@ -99,13 +99,8 @@ window.onload = function () {
                 const storedDamping = sessionStorage.getItem('damping');
                 damping = storedDamping ? parseFloat(storedDamping) : getRandomValue(0.0001, 0.001);
 
-
-
                 // If any parameter is not present in localStorage, use a default value
             }
-
-
-
 
         // Function to save harmonograph parameters to localStorage
             function saveHarmonographParameters() {
@@ -124,15 +119,10 @@ window.onload = function () {
         }
 
         // Container for buttons
-//            const buttonContainer = document.createElement('div');
+
             const buttonContainer = document.querySelector(".button-group");
-//            buttonContainer.style.position = 'absolute';
             buttonContainer.style.top = '0px'; // Adjust the top position
             buttonContainer.style.left = '0px'; // Adjust the left position
-//            buttonContainer.style.padding = '20px'; // Adjust the padding
-//            buttonContainer.style.padding = '282px 20px';
-//            buttonContainer.style.display = 'flex';
-//            buttonContainer.className = 'button-group'; // Apply the CSS class
 
 
         // Reset button event listener
