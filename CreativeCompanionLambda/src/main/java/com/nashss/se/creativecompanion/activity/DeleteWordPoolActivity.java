@@ -1,13 +1,9 @@
 package com.nashss.se.creativecompanion.activity;
 
-import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
 import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
-import com.nashss.se.creativecompanion.dynamodb.models.ModelConverter;
-import com.nashss.se.creativecompanion.dynamodb.models.Project;
-import com.nashss.se.creativecompanion.dynamodb.models.ProjectModel;
 import com.nashss.se.creativecompanion.requests.DeleteWordPoolRequest;
-import com.nashss.se.creativecompanion.results.DeleteProjectResult;
 import com.nashss.se.creativecompanion.results.DeleteWordPoolResult;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,7 +34,8 @@ public class DeleteWordPoolActivity {
     public DeleteWordPoolResult handleRequest(final DeleteWordPoolRequest deleteWordPoolRequest) {
         log.info("Received DeleteWordPoolRequest {}", deleteWordPoolRequest);
 
-        Boolean result = wordPoolDao.deleteWordPool(deleteWordPoolRequest.getUserId(), deleteWordPoolRequest.getWordPoolId());
+        Boolean result = wordPoolDao.deleteWordPool(deleteWordPoolRequest.getUserId(),
+                deleteWordPoolRequest.getWordPoolId());
 
         return DeleteWordPoolResult.builder()
                 .withSuccess(result)

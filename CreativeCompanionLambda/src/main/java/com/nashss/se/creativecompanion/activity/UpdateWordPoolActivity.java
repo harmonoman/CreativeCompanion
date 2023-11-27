@@ -26,8 +26,8 @@ public class UpdateWordPoolActivity {
     /**
      * Instantiates a new UpdateWordPoolActivity object.
      *
-     * @param wordPoolDao
-     * @param metricsPublisher
+     * @param wordPoolDao wordPoolDao that is being injected
+     * @param metricsPublisher metricsPublisher that is being injected
      */
     @Inject
     public UpdateWordPoolActivity(WordPoolDao wordPoolDao, MetricsPublisher metricsPublisher) {

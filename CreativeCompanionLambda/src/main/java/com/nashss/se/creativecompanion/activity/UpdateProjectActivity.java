@@ -1,12 +1,12 @@
 package com.nashss.se.creativecompanion.activity;
 
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
-import com.nashss.se.creativecompanion.dynamodb.models.Project;
-import com.nashss.se.creativecompanion.requests.UpdateProjectRequest;
 import com.nashss.se.creativecompanion.dynamodb.models.ModelConverter;
-import com.nashss.se.creativecompanion.metrics.MetricsPublisher;
-import com.nashss.se.creativecompanion.results.UpdateProjectResult;
+import com.nashss.se.creativecompanion.dynamodb.models.Project;
 import com.nashss.se.creativecompanion.dynamodb.models.ProjectModel;
+import com.nashss.se.creativecompanion.metrics.MetricsPublisher;
+import com.nashss.se.creativecompanion.requests.UpdateProjectRequest;
+import com.nashss.se.creativecompanion.results.UpdateProjectResult;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,8 +26,8 @@ public class UpdateProjectActivity {
     /**
      * Instantiates a new UpdateProjectActivity object.
      *
-     * @param projectDao
-     * @param metricsPublisher
+     * @param projectDao projectDao that is being injected
+     * @param metricsPublisher metricsPublisher that is being injected
      */
     @Inject
     public UpdateProjectActivity(ProjectDao projectDao, MetricsPublisher metricsPublisher) {

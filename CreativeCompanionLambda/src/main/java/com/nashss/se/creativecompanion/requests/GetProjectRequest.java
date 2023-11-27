@@ -34,13 +34,13 @@ public class GetProjectRequest {
         private String userId;
         private String projectId;
 
-        public Builder withUserId(String userId) {
-            this.userId = userId;
+        public Builder withUserId(String newUserId) {
+            this.userId = newUserId;
             return this;
         }
 
-        public Builder withProjectId(String projectId) {
-            this.projectId = projectId;
+        public Builder withProjectId(String newProjectId) {
+            this.projectId = newProjectId;
             return this;
         }
 

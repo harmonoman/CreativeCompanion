@@ -1,7 +1,7 @@
 package com.nashss.se.creativecompanion.exceptions;
 
 
-public class WordPoolNotFoundException extends RuntimeException{
+public class WordPoolNotFoundException extends RuntimeException {
 
     private static final long serialVersionUID = 1388755943846983272L;
 

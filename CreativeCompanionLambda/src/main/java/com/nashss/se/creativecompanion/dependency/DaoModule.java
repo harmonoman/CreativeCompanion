@@ -1,8 +1,9 @@
 package com.nashss.se.creativecompanion.dependency;
+import com.nashss.se.creativecompanion.dynamodb.DynamoDBClientProvider;
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.nashss.se.creativecompanion.dynamodb.DynamoDBClientProvider;
+
 import dagger.Module;
 import dagger.Provides;
 

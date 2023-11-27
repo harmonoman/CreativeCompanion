@@ -32,7 +32,9 @@ public class UpdateWordPoolRequest {
         return wordPoolName;
     }
 
-    public List<String>  getWordPool() { return wordPool; }
+    public List<String>  getWordPool() {
+        return wordPool;
+    }
 
     @Override
     public String toString() {

@@ -35,9 +35,13 @@ public class UpdateProjectRequest {
         return projectName;
     }
 
-    public List<String>  getWordPool() { return wordPool; }
+    public List<String>  getWordPool() {
+        return wordPool;
+    }
 
-    public List<String>  getWorkspace() { return workspace; }
+    public List<String>  getWorkspace() {
+        return workspace;
+    }
 
     @Override
     public String toString() {

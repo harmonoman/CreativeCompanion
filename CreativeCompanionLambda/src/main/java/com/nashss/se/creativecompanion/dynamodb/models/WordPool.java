@@ -54,11 +54,16 @@ public class WordPool {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         WordPool wordPool1 = (WordPool) o;
-        return Objects.equals(userId, wordPool1.userId) && Objects.equals(wordPoolId, wordPool1.wordPoolId)
-                && Objects.equals(wordPoolName, wordPool1.wordPoolName) && Objects.equals(wordPool,
+        return Objects.equals(userId, wordPool1.userId) && Objects.equals(
+                wordPoolId, wordPool1.wordPoolId) && Objects.equals(
+                        wordPoolName, wordPool1.wordPoolName) && Objects.equals(wordPool,
                 wordPool1.wordPool);
     }
 

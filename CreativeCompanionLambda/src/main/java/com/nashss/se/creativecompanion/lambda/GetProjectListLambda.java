@@ -1,9 +1,11 @@
 package com.nashss.se.creativecompanion.lambda;
 
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.creativecompanion.requests.GetProjectListRequest;
 import com.nashss.se.creativecompanion.results.GetProjectListResult;
+
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,13 +17,10 @@ public class GetProjectListLambda extends LambdaActivityRunner<GetProjectListReq
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetProjectListRequest> input, Context context) {
         log.info("handleRequest");
-        return super.runActivity(
-                () -> input.fromUserClaims(claims ->
+        return super.runActivity(() -> input.fromUserClaims(claims ->
                         GetProjectListRequest.builder()
                                 .withUserId(claims.get("email"))
-                                .build()),
-                (request, serviceComponent) ->
-                        serviceComponent.provideGetProjectListActivity().handleRequest(request)
-        );
+                                .build()), (request, serviceComponent) ->
+                        serviceComponent.provideGetProjectListActivity().handleRequest(request));
     }
 }

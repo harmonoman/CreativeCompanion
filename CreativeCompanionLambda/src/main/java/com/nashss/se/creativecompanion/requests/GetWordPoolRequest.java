@@ -34,16 +34,19 @@ public class GetWordPoolRequest {
         private String userId;
         private String wordPoolId;
 
-        public GetWordPoolRequest.Builder withUserId(String userId) {
-            this.userId = userId;
+        public GetWordPoolRequest.Builder withUserId(String newUserId) {
+            this.userId = newUserId;
             return this;
         }
 
-        public GetWordPoolRequest.Builder withWordPoolId(String wordPoolId) {
-            this.wordPoolId = wordPoolId;
+        public GetWordPoolRequest.Builder withWordPoolId(String newWordPoolId) {
+            this.wordPoolId = newWordPoolId;
             return this;
         }
 
+        /*
+        build method for GetWordPoolRequest builder
+         */
         public GetWordPoolRequest build() {
             return new GetWordPoolRequest(userId, wordPoolId);
         }
