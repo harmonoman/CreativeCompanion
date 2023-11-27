@@ -1,11 +1,9 @@
 package com.nashss.se.creativecompanion.activity;
 
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
-import com.nashss.se.creativecompanion.dynamodb.models.ModelConverter;
-import com.nashss.se.creativecompanion.dynamodb.models.Project;
-import com.nashss.se.creativecompanion.dynamodb.models.ProjectModel;
 import com.nashss.se.creativecompanion.requests.DeleteProjectRequest;
 import com.nashss.se.creativecompanion.results.DeleteProjectResult;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,7 +34,8 @@ public class DeleteProjectActivity {
     public DeleteProjectResult handleRequest(final DeleteProjectRequest deleteProjectRequest) {
         log.info("Received DeleteProjectRequest {}", deleteProjectRequest);
 
-        Boolean result = projectDao.deleteProject(deleteProjectRequest.getUserId(), deleteProjectRequest.getProjectId());
+        Boolean result = projectDao.deleteProject(deleteProjectRequest.getUserId(),
+                deleteProjectRequest.getProjectId());
 
         return DeleteProjectResult.builder()
                 .withSuccess(result)

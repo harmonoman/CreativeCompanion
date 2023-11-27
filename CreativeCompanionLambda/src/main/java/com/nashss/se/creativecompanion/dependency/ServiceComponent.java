@@ -1,11 +1,7 @@
 package com.nashss.se.creativecompanion.dependency;
 
-//import com.nashss.se.musicplaylistservice.activity.*;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.creativecompanion.activity.*;
 
-import com.nashss.se.creativecompanion.requests.DeleteProjectRequest;
-import com.nashss.se.creativecompanion.requests.GetProjectRequest;
 import dagger.Component;
 
 import javax.inject.Singleton;

@@ -34,13 +34,13 @@ public class DeleteWordPoolRequest {
         private String userId;
         private String wordPoolId;
 
-        public Builder withUserId(String userId) {
-            this.userId = userId;
+        public Builder withUserId(String newUserId) {
+            this.userId = newUserId;
             return this;
         }
 
-        public Builder withWordPoolId(String wordPoolId) {
-            this.wordPoolId = wordPoolId;
+        public Builder withWordPoolId(String newWordPoolId) {
+            this.wordPoolId = newWordPoolId;
             return this;
         }
 
