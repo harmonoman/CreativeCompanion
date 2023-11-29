@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 
 <head>
     <script type="text/javascript" src="assets/creativeCompanionIndex.js"></script>
@@ -14,12 +14,24 @@
 
 <div class="button-group">
 
-    <a href="project.html" class="button" id="new-project-btn">New Project</a>
+    <a class="button" id="add-project" onclick="openModal()">New Project</a>
     <a href="word-pool.html" class="button" id="new-word-pool-btn">New Word Pool</a>
     <a href="project-list.html" class="button" id="view-projects-btn">View Projects</a>
     <a href="word-pool-list.html" class="button" id="view-word-pools-btn">View Word Pools</a>
 
 </div>
-</body>
 
+<!--Modal for creating a New Project-->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p>Create a New Project:</p>
+        <div class="action-item">
+            <label for="projectNameInput"></label> <input type="text" id="projectNameInput" placeholder="Project Name">
+            <button id="createProjectBtn">Create Project</button>
+        </div>
+    </div>
+</div>
+
+</body>
 </html>

@@ -49,7 +49,7 @@ public class CreateProjectActivity {
      * @return createProjectResult result object containing the API defined {@link ProjectModel}
      */
     public CreateProjectResult handleRequest(final CreateProjectRequest createProjectRequest) {
-        log.info("Received CreateProjectRequest {}", createProjectRequest);
+        System.out.println("Received CreateProjectRequest {}" + createProjectRequest);
 
         Project newProject = new Project();
         newProject.setUserId(createProjectRequest.getUserId());
@@ -64,6 +64,7 @@ public class CreateProjectActivity {
         projectDao.saveProject(newProject);
 
         ProjectModel projectModel = new ModelConverter().toProjectModel(newProject);
+        System.out.println(projectModel);
         return CreateProjectResult.builder()
                 .withProject(projectModel)
                 .build();
