@@ -3,7 +3,7 @@
   "description": "Website for the NSS Unit 5 Project",
   "version": "1.0.0",
   "license": "UNLICENSED",
-  "main": "js/index.js",
+  "main": "js/creativeCompanionIndex.js",
   "scripts": {
     "prepublishOnly": "npm run build",
     "build": "webpack --mode=production --devtool=source-map",

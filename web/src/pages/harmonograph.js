@@ -114,7 +114,7 @@ window.onload = function () {
                 sessionStorage.setItem('amplitude2', amplitude2.toString());
                 sessionStorage.setItem('frequency2', frequency2.toString());
 
-                sessionStorage.setItem('damping'), damping.toString();
+                sessionStorage.setItem('damping', damping.toString());
                 // Repeat for other parameters...
             }
 
