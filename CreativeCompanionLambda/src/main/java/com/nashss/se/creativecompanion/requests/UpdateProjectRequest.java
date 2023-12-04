@@ -27,6 +27,7 @@ public class UpdateProjectRequest {
     }
 
     public String getProjectId() {
+        System.out.println("***** inside UpdateProjectRequest *****: " + projectId);
         return projectId;
     }
 

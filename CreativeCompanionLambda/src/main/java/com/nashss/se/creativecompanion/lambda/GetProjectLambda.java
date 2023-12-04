@@ -16,6 +16,7 @@ public class GetProjectLambda
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetProjectRequest> input, Context context) {
         log.info("handleRequest");
+        System.out.println("***** inside GetProjectLambda *****");
         return super.runActivity(
                 () -> {
                     GetProjectRequest unauthenticatedRequest = input.fromPath(path ->
@@ -24,12 +25,14 @@ public class GetProjectLambda
                                     .build());
                     return input.fromUserClaims(claims ->
                             GetProjectRequest.builder()
-                                    .withProjectId(unauthenticatedRequest.getProjectId())
                                     .withUserId(claims.get("email"))
+                                    .withProjectId(unauthenticatedRequest.getProjectId())
                                     .build());
+
                 },
                 (request, serviceComponent) ->
                         serviceComponent.provideGetProjectActivity().handleRequest(request)
         );
+
     }
 }

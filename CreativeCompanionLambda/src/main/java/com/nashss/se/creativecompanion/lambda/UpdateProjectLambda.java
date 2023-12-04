@@ -10,10 +10,10 @@ public class UpdateProjectLambda extends LambdaActivityRunner<UpdateProjectReque
 
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<UpdateProjectRequest> input, Context context) {
-        return super.runActivity(
-                () -> {
-                    UpdateProjectRequest unauthenticatedRequest = input.fromBody(UpdateProjectRequest.class);
-                    return input.fromUserClaims(claims ->
+        return super.runActivity(() -> {
+                UpdateProjectRequest unauthenticatedRequest = input.fromBody(UpdateProjectRequest.class);
+                System.out.println("unauthenticatedRequest" + unauthenticatedRequest);
+                return input.fromUserClaims(claims ->
                             UpdateProjectRequest.builder()
                                     .withUserId(claims.get("email"))
                                     .withProjectId(unauthenticatedRequest.getProjectId())

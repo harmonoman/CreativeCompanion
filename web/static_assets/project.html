@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="assets/project.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body class="background">
+<header class="header" id="header"></header>
+
+<div class="name-button" id="button">
+    <!--        Display Project Name-->
+    <h1 id="projectNameElement"></h1>
+    <!--        Change Project Name-->
+    <input type="text" id="new-project-name" placeholder="New Project Name">
+    <button class="button" id="change-project-name-button">Change Name</button>
+</div>
+
+<!--    Word Pool and Workspace container-->
+<div id="container">
+
+    <!--        Word Pool Field-->
+    <div id="wordPool-container">
+        <h2> Word Pool </h2>
+        <div id="wordPool-field"></div>
+        <button class="button" id="add-wordPool" onclick="openModal()">Add Words</button>
+        <button class="button" id="import-wordPool">Import Word Pool</button>
+    </div>
+
+    <!--        Workspace Field-->
+    <div id="workspace-container" ondragover="event.preventDefault();" ondrop="dropText(event);">
+        <h2> Workspace </h2>
+        <div id="workspace-field" contenteditable="true"></div>
+        <button class="button" id="save-project">Save Project</button>
+    </div>
+</div>
+
+<!--    Add Words modal-->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <!--        Datamuse queries: https://www.datamuse.com/api/-->
+        <p>Choose an action:</p>
+
+        <!--        words with a meaning similar to ringing in the ears-->
+        <div class="action-item">
+            <label>words with a meaning similar to </label>
+            <input type="text" id="action1Input" placeholder="ringing in the ears">
+            <button onclick="performAction('Action 1', ['action1Input'])">Add</button>
+        </div>
+
+        <!--        words related to duck that start with the letter b-->
+        <div class="action-item">
+            <label>words related to </label>
+            <input type="text" id="action2Input1" placeholder="duck">
+            <label>that start with the letter </label>
+            <input type="text" id="action2Input2" placeholder="b">
+            <button onclick="performAction('Action 2', ['action2Input1', 'action2Input2'])">Add</button>
+        </div>
+
+        <!--        words related to spoon that end with the letter a-->
+        <div class="action-item">
+            <label>words related to </label>
+            <input type="text" id="action3Input1" placeholder="spoon">
+            <label>that end with the letter </label>
+            <input type="text" id="action3Input2" placeholder="a">
+            <button onclick="performAction('Action 3', ['action3Input1', 'action3Input2'])">Add</button>
+        </div>
+
+        <!--        words that sound like jirraf-->
+        <div class="action-item">
+            <label>words that sound like </label>
+            <input type="text" id="action4Input" placeholder="jirraf">
+            <button onclick="performAction('Action 4', ['action4Input'])">Add</button>
+        </div>
+
+        <!--        words that start with t, end in k, and have two letters in between-->
+        <div class="action-item">
+            <label>words that start with </label>
+            <input type="text" id="action5Input1" placeholder="t">
+            <label>, end in </label>
+            <input type="text" id="action5Input2" placeholder="k">
+            <label>, and have two letters in between </label>
+            <button onclick="performAction('Action 5', ['action5Input1', 'action5Input2'])">Add</button>
+
+        </div>
+
+        <!--        words that are spelled similarly to hippopotamus-->
+        <div class="action-item">
+            <label>words that are spelled similarly to </label>
+            <input type="text" id="action6Input" placeholder="hippopotamus">
+            <button onclick="performAction('Action 6', ['action6Input'])">Add</button>
+        </div>
+
+        <!--        adjectives that are often used to describe ocean-->
+        <div class="action-item">
+            <label>adjectives that are often used to describe </label>
+            <input type="text" id="action7Input" placeholder="ocean">
+            <button onclick="performAction('Action 7', ['action7Input'])">Add</button>
+        </div>
+
+        <!--        adjectives describing ocean sorted by how related they are to temperature-->
+        <div class="action-item">
+            <label>adjectives describing </label>
+            <input type="text" id="action8Input1" placeholder="ocean">
+            <label>sorted by how related they are to </label>
+            <input type="text" id="action8Input2" placeholder="temperature">
+            <button onclick="performAction('Action 8', ['action8Input1', 'action8Input2'])">Add</button>
+        </div>
+
+        <!--        nouns that are often described by the adjective yellow-->
+        <div class="action-item">
+            <label>nouns that are often described by the adjective </label>
+            <input type="text" id="action9Input" placeholder="yellow">
+            <button onclick="performAction('Action 9', ['action9Input'])">Add</button>
+        </div>
+
+        <!--        words that often follow "drink" in a sentence, that start with the letter w-->
+        <div class="action-item">
+            <label>words that often follow "</label>
+            <input type="text" id="action10Input1" placeholder="drink">
+            <label>" in a sentence, that start with the letter </label>
+            <input type="text" id="action10Input2" placeholder="w">
+            <button onclick="performAction('Action 10', ['action10Input1', 'action10Input2'])">Add</button>
+        </div>
+
+        <!--        words that are triggered by (strongly associated with) the word "cow"-->
+        <div class="action-item">
+            <label>words that are triggered by (strongly associated with) the word "</label>
+            <input type="text" id="action11Input" placeholder="cow">
+            <label>"</label>
+            <button onclick="performAction('Action 11', ['action11Input'])">Add</button>
+        </div>
+
+        <!--        suggestions for the user if they have typed in rawand so far-->
+        <div class="action-item">
+            <label>suggestions for the user if they have typed in </label>
+            <input type="text" id="action12Input" placeholder="rawand">
+            <label> so far</label>
+            <button onclick="performAction('Action 12', ['action12Input'])">Add</button>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

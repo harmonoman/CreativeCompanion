@@ -29,6 +29,7 @@ module.exports = {
 //    creativeCompanionTest: path.resolve(__dirname, 'src', 'pages', 'creativeCompanionTest.js')
 
     creativeCompanionIndex: path.resolve(__dirname, 'src', 'pages', 'creativeCompanionIndex.js'),
+    project: path.resolve(__dirname, 'src', 'pages', 'project.js'),
     //userStart: path.resolve(__dirname, 'src', 'pages', 'userStart.js')
   },
   output: {
