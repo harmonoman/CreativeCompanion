@@ -15,8 +15,8 @@
     <!--        Display Project Name-->
     <h1 id="projectNameElement"></h1>
     <!--        Change Project Name-->
-    <input type="text" id="new-project-name" placeholder="New Project Name">
-    <button class="button" id="change-project-name-button">Change Name</button>
+<!--    <input type="text" id="new-project-name" placeholder="New Project Name">-->
+<!--    <button class="button" id="change-project-name-button">Change Name</button>-->
 </div>
 
 <!--    Word Pool and Workspace container-->
@@ -28,12 +28,15 @@
         <div id="wordPool-field"></div>
         <button class="button" id="add-wordPool" onclick="openModal()">Add Words</button>
         <button class="button" id="import-wordPool">Import Word Pool</button>
+        <button class="button" id="clear-wordPool" >Clear Word Pool</button>
+
     </div>
 
     <!--        Workspace Field-->
     <div id="workspace-container" ondragover="event.preventDefault();" ondrop="dropText(event);">
         <h2> Workspace </h2>
         <div id="workspace-field" contenteditable="true"></div>
+        <button class="button" id="clear-workspace">Clear Workspace</button>
         <button class="button" id="save-project">Save Project</button>
     </div>
 </div>
