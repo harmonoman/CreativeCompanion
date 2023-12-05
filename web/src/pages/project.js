@@ -7,13 +7,31 @@ class Project extends BindingClass {
     constructor() {
         super();
 
-        this.bindClassMethods(['mount', 'initDraggableElements', 'dropText', 'openModal', 'closeModal', 'performAction'], this);
+        this.bindClassMethods(['mount', 'initDraggableElements', 'dropText', 'openModal', 'closeModal', 'performAction',
+        'updateProject', 'clientLoaded', 'collectAndUpdateProject', 'addWordsToPage'], this);
 
-        this.dataStore = new DataStore();
-        this.header = new Header(this.dataStore);
         this.workspaceField = null; // Initialize Workspace Field
 
+        this.dataStore = new DataStore();
+        this.dataStore.addChangeListener(this.addWordsToPage);
+        this.header = new Header(this.dataStore);
+
         console.log("project constructor");
+    }
+
+    /**
+     * Once the client is loaded, get the project metadata
+     */
+    async clientLoaded() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectId = urlParams.get('projectId');
+        document.getElementById('projectNameElement').innerText = "Loading Project ...";
+        const project = await this.client.getProject(projectId);
+        console.log("inside clientLoaded");
+
+        console.log("project: " + project.projectId);
+        this.dataStore.set('project', project);
+        document.getElementById('projectNameElement').innerText = project.projectName;
     }
 
     /**
@@ -30,8 +48,20 @@ class Project extends BindingClass {
         window.openModal = this.openModal.bind(this);
         window.closeModal = this.closeModal.bind(this);
         window.performAction = this.performAction.bind(this);
+
+        // Change Name button (changes/saves project name)
+        const changeProjectNameButton = document.getElementById('change-project-name-button');
+        changeProjectNameButton.addEventListener('click', this.collectAndUpdateProject);
+
+        // Save Project button
+        const saveProjectButton = document.getElementById('save-project');
+        saveProjectButton.addEventListener('click', this.collectAndUpdateProject);
+
+        this.clientLoaded();
     }
 
+
+    ///// initDraggableElements /////
     /**
     * Initialize draggable elements and event listeners.
     */
@@ -48,6 +78,8 @@ class Project extends BindingClass {
        });
     }
 
+
+    ///// DROP TEXT /////
     /**
      * Event handler for dropping text.
      * @param event - Drop event object.
@@ -88,6 +120,8 @@ class Project extends BindingClass {
         modal.style.display = 'none';
     }
 
+
+    ///// DATAMUSE API QUERY /////
     /**
      * Gets text values from specified input elements
      * Constructs a Datamuse API URL and fetches data.
@@ -97,9 +131,9 @@ class Project extends BindingClass {
      */
     async performAction(action, inputIds) {
         const inputTexts = inputIds.map((inputId) => {
-                const inputElement = document.getElementById(inputId);
-                return inputElement.value.trim();
-            });
+            const inputElement = document.getElementById(inputId);
+            return inputElement.value.trim();
+        });
 
         // Check if there's at least one input
         if (inputTexts.some((text) => text === '')) {
@@ -114,21 +148,22 @@ class Project extends BindingClass {
         } else if (inputTexts.length === 2) {
             apiUrl = `https://api.datamuse.com/words?ml=${inputTexts[0]}&sp=${inputTexts[1]}*`;
         }
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
 
-//                console.log(`Results for ${action}:`, data);
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
 
-                // Populate Word Pool field with results
-                this.populateWordPoolField(data);
-            } catch (error) {
-                console.error(`Error fetching data from Datamuse API for ${action}:`, error);
-            } finally {
-                this.closeModal();
+            // Populate Word Pool field with results
+            this.populateWordPoolField(data);
+        } catch (error) {
+            console.error(`Error fetching data from Datamuse API for ${action}:`, error);
+        } finally {
+            this.closeModal();
         }
     }
 
+
+    ///// POPULATE WORD POOL /////
     /**
      * Populates Word Pool field with results from a Datamuse query.
      * Makes each word 'draggable'
@@ -138,20 +173,206 @@ class Project extends BindingClass {
      */
     populateWordPoolField(results) {
         const wordPoolField = document.getElementById('wordPool-field');
+        wordPoolField.innerHTML = ''; // Clear existing content
 
         // Iterate through results and append to Word Pool field
-        results.forEach(result => {
+        if (Array.isArray(results)) {
+                results.forEach(result => {
+                    const wordElement = document.createElement('p');
+                    let wordText;
+
+                    if (typeof result === 'object') {
+                        // If result is an object, assume it has a "word" property
+                        wordText = result.word;
+                    } else if (typeof result === 'string') {
+                        // If result is a string, use it directly
+                        wordText = result;
+                    } else {
+                        console.error('Invalid result format. Expected an object or a string.');
+                        return; // Skip to next iteration
+                    }
+
+                    wordElement.textContent = wordText;
+                    wordElement.draggable = true;
+
+                    // Dragstart event listener
+                    wordElement.addEventListener('dragstart', (event) => {
+                        event.dataTransfer.setData('text/plain', wordText);
+                    });
+
+                    // Append text to Word Pool
+                    wordPoolField.appendChild(wordElement);
+                });
+
+        } else {
+            console.error('Invalid results format. Expected an array.');
+        }
+    }
+
+
+    ///// POPULATE WORKSPACE /////
+    /**
+     * Populates Word Pool field with results from a Datamuse query.
+     * Makes each word 'draggable'
+     * Adds a dragstart event listener for dragging text
+     * Appends the text to Word Pool field.
+     * @param results - Array of objects containing result data.
+     */
+    populateWorkspaceField(results) {
+        const workspaceField = document.getElementById('workspace-field');
+        workspaceField.innerHTML = ''; // Clear existing content
+
+        // Iterate through results and append to Workspace field
+        if (Array.isArray(results)) {
+            results.forEach(result => {
+                const wordElement = document.createElement('p');
+                let wordText;
+
+                if (typeof result === 'object') {
+                    // If result is an object, assume it has a "word" property
+                    wordText = result.word;
+                } else if (typeof result === 'string') {
+                    // If result is a string, use it directly
+                    wordText = result;
+                } else {
+                    console.error('Invalid result format. Expected an object or a string.');
+                    return; // Skip to the next iteration
+                }
+
+                wordElement.textContent = wordText;
+                wordElement.draggable = true;
+
+                // Dragstart event listener
+                wordElement.addEventListener('dragstart', (event) => {
+                    event.dataTransfer.setData('text/plain', wordText);
+                });
+
+                // Append text to Word Pool
+                workspaceField.appendChild(wordElement);
+            });
+
+        } else {
+            console.error('Invalid results format. Expected an array.');
+        }
+    }
+
+
+    ///// UPDATE PROJECT /////
+    /**
+     * Updates a project with the specified data.
+     * @param projectId - ID of project to update.
+     * @param updateData - Data to update project.
+     */
+    async updateProject(projectId, updateData) {
+        try {
+            const updatedProject = await this.client.updateProject(projectId, updateData);
+
+//            // Navigate to project.html with project ID
+            window.location.href = `project.html?projectId=${updateData.projectId}`;
+
+        } catch (error) {
+            console.error('Error updating project:', error);
+            // Handle errors or show error messages to the user
+        }
+    }
+
+
+    ///// COLLECT and UPDATE PROJECT /////
+    /**
+     * Collects data from fields and updates project.
+     */
+    async collectAndUpdateProject() {
+        try {
+            ///// NEW PROJECT NAME /////
+            // Collect text from Change Name field
+            const newProjectNameInput = document.getElementById('new-project-name');
+            let newProjectName = newProjectNameInput.value.trim();
+
+            // Check if a new project name is provided, if empty get projectName from URL
+            if (newProjectName === '') {
+                const urlParams = new URLSearchParams(window.location.search);
+                newProjectName = urlParams.get('projectName');
+
+                const projectNameElement = document.getElementById('projectNameElement');
+                    if (projectNameElement) {
+                        projectNameElement.textContent = newProjectName;
+                    }
+//                    const project = await this.dataStore.get(project);
+//                    document.getElementById('projectNameElement').innerText = project.projectName;
+
+            }
+
+            // Collect data from fields
+            const wordPoolData = Array.from(document.getElementById('wordPool-field').children)
+                .map(element => element.textContent.trim());
+
+            const workspaceData = Array.from(document.getElementById('workspace-field').children)
+                .map(element => element.textContent.trim());
+
+
+            // Get projectId from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectIdToUpdate = urlParams.get('projectId');
+
+            // Create the update data object
+            const updateData = {
+                projectId: projectIdToUpdate,
+                projectName: newProjectName,
+                wordPool: wordPoolData,
+                workspace: workspaceData,
+            };
+
+            // Call the updateProject method with the collected data
+            this.updateProject(projectIdToUpdate, updateData);
+
+        } catch (error) {
+            console.error('Error collecting and updating project:', error);
+        }
+    }
+
+
+    ///// addWordsToPage /////
+    /**
+     * When the project is updated in the datastore, repopulate the wordPool and workspace fields.
+     */
+    addWordsToPage() {
+        const wordPoolField = document.getElementById('wordPool-field');
+        const workspaceField = document.getElementById('workspace-field');
+        const project = this.dataStore.get('project')
+
+        if (project == null) {
+            console.log("project is null")
+            return;
+        }
+
+        project.wordPool.forEach(wordPoolText => {
             const wordElement = document.createElement('p');
-            wordElement.textContent = result.word;
+
+            wordElement.textContent = wordPoolText;
             wordElement.draggable = true;
 
             // Dragstart event listener
             wordElement.addEventListener('dragstart', (event) => {
-                event.dataTransfer.setData('text/plain', event.target.textContent);
+                event.dataTransfer.setData('text/plain', wordPoolText);
             });
 
             // Append text to Word Pool
             wordPoolField.appendChild(wordElement);
+        });
+
+        project.workspace.forEach(workspaceText => {
+            const wordElement = document.createElement('p');
+
+            wordElement.textContent = workspaceText;
+            wordElement.draggable = true;
+
+            // Dragstart event listener
+            wordElement.addEventListener('dragstart', (event) => {
+                event.dataTransfer.setData('text/plain', workspaceText);
+            });
+
+            // Append text to Word Pool
+            workspaceField.appendChild(wordElement);
         });
     }
 

@@ -60,6 +60,7 @@ public class ProjectDao {
      * @return The Project object that was saved
      */
     public Project saveProject(Project project) {
+        System.out.println("inside ProjectDao; project: " + project);
         this.dynamoDbMapper.save(project);
         return project;
     }

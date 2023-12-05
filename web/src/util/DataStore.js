@@ -18,6 +18,7 @@ export default class DataStore extends BindingClass {
      */
     getState() {
         return this.state;
+
     }
 
     /**
@@ -60,5 +61,4 @@ export default class DataStore extends BindingClass {
     addChangeListener(listener) {
         this.listeners.push(listener);
     }
-
 }

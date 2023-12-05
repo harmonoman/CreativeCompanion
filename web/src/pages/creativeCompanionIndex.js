@@ -91,7 +91,7 @@ class CreativeCompanionIndex extends BindingClass {
             const project = await this.client.createProject(projectName);
 
             // Navigate to project.html with project ID
-            window.location.href = `project.html?projectId=${project.projectId}&projectName=${encodeURIComponent(projectName)}`;
+            window.location.href = `project.html?projectId=${project.projectId}`;
 
             // Close modal
             this.closeModal();

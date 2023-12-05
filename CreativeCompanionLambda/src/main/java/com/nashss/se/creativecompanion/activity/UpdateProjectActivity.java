@@ -54,7 +54,9 @@ public class UpdateProjectActivity {
         Project project = new Project();
         project.setUserId(updateProjectRequest.getUserId());
         project.setProjectId(updateProjectRequest.getProjectId());
+        System.out.println("***** projectId in UpdateProjectActivity *****: " + updateProjectRequest.getProjectId());
         project.setProjectName(updateProjectRequest.getProjectName());
+        System.out.println("***** projectName in UpdateProjectActivity *****: " + updateProjectRequest.getProjectName());
         project.setWordPool(updateProjectRequest.getWordPool());
         project.setWorkspace(updateProjectRequest.getWorkspace());
         project = projectDao.saveProject(project);

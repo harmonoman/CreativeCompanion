@@ -45,7 +45,7 @@ public class GetProjectActivity {
 
         Project result = projectDao.getProject(getProjectRequest.getUserId(), getProjectRequest.getProjectId());
         ProjectModel projectModel = new ModelConverter().toProjectModel(result);
-
+        System.out.println("***** inside GetProjectActivity *****: " + result);
         return GetProjectResult.builder()
                 .withProject(projectModel)
                 .build();

@@ -17,6 +17,7 @@ export default class CreativeCompanionClient extends BindingClass {
 
         const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createProject', 'getProject',
         'getProjectList', 'updateProject', 'deleteProject'];
+
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -122,9 +123,6 @@ export default class CreativeCompanionClient extends BindingClass {
     async getProject(projectId, errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can get projects.");
-
-            console.log("inside getProject in creativeCompanionClient")
-
             const response = await this.axiosClient.get(`projects/${projectId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -137,16 +135,33 @@ export default class CreativeCompanionClient extends BindingClass {
     }
 
     /**
+     * Gets the project for the given ID.
+     * @param id Unique identifier for a project
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns The project's metadata.
+     */
+    async getProject(projectId, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can create projects.");
+            const response = await this.axiosClient.get(`projects/${projectId}`, {
+                 headers: {
+                     Authorization: `Bearer ${token}`
+                     }
+            });
+            return response.data.project;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+
+
+    /*
      * Gets the projects for the given ID.
      * @returns The project's metadata.
      */
     async getProjectList() {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can get projects.");
-
-            console.log("inside getProjectList in creativeCompanionClient")
-
-            console.log("token loaded");
             const response = await this.axiosClient.get(`projects`, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -158,6 +173,7 @@ export default class CreativeCompanionClient extends BindingClass {
         }
     }
 
+
     /**
      * Updates the project for the given projectID.
      * @returns The project's metadata.
@@ -165,9 +181,6 @@ export default class CreativeCompanionClient extends BindingClass {
      async updateProject(projectId, projectData, errorCallback) {
          try {
             const token = await this.getTokenOrThrow("Only authenticated users can update projects.");
-
-            console.log("inside updateProject in creativeCompanionClient")
-
             const response = await this.axiosClient.put(`projects/${projectId}`, projectData, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -186,9 +199,6 @@ export default class CreativeCompanionClient extends BindingClass {
       async deleteProject(projectId, errorCallback) {
           try {
              const token = await this.getTokenOrThrow("Only authenticated users can update projects.");
-
-             console.log("inside deleteProject in creativeCompanionClient")
-
              const response = await this.axiosClient.delete(`projects/${projectId}`, {
                  headers: {
                      Authorization: `Bearer ${token}`
@@ -198,7 +208,6 @@ export default class CreativeCompanionClient extends BindingClass {
          } catch (error) {
              this.handleError(error, errorCallback)
          }
-
       }
 
     /**

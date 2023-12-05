@@ -26,6 +26,7 @@ module.exports = {
 
     creativeCompanionIndex: path.resolve(__dirname, 'src', 'pages', 'creativeCompanionIndex.js'),
     project: path.resolve(__dirname, 'src', 'pages', 'project.js'),
+
   },
   output: {
     path: path.resolve(__dirname, 'build', 'assets'),
