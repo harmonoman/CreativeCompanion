@@ -8,12 +8,13 @@ class Project extends BindingClass {
         super();
 
         this.bindClassMethods(['mount', 'initDraggableElements', 'dropText', 'openModal', 'closeModal', 'performAction',
-        'updateProject', 'clientLoaded', 'collectAndUpdateProject', 'addWordsToPage'], this);
+        'updateProject', 'clientLoaded', 'collectAndUpdateProject', 'addWordsToPage', 'clearWordPool', 'clearWorkspace'], this);
 
         this.workspaceField = null; // Initialize Workspace Field
 
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addWordsToPage);
+
         this.header = new Header(this.dataStore);
 
         console.log("project constructor");
@@ -49,13 +50,15 @@ class Project extends BindingClass {
         window.closeModal = this.closeModal.bind(this);
         window.performAction = this.performAction.bind(this);
 
-        // Change Name button (changes/saves project name)
-        const changeProjectNameButton = document.getElementById('change-project-name-button');
-        changeProjectNameButton.addEventListener('click', this.collectAndUpdateProject);
-
         // Save Project button
         const saveProjectButton = document.getElementById('save-project');
         saveProjectButton.addEventListener('click', this.collectAndUpdateProject);
+
+        const clearWordPoolButton = document.getElementById('clear-wordPool');
+        clearWordPoolButton.addEventListener('click', this.clearWordPool);
+
+        const clearWorkspaceButton = document.getElementById('clear-workspace');
+        clearWorkspaceButton.addEventListener('click', this.clearWorkspace);
 
         this.clientLoaded();
     }
@@ -173,7 +176,7 @@ class Project extends BindingClass {
      */
     populateWordPoolField(results) {
         const wordPoolField = document.getElementById('wordPool-field');
-        wordPoolField.innerHTML = ''; // Clear existing content
+        //wordPoolField.innerHTML = ''; // Clear existing content
 
         // Iterate through results and append to Word Pool field
         if (Array.isArray(results)) {
@@ -220,7 +223,7 @@ class Project extends BindingClass {
      */
     populateWorkspaceField(results) {
         const workspaceField = document.getElementById('workspace-field');
-        workspaceField.innerHTML = ''; // Clear existing content
+        //workspaceField.innerHTML = ''; // Clear existing content
 
         // Iterate through results and append to Workspace field
         if (Array.isArray(results)) {
@@ -256,6 +259,16 @@ class Project extends BindingClass {
         }
     }
 
+    clearWordPool() {
+        const wordPoolField = document.getElementById('wordPool-field');
+        wordPoolField.innerHTML = '';
+    }
+
+    clearWorkspace() {
+        const workspaceField = document.getElementById('workspace-field');
+        workspaceField.innerHTML = '';
+    }
+
 
     ///// UPDATE PROJECT /////
     /**
@@ -267,8 +280,7 @@ class Project extends BindingClass {
         try {
             const updatedProject = await this.client.updateProject(projectId, updateData);
 
-//            // Navigate to project.html with project ID
-            window.location.href = `project.html?projectId=${updateData.projectId}`;
+            this.dataStore.set('project', updatedProject);
 
         } catch (error) {
             console.error('Error updating project:', error);
@@ -283,25 +295,6 @@ class Project extends BindingClass {
      */
     async collectAndUpdateProject() {
         try {
-            ///// NEW PROJECT NAME /////
-            // Collect text from Change Name field
-            const newProjectNameInput = document.getElementById('new-project-name');
-            let newProjectName = newProjectNameInput.value.trim();
-
-            // Check if a new project name is provided, if empty get projectName from URL
-            if (newProjectName === '') {
-                const urlParams = new URLSearchParams(window.location.search);
-                newProjectName = urlParams.get('projectName');
-
-                const projectNameElement = document.getElementById('projectNameElement');
-                    if (projectNameElement) {
-                        projectNameElement.textContent = newProjectName;
-                    }
-//                    const project = await this.dataStore.get(project);
-//                    document.getElementById('projectNameElement').innerText = project.projectName;
-
-            }
-
             // Collect data from fields
             const wordPoolData = Array.from(document.getElementById('wordPool-field').children)
                 .map(element => element.textContent.trim());
@@ -309,15 +302,16 @@ class Project extends BindingClass {
             const workspaceData = Array.from(document.getElementById('workspace-field').children)
                 .map(element => element.textContent.trim());
 
-
             // Get projectId from URL
             const urlParams = new URLSearchParams(window.location.search);
             const projectIdToUpdate = urlParams.get('projectId');
 
+            const project = this.dataStore.get('project');
+
             // Create the update data object
             const updateData = {
                 projectId: projectIdToUpdate,
-                projectName: newProjectName,
+                projectName: project.projectName,
                 wordPool: wordPoolData,
                 workspace: workspaceData,
             };
@@ -337,8 +331,10 @@ class Project extends BindingClass {
      */
     addWordsToPage() {
         const wordPoolField = document.getElementById('wordPool-field');
+        wordPoolField.innerHTML = '';
         const workspaceField = document.getElementById('workspace-field');
-        const project = this.dataStore.get('project')
+        workspaceField.innerHTML = '';
+        const project = this.dataStore.get('project');
 
         if (project == null) {
             console.log("project is null")
@@ -374,6 +370,9 @@ class Project extends BindingClass {
             // Append text to Word Pool
             workspaceField.appendChild(wordElement);
         });
+
+        document.getElementById('projectNameElement').innerText = project.projectName;
+
     }
 
 }
