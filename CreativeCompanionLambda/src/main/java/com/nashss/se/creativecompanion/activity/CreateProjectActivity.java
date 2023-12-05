@@ -9,11 +9,12 @@ import com.nashss.se.creativecompanion.dynamodb.models.ProjectModel;
 import com.nashss.se.creativecompanion.requests.CreateProjectRequest;
 import com.nashss.se.creativecompanion.results.CreateProjectResult;
 import com.nashss.se.creativecompanion.utils.ServiceUtils;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
+import javax.inject.Inject;
 
 /**
  * Implementation of the CreateProjectActivity for the CreativeCompanionService's CreateProject API.
@@ -48,7 +49,7 @@ public class CreateProjectActivity {
      * @return createProjectResult result object containing the API defined {@link ProjectModel}
      */
     public CreateProjectResult handleRequest(final CreateProjectRequest createProjectRequest) {
-        log.info("Received CreateProjectRequest {}", createProjectRequest);
+        System.out.println("Received CreateProjectRequest {}" + createProjectRequest);
 
         Project newProject = new Project();
         newProject.setUserId(createProjectRequest.getUserId());
@@ -63,6 +64,7 @@ public class CreateProjectActivity {
         projectDao.saveProject(newProject);
 
         ProjectModel projectModel = new ModelConverter().toProjectModel(newProject);
+        System.out.println(projectModel);
         return CreateProjectResult.builder()
                 .withProject(projectModel)
                 .build();

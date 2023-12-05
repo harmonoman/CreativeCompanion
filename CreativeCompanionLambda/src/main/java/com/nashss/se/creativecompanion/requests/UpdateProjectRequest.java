@@ -14,7 +14,8 @@ public class UpdateProjectRequest {
     private final List<String> wordPool;
     private final List<String> workspace;
 
-    private UpdateProjectRequest(String userId, String projectId, String projectName, List<String> wordPool, List<String> workspace) {
+    private UpdateProjectRequest(String userId, String projectId, String projectName, List<String> wordPool,
+                                 List<String> workspace) {
         this.userId = userId;
         this.projectId = projectId;
         this.projectName = projectName;
@@ -35,9 +36,13 @@ public class UpdateProjectRequest {
         return projectName;
     }
 
-    public List<String>  getWordPool() { return wordPool; }
+    public List<String>  getWordPool() {
+        return wordPool;
+    }
 
-    public List<String>  getWorkspace() { return workspace; }
+    public List<String>  getWorkspace() {
+        return workspace;
+    }
 
     @Override
     public String toString() {

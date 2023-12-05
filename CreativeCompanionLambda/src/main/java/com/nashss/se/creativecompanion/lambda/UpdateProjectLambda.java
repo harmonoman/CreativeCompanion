@@ -1,18 +1,18 @@
 package com.nashss.se.creativecompanion.lambda;
 
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.creativecompanion.requests.UpdateProjectRequest;
 import com.nashss.se.creativecompanion.results.UpdateProjectResult;
 
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+
 public class UpdateProjectLambda extends LambdaActivityRunner<UpdateProjectRequest, UpdateProjectResult>
-        implements RequestHandler<AuthenticatedLambdaRequest<UpdateProjectRequest>, LambdaResponse>{
+        implements RequestHandler<AuthenticatedLambdaRequest<UpdateProjectRequest>, LambdaResponse> {
 
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<UpdateProjectRequest> input, Context context) {
         return super.runActivity(() -> {
                 UpdateProjectRequest unauthenticatedRequest = input.fromBody(UpdateProjectRequest.class);
-                System.out.println("unauthenticatedRequest" + unauthenticatedRequest);
                 return input.fromUserClaims(claims ->
                             UpdateProjectRequest.builder()
                                     .withUserId(claims.get("email"))
@@ -21,8 +21,8 @@ public class UpdateProjectLambda extends LambdaActivityRunner<UpdateProjectReque
                                     .withWordPool(unauthenticatedRequest.getWordPool())
                                     .withWorkspace(unauthenticatedRequest.getWorkspace())
                                     .build());
-                },
-                (request, serviceComponent) ->
+            },
+            (request, serviceComponent) ->
                         serviceComponent.provideUpdateProjectActivity().handleRequest(request)
         );
     }

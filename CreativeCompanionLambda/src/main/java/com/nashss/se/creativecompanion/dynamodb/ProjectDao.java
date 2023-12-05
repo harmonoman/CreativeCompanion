@@ -1,14 +1,14 @@
 package com.nashss.se.creativecompanion.dynamodb;
 
+import com.nashss.se.creativecompanion.dynamodb.models.Project;
+import com.nashss.se.creativecompanion.exceptions.ProjectNotFoundException;
+import com.nashss.se.creativecompanion.metrics.MetricsConstants;
+import com.nashss.se.creativecompanion.metrics.MetricsPublisher;
+
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.nashss.se.creativecompanion.dynamodb.models.Project;
-import com.nashss.se.creativecompanion.exceptions.ProjectNotFoundException;
-
-import com.nashss.se.creativecompanion.metrics.MetricsConstants;
-import com.nashss.se.creativecompanion.metrics.MetricsPublisher;
 
 import java.util.List;
 import javax.inject.Inject;
@@ -81,5 +81,25 @@ public class ProjectDao {
 
         PaginatedQueryList<Project> projectList = mapper.query(Project.class, dynamoDBQueryExpression);
         return projectList;
+    }
+
+    /**
+     * Deletes the project corresponding to the specified id.
+     *
+     * @param userId    the User ID
+     * @param projectId the Project ID
+     * @return true if the deletion was successful, false otherwise
+     */
+    public boolean deleteProject(String userId, String projectId) {
+        // Check if the project exists before deletion
+        Project project = getProject(userId, projectId);
+        if (project != null) {
+            this.dynamoDbMapper.delete(project);
+            // Deletion successful
+            return true;
+        } else {
+            // Project not found, deletion unsuccessful
+            return false;
+        }
     }
 }

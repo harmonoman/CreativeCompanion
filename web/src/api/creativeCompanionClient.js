@@ -3,7 +3,7 @@ import BindingClass from "../util/bindingClass";
 import Authenticator from "./authenticator";
 
 /**
- * Client to call the MusicPlaylistService.
+ * Client to call the CreativeCompanionService.
  *
  * This could be a great place to explore Mixins. Currently the client is being loaded multiple times on each page,
  * which we could avoid using inheritance or Mixins.
@@ -12,10 +12,12 @@ import Authenticator from "./authenticator";
   */
 export default class CreativeCompanionClient extends BindingClass {
 
-constructor(props = {}) {
+    constructor(props = {}) {
         super();
 
-        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createProject', 'getProject', 'updateProject'];
+        const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createProject', 'getProject',
+        'getProjectList', 'updateProject', 'deleteProject'];
+
         this.bindClassMethods(methodsToBind, this);
 
         this.authenticator = new Authenticator();;
@@ -57,13 +59,14 @@ constructor(props = {}) {
     async getUserName(errorCallback) {
         try {
             const isLoggedIn = await this.authenticator.isUserLoggedIn();
+            console.log("isLoggedIn: " + isLoggedIn);
 
             if (!isLoggedIn) {
                 return undefined;
             }
 
             const userName = await this.authenticator.getCurrentUserName();
-            console.log(userName);
+            console.log("userName: " + userName);
             return userName;
         } catch (error) {
             this.handleError(error, errorCallback)
@@ -80,6 +83,7 @@ constructor(props = {}) {
 
     async getTokenOrThrow(unauthenticatedErrorMessage) {
         const isLoggedIn = await this.authenticator.isUserLoggedIn();
+        console.log("isLoggedIn: " + isLoggedIn);
         if (!isLoggedIn) {
             throw new Error(unauthenticatedErrorMessage);
         }
@@ -89,8 +93,7 @@ constructor(props = {}) {
 
     /**
      * Create a new project owned by the current user.
-     * @param name The name of the project to create.
-     * @param tags Metadata tags to associate with a project.
+     * @param projectName The name of the project to create.
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The project that has been created.
      */
@@ -105,6 +108,26 @@ constructor(props = {}) {
                 }
             });
 
+            return response.data.project;
+        } catch (error) {
+            this.handleError(error, errorCallback);
+        }
+    }
+
+    /**
+     * Gets the project for the given ID.
+     * @param id Unique identifier for a project
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns The project's metadata.
+     */
+    async getProject(projectId, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can get projects.");
+            const response = await this.axiosClient.get(`projects/${projectId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             return response.data.project;
         } catch (error) {
             this.handleError(error, errorCallback)
@@ -131,30 +154,38 @@ constructor(props = {}) {
         }
     }
 
+
+    /*
+     * Gets the projects for the given ID.
+     * @returns The project's metadata.
+     */
+    async getProjectList() {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can get projects.");
+            const response = await this.axiosClient.get(`projects`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.projects;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+
+
     /**
      * Updates the project for the given projectID.
      * @returns The project's metadata.
      */
      async updateProject(projectId, projectData, errorCallback) {
          try {
-
             const token = await this.getTokenOrThrow("Only authenticated users can update projects.");
-
-            console.log("inside updateProject in creativeCompanionClient")
-            console.log("projectData: " + JSON.stringify(projectData));
-            console.log("projectId: " + projectId);
-
-
             const response = await this.axiosClient.put(`projects/${projectId}`, projectData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-            console.log("After axiosClient.put");
-
-            console.log("Response from server:", response);
-
-
             return response.data.project;
         } catch (error) {
             this.handleError(error, errorCallback)
@@ -168,9 +199,6 @@ constructor(props = {}) {
       async deleteProject(projectId, errorCallback) {
           try {
              const token = await this.getTokenOrThrow("Only authenticated users can update projects.");
-
-             console.log("inside deleteProject in creativeCompanionClient")
-
              const response = await this.axiosClient.delete(`projects/${projectId}`, {
                  headers: {
                      Authorization: `Bearer ${token}`
@@ -180,7 +208,6 @@ constructor(props = {}) {
          } catch (error) {
              this.handleError(error, errorCallback)
          }
-
       }
 
     /**

@@ -49,9 +49,13 @@ class Project extends BindingClass {
         window.closeModal = this.closeModal.bind(this);
         window.performAction = this.performAction.bind(this);
 
-        // Save Project button
+        // Change Name button (changes/saves project name)
         const changeProjectNameButton = document.getElementById('change-project-name-button');
         changeProjectNameButton.addEventListener('click', this.collectAndUpdateProject);
+
+        // Save Project button
+        const saveProjectButton = document.getElementById('save-project');
+        saveProjectButton.addEventListener('click', this.collectAndUpdateProject);
 
         this.clientLoaded();
     }
@@ -171,8 +175,6 @@ class Project extends BindingClass {
         const wordPoolField = document.getElementById('wordPool-field');
         wordPoolField.innerHTML = ''; // Clear existing content
 
-
-    console.log("results in populateWordPoolField: " + results);
         // Iterate through results and append to Word Pool field
         if (Array.isArray(results)) {
                 results.forEach(result => {
@@ -197,12 +199,11 @@ class Project extends BindingClass {
                     wordElement.addEventListener('dragstart', (event) => {
                         event.dataTransfer.setData('text/plain', wordText);
                     });
-        console.log("word inside populateWordPoolField: " + wordElement);
+
                     // Append text to Word Pool
                     wordPoolField.appendChild(wordElement);
                 });
 
-//                this.dataStore.setUnsavedChanges(true);
         } else {
             console.error('Invalid results format. Expected an array.');
         }
@@ -220,8 +221,6 @@ class Project extends BindingClass {
     populateWorkspaceField(results) {
         const workspaceField = document.getElementById('workspace-field');
         workspaceField.innerHTML = ''; // Clear existing content
-
-//    console.log("results in populateWorkspaceField: " + results);
 
         // Iterate through results and append to Workspace field
         if (Array.isArray(results)) {
@@ -247,12 +246,11 @@ class Project extends BindingClass {
                 wordElement.addEventListener('dragstart', (event) => {
                     event.dataTransfer.setData('text/plain', wordText);
                 });
-        console.log("word inside populateWorkspaceField: " + wordElement);
+
                 // Append text to Word Pool
                 workspaceField.appendChild(wordElement);
             });
 
-//            this.dataStore.setUnsavedChanges(true);
         } else {
             console.error('Invalid results format. Expected an array.');
         }
@@ -267,8 +265,6 @@ class Project extends BindingClass {
      */
     async updateProject(projectId, updateData) {
         try {
-    console.trace();
-
             const updatedProject = await this.client.updateProject(projectId, updateData);
 
 //            // Navigate to project.html with project ID
@@ -287,7 +283,6 @@ class Project extends BindingClass {
      */
     async collectAndUpdateProject() {
         try {
-    console.log("inside collectAndUpdateProject");
             ///// NEW PROJECT NAME /////
             // Collect text from Change Name field
             const newProjectNameInput = document.getElementById('new-project-name');
@@ -302,12 +297,15 @@ class Project extends BindingClass {
                     if (projectNameElement) {
                         projectNameElement.textContent = newProjectName;
                     }
+//                    const project = await this.dataStore.get(project);
+//                    document.getElementById('projectNameElement').innerText = project.projectName;
+
             }
 
             // Collect data from fields
             const wordPoolData = Array.from(document.getElementById('wordPool-field').children)
                 .map(element => element.textContent.trim());
-//
+
             const workspaceData = Array.from(document.getElementById('workspace-field').children)
                 .map(element => element.textContent.trim());
 
@@ -343,6 +341,7 @@ class Project extends BindingClass {
         const project = this.dataStore.get('project')
 
         if (project == null) {
+            console.log("project is null")
             return;
         }
 
@@ -356,7 +355,7 @@ class Project extends BindingClass {
             wordElement.addEventListener('dragstart', (event) => {
                 event.dataTransfer.setData('text/plain', wordPoolText);
             });
-            console.log("inside wordPool loop: " + wordPoolText);
+
             // Append text to Word Pool
             wordPoolField.appendChild(wordElement);
         });

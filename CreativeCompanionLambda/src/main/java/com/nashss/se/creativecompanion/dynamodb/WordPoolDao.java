@@ -1,16 +1,12 @@
 package com.nashss.se.creativecompanion.dynamodb;
-
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
-import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.nashss.se.creativecompanion.dynamodb.models.Project;
 import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
-import com.nashss.se.creativecompanion.exceptions.ProjectNotFoundException;
 import com.nashss.se.creativecompanion.exceptions.WordPoolNotFoundException;
-
 import com.nashss.se.creativecompanion.metrics.MetricsConstants;
 import com.nashss.se.creativecompanion.metrics.MetricsPublisher;
+
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 
 import java.util.List;
 import javax.inject.Inject;
@@ -77,5 +73,25 @@ public class WordPoolDao {
 
         PaginatedQueryList<WordPool> wordPoolList = mapper.query(WordPool.class, dynamoDBQueryExpression);
         return wordPoolList;
+    }
+
+    /**
+     * Deletes the wordPool corresponding to the specified id.
+     *
+     * @param userId    the User ID
+     * @param wordPoolId the WordPool ID
+     * @return true if the deletion was successful, false otherwise
+     */
+    public boolean deleteWordPool(String userId, String wordPoolId) {
+        // Check if the wordPool exists before deletion
+        WordPool wordPool = getWordPool(userId, wordPoolId);
+        if (wordPool != null) {
+            this.dynamoDbMapper.delete(wordPool);
+            // Deletion successful
+            return true;
+        } else {
+            // WordPool not found, deletion unsuccessful
+            return false;
+        }
     }
 }

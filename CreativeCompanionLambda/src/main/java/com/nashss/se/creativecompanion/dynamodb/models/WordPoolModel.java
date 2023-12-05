@@ -36,11 +36,15 @@ public class WordPoolModel {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         WordPoolModel that = (WordPoolModel) o;
-        return Objects.equals(userId, that.userId) && Objects.equals(wordPoolId, that.wordPoolId)
-                && Objects.equals(wordPoolName, that.wordPoolName) && Objects.equals(wordPool,
+        return Objects.equals(userId, that.userId) && Objects.equals(wordPoolId, that.wordPoolId) &&
+                Objects.equals(wordPoolName, that.wordPoolName) && Objects.equals(wordPool,
                 that.wordPool);
     }
 
@@ -59,23 +63,23 @@ public class WordPoolModel {
         private String wordPoolName;
         private List<String> wordPool;
 
-        public Builder withUserId(String userId) {
-            this.userId = userId;
+        public Builder withUserId(String newUserId) {
+            this.userId = newUserId;
             return this;
         }
 
-        public Builder withWordPoolId(String wordPoolId) {
-            this.wordPoolId = wordPoolId;
+        public Builder withWordPoolId(String newWordPoolId) {
+            this.wordPoolId = newWordPoolId;
             return this;
         }
 
-        public Builder withWordPoolName(String wordPoolName) {
-            this.wordPoolName = wordPoolName;
+        public Builder withWordPoolName(String newWordPoolName) {
+            this.wordPoolName = newWordPoolName;
             return this;
         }
 
-        public Builder withWordPool(List<String> wordPool) {
-            this.wordPool = new ArrayList<>(wordPool);
+        public Builder withWordPool(List<String> newWordPool) {
+            this.wordPool = new ArrayList<>(newWordPool);
             return this;
         }
 

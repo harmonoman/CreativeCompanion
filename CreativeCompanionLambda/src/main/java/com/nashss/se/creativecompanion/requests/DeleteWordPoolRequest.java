@@ -1,11 +1,11 @@
 package com.nashss.se.creativecompanion.requests;
 
-public class GetWordPoolRequest {
+public class DeleteWordPoolRequest {
 
     private final String userId;
     private final String wordPoolId;
 
-    private GetWordPoolRequest(String userId, String wordPoolId) {
+    private DeleteWordPoolRequest(String userId, String wordPoolId) {
         this.userId = userId;
         this.wordPoolId = wordPoolId;
     }
@@ -20,35 +20,32 @@ public class GetWordPoolRequest {
 
     @Override
     public String toString() {
-        return "GetWordPoolRequest{" +
+        return "DeleteWordPoolRequest{" +
                 "userId='" + userId + '\'' +
                 ", wordPoolId='" + wordPoolId + '\'' +
                 '}';
     }
 
-    public static GetWordPoolRequest.Builder builder() {
-        return new GetWordPoolRequest.Builder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder {
         private String userId;
         private String wordPoolId;
 
-        public GetWordPoolRequest.Builder withUserId(String newUserId) {
+        public Builder withUserId(String newUserId) {
             this.userId = newUserId;
             return this;
         }
 
-        public GetWordPoolRequest.Builder withWordPoolId(String newWordPoolId) {
+        public Builder withWordPoolId(String newWordPoolId) {
             this.wordPoolId = newWordPoolId;
             return this;
         }
 
-        /*
-        build method for GetWordPoolRequest builder
-         */
-        public GetWordPoolRequest build() {
-            return new GetWordPoolRequest(userId, wordPoolId);
+        public DeleteWordPoolRequest build() {
+            return new DeleteWordPoolRequest(userId, wordPoolId);
         }
     }
 }

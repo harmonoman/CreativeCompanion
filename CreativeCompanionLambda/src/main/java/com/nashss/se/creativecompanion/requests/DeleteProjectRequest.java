@@ -1,15 +1,11 @@
 package com.nashss.se.creativecompanion.requests;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-
-@JsonDeserialize(builder = GetProjectRequest.Builder.class)
-public class GetProjectRequest {
+public class DeleteProjectRequest {
 
     private final String userId;
     private final String projectId;
 
-    private GetProjectRequest(String userId, String projectId) {
+    private DeleteProjectRequest(String userId, String projectId) {
         this.userId = userId;
         this.projectId = projectId;
     }
@@ -24,7 +20,7 @@ public class GetProjectRequest {
 
     @Override
     public String toString() {
-        return "GetProjectRequest{" +
+        return "DeleteProjectRequest{" +
                 "userId='" + userId + '\'' +
                 ", projectId='" + projectId + '\'' +
                 '}';
@@ -34,7 +30,6 @@ public class GetProjectRequest {
         return new Builder();
     }
 
-    @JsonPOJOBuilder
     public static class Builder {
         private String userId;
         private String projectId;
@@ -49,8 +44,8 @@ public class GetProjectRequest {
             return this;
         }
 
-        public GetProjectRequest build() {
-            return new GetProjectRequest(userId, projectId);
+        public DeleteProjectRequest build() {
+            return new DeleteProjectRequest(userId, projectId);
         }
     }
 }

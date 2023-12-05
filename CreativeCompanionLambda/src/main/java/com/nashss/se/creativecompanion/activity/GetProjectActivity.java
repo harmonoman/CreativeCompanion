@@ -6,6 +6,7 @@ import com.nashss.se.creativecompanion.dynamodb.models.Project;
 import com.nashss.se.creativecompanion.dynamodb.models.ProjectModel;
 import com.nashss.se.creativecompanion.requests.GetProjectRequest;
 import com.nashss.se.creativecompanion.results.GetProjectResult;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

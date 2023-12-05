@@ -93,7 +93,6 @@ class CreativeCompanionIndex extends BindingClass {
             // Navigate to project.html with project ID
             window.location.href = `project.html?projectId=${project.projectId}`;
 
-
             // Close modal
             this.closeModal();
     }
