@@ -208,7 +208,7 @@ class WordPool extends BindingClass {
             return;
         }
 
-        wordPool.forEach(wordPoolText => {
+        wordPool.wordPool.forEach(wordPoolText => {
             const wordElement = document.createElement('p');
 
             wordElement.textContent = wordPoolText;

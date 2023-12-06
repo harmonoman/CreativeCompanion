@@ -29,6 +29,8 @@ module.exports = {
     viewProjects: path.resolve(__dirname, 'src', 'pages', 'viewProjects.js'),
     wordPool: path.resolve(__dirname, 'src', 'pages', 'wordPool.js'),
 
+
+
   },
   output: {
     path: path.resolve(__dirname, 'build', 'assets'),
