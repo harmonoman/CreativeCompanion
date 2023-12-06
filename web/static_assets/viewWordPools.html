@@ -2,18 +2,28 @@
 <html>
 
 <head>
-    <script type="text/javascript" src="assets/creativeCompanionIndex.js"></script>
+    <script type="text/javascript" src="assets/viewWordPools.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <header class="header" id="header"></header>
+
 <body class="background">
 
-<canvas id="harmonographCanvas"></canvas>
+<label for="wordPoolsSelect"><h1 id="user-name" style="text-align:center"></h1></label>
 
+<div class="card">
+    <form action="#" style="text-align:center;">
+        <p class="hidden error" id="error-message"> </p>
 
-
-
+    </form>
+</div>
+<div class="card">
+    <h4>Click a word pool to edit its contents</h4>
+    <select name="projects" id="wordPoolsSelect" >
+    </select><br><br>
+    <!--        <input type="submit" class="button" value="hidden" />-->
+</div>
 
 
 </body>

@@ -28,8 +28,7 @@ module.exports = {
     project: path.resolve(__dirname, 'src', 'pages', 'project.js'),
     viewProjects: path.resolve(__dirname, 'src', 'pages', 'viewProjects.js'),
     wordPool: path.resolve(__dirname, 'src', 'pages', 'wordPool.js'),
-
-
+    viewWordPools: path.resolve(__dirname, 'src', 'pages', 'viewWordPools.js'),
 
   },
   output: {
