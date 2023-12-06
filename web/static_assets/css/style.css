@@ -257,3 +257,17 @@ canvas {
   cursor: pointer;
 }
 
+#projectsSelect {
+    height: 500px; /* Adjust the maximum height as needed */
+    width: 500px; /* Adjust the maximum height as needed */
+
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+    overflow-x: auto; /* Enable vertical scrolling if needed */
+    font-size: 30px; /* Adjust the font size as needed */
+    padding: 20px;
+        text-align:center
+
+}
+
+
+

@@ -13,7 +13,6 @@ class ViewProjects extends BindingClass {
         this.bindClassMethods(['clientLoaded', 'mount', 'addProjectsToPage', 'redirectToViewProject', 'submit'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addProjectsToPage);
-        this.dataStore.addChangeListener(this.redirectToViewProject);
         this.header = new Header(this.dataStore);
         console.log("viewProjects constructor");
     }
@@ -48,75 +47,50 @@ class ViewProjects extends BindingClass {
      * When the project is updated in the datastore, update the project metadata on the page.
      */
     addProjectsToPage() {
+
         const projects = this.dataStore.get('projects');
-        console.log("(addProjectsToPage) are the projects here?: " + JSON.stringify(projects));
-        if (projects == null) {
+
+        if (!projects) {
             return;
         }
 
-        document.getElementById("projectsSelect").size = projects.length;
-        let optionList = document.getElementById('projectsSelect').options;
-        let options = [
-          {
-            text: 'Option 1',
-            value: 'Value 1'
-          },
-          {
-            text: 'Option 2',
-            value: 'Value 2',
-            selected: true
-          },
-          {
-            text: 'Option 3',
-            value: 'Value 3'
-          }
-        ];
+        const projectsSelect = document.getElementById('projectsSelect');
+        projectsSelect.size = projects.length;
 
-        projects.forEach(projects =>
-          optionList.add(
-            new Option(projects.projectName, projects.projectId)
-          ));
+        const optionList = projectsSelect.options;
+
+        // Clear existing options
+        optionList.length = 0;
+
+        projects.forEach(project => {
+            const option = new Option(project.projectName, project.projectId);
+
+            // Add margin or padding to create spacing
+            option.style.marginBottom = '20px'; // Adjust the value as needed
+
+            optionList.add(option);
+        });
+    }
+
+    redirectToViewProject(projectId) {
+        console.log("(redirectToViewProject) here is the supposed projectId: " + projectId)
+        if (projectId != null) {
+            window.location.href = `/project.html?projectId=${projectId}`;
         }
+    }
 
+    async submit(evt) {
+        evt.preventDefault();
 
-        redirectToViewProject() {
-//            console.log("inside redirectToViewProject");
-            const projectId = this.dataStore.get('projectId');
-            console.log("(redirectToViewProject) here is the supposed projectId: " + projectId)
-            if (projectId != null) {
-                window.location.href = `/project.html?projectId=${projectId}`;
-            }
-            //this.project.addProjectsToPage();
-        }
+        const errorMessageDisplay = document.getElementById('error-message');
+        errorMessageDisplay.innerText = ``;
+        errorMessageDisplay.classList.add('hidden');
 
-        async submit(evt) {
-            evt.preventDefault();
+        const projectId = document.getElementById('projectsSelect').value;
+        console.log("(submit) selected project's id: " + projectId);
 
-            const errorMessageDisplay = document.getElementById('error-message');
-            errorMessageDisplay.innerText = ``;
-            errorMessageDisplay.classList.add('hidden');
-
-            const projectId = document.getElementById('projectsSelect').value;
-            console.log("(submit) selected project's id: " + projectId);
-
-            this.dataStore.set('projectId', projectId);
-            console.log("(submit) dataStore: " + JSON.stringify(this.dataStore.getState()));
-        }
-
-        // Function to render projects with checkboxes
-        renderProjects() {
-            const projectList = document.getElementById('projectList');
-
-            projects.forEach(project => {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `
-                    <input type="checkbox" id="project${project.id}" name="projects[]" value="${project.id}">
-                    <label for="project${project.id}">${project.name}</label>
-                `;
-                projectList.appendChild(listItem);
-            });
-        }
-
+        this.redirectToViewProject(projectId);
+    }
 
 }
 
