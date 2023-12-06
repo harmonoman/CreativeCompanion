@@ -11,14 +11,17 @@ class CreativeCompanionIndex extends BindingClass {
     constructor() {
         super();
 
-        this.bindClassMethods(['mount', 'clientLoaded', 'openModal', 'closeModal', 'createProject'], this);
+        this.bindClassMethods(['mount', 'clientLoaded', 'openProjectModal', 'closeProjectModal', 'createProject',
+        'openWordPoolModal', 'closeWordPoolModal', 'createWordPool'], this);
 
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
         console.log("creativeCompanionIndex constructor");
 
-        window.openModal = this.openModal.bind(this);
-        window.closeModal = this.closeModal.bind(this);
+        window.openProjectModal = this.openProjectModal.bind(this);
+        window.closeProjectModal = this.closeProjectModal.bind(this);
+        window.openWordPoolModal = this.openWordPoolModal.bind(this);
+        window.closeWordPoolModal = this.closeWordPoolModal.bind(this);
     }
 
     /**
@@ -51,14 +54,14 @@ class CreativeCompanionIndex extends BindingClass {
             return this.createButton('Login', this.client.login);
         }
 
-    openModal() {
-            const modal = document.getElementById('projectModal');
-            modal.style.display = 'block';
+    openProjectModal() {
+            const projectModal = document.getElementById('projectModal');
+            projectModal.style.display = 'block';
         }
 
-    closeModal() {
-        const modal = document.getElementById('projectModal');
-        modal.style.display = 'none';
+    closeProjectModal() {
+        const projectModal = document.getElementById('projectModal');
+        projectModal.style.display = 'none';
     }
 
     /**
@@ -69,32 +72,78 @@ class CreativeCompanionIndex extends BindingClass {
      */
     async createProject() {
 
-            // Get project name
-            const projectNameInput = document.getElementById('projectNameInput');
+        // Get project name
+        const projectNameInput = document.getElementById('projectNameInput');
+        const projectName = projectNameInput.value.trim();
+        console.log("projectName: " + projectName);
+
+        // Check if element is found
+        if (projectNameInput) {
             const projectName = projectNameInput.value.trim();
-            console.log("projectName: " + projectName);
+        } else {
+            console.error("Element with ID 'projectNameInput' not found");
+        }
 
-            // Check if element is found
-            if (projectNameInput) {
-                const projectName = projectNameInput.value.trim();
-            } else {
-                console.error("Element with ID 'projectNameInput' not found");
-            }
+        // Check if input is valid
+        if (projectName === '') {
+            alert('Please enter a valid project name.');
+            return;
+        }
 
-            // Check if input is valid
-            if (projectName === '') {
-                alert('Please enter a valid project name.');
-                return;
-            }
+        // Call createProject
+        const project = await this.client.createProject(projectName);
 
-            // Call createProject
-            const project = await this.client.createProject(projectName);
+        // Navigate to project.html with project ID
+        window.location.href = `project.html?projectId=${project.projectId}`;
 
-            // Navigate to project.html with project ID
-            window.location.href = `project.html?projectId=${project.projectId}`;
+        // Close modal
+        this.closeProjectModal();
+    }
 
-            // Close modal
-            this.closeModal();
+    openWordPoolModal() {
+        const wordPoolModal = document.getElementById('wordPoolModal');
+        wordPoolModal.style.display = 'block';
+    }
+
+    closeWordPoolModal() {
+        const wordPoolModal = document.getElementById('wordPoolModal');
+        wordPoolModal.style.display = 'none';
+    }
+
+    /**
+     * Creates a new word pool using user-provided word pool name.
+     * Retrieves the word pool name from the modal, validates it, and initiates the word pool creation process.
+     * Upon successful word pool creation, navigates to the 'wordPool.html' page, passing word pool details in the URL.
+     * Finally, closes the modal.
+     */
+    async createWordPool() {
+
+        // Get word pool name
+        const wordPoolNameInput = document.getElementById('wordPoolNameInput');
+        const wordPoolName = wordPoolNameInput.value.trim();
+        console.log("wordPoolName: " + wordPoolName);
+
+        // Check if element is found
+        if (wordPoolNameInput) {
+            const wordPoolName = wordPoolNameInput.value.trim();
+        } else {
+            console.error("Element with ID 'wordPoolNameInput' not found");
+        }
+
+        // Check if input is valid
+        if (wordPoolName === '') {
+            alert('Please enter a valid word pool name.');
+            return;
+        }
+
+        // Call createWordPool
+        const wordPool = await this.client.createWordPool(wordPoolName);
+
+        // Navigate to project.html with project ID
+        window.location.href = `project.html?projectId=${wordPool.wordPoolId}`;
+
+        // Close modal
+        this.closeWordPoolModal();
     }
 
 }
