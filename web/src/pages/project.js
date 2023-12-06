@@ -8,7 +8,8 @@ class Project extends BindingClass {
         super();
 
         this.bindClassMethods(['mount', 'initDraggableElements', 'dropText', 'openModal', 'closeModal', 'performAction',
-        'updateProject', 'clientLoaded', 'collectAndUpdateProject', 'addWordsToPage', 'clearWordPool', 'clearWorkspace'], this);
+        'updateProject', 'clientLoaded', 'collectAndUpdateProject', 'addWordsToPage', 'clearWordPool', 'clearWorkspace',
+        'deleteProject'], this);
 
         this.workspaceField = null; // Initialize Workspace Field
 
@@ -59,6 +60,9 @@ class Project extends BindingClass {
 
         const clearWorkspaceButton = document.getElementById('clear-workspace');
         clearWorkspaceButton.addEventListener('click', this.clearWorkspace);
+
+        const deleteProjectButton = document.getElementById('delete-project');
+        deleteProjectButton.addEventListener('click', this.deleteProject);
 
         this.clientLoaded();
     }
@@ -372,6 +376,27 @@ class Project extends BindingClass {
         });
 
         document.getElementById('projectNameElement').innerText = project.projectName;
+
+    }
+
+    ///// DELETE PROJECT /////
+    /**
+     * Deletes a project from the database.
+     */
+    async deleteProject() {
+        const project = this.dataStore.get('project');
+        const response = this.client.deleteProject(project.projectId);
+
+
+        if (response) {
+            console.log(project.projectName + " has been deleted.");
+            // Redirect to the projects page
+            window.location.href = '/viewProjects.html';
+        } else {
+            console.error("Failed to delete: " + project.projectName);
+        }
+
+
 
     }
 
