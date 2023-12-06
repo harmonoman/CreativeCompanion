@@ -52,12 +52,12 @@ class CreativeCompanionIndex extends BindingClass {
         }
 
     openModal() {
-            const modal = document.getElementById('myModal');
+            const modal = document.getElementById('projectModal');
             modal.style.display = 'block';
         }
 
     closeModal() {
-        const modal = document.getElementById('myModal');
+        const modal = document.getElementById('projectModal');
         modal.style.display = 'none';
     }
 
