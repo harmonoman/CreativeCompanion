@@ -27,9 +27,9 @@
     <div id="wordPool-container">
         <h2> Word Pool </h2>
         <div id="wordPool-field"></div>
-        <button class="button" id="add-wordPool" onclick="openModal()">Add Words</button>
-        <button class="button" id="import-wordPool">Import Word Pool</button>
         <button class="button" id="clear-wordPool" >Clear Word Pool</button>
+        <button class="button" id="import-wordPool">Import Word Pool</button>
+        <button class="button" id="add-wordPool" onclick="openProjectModal()">Add Words</button>
 
     </div>
 
@@ -38,16 +38,16 @@
         <h2> Workspace </h2>
         <div id="workspace-field" contenteditable="true"></div>
         <button class="button" id="clear-workspace">Clear Workspace</button>
-        <button class="button" id="save-project">Save Project</button>
         <button class="button" id="delete-project">Delete Project</button>
+        <button class="button" id="save-project">Save Project</button>
 
     </div>
 </div>
 
 <!--    Add Words modal-->
-<div id="myModal" class="modal">
+<div id="myProjectModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
+        <span class="close" onclick="closeProjectModal()">&times;</span>
         <!--        Datamuse queries: https://www.datamuse.com/api/-->
         <p>Choose an action:</p>
 

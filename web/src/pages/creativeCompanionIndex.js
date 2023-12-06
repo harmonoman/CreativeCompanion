@@ -35,6 +35,9 @@ class CreativeCompanionIndex extends BindingClass {
 
         const createProjectBtn = document.getElementById('createProjectBtn');
         createProjectBtn.addEventListener('click', () => {this.createProject()});
+
+        const createWordPoolBtn = document.getElementById('createWordPoolBtn');
+        createWordPoolBtn.addEventListener('click', () => {this.createWordPool()});
     }
 
     async clientLoaded() {
@@ -54,6 +57,8 @@ class CreativeCompanionIndex extends BindingClass {
             return this.createButton('Login', this.client.login);
         }
 
+    ///// PROJECT MODAL /////
+
     openProjectModal() {
             const projectModal = document.getElementById('projectModal');
             projectModal.style.display = 'block';
@@ -63,6 +68,8 @@ class CreativeCompanionIndex extends BindingClass {
         const projectModal = document.getElementById('projectModal');
         projectModal.style.display = 'none';
     }
+
+    ///// CREATE PROJECT /////
 
     /**
      * Creates a new project using user-provided project name.
@@ -100,6 +107,8 @@ class CreativeCompanionIndex extends BindingClass {
         this.closeProjectModal();
     }
 
+    ///// WORD POOL MODAL /////
+
     openWordPoolModal() {
         const wordPoolModal = document.getElementById('wordPoolModal');
         wordPoolModal.style.display = 'block';
@@ -109,6 +118,8 @@ class CreativeCompanionIndex extends BindingClass {
         const wordPoolModal = document.getElementById('wordPoolModal');
         wordPoolModal.style.display = 'none';
     }
+
+    ///// CREATE WORD POOL /////
 
     /**
      * Creates a new word pool using user-provided word pool name.
@@ -140,7 +151,7 @@ class CreativeCompanionIndex extends BindingClass {
         const wordPool = await this.client.createWordPool(wordPoolName);
 
         // Navigate to project.html with project ID
-        window.location.href = `project.html?projectId=${wordPool.wordPoolId}`;
+        window.location.href = `wordPool.html?wordPoolId=${wordPool.wordPoolId}`;
 
         // Close modal
         this.closeWordPoolModal();

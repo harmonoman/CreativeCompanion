@@ -3,7 +3,6 @@ package com.nashss.se.creativecompanion.requests;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
-@JsonDeserialize(builder = GetProjectRequest.Builder.class)
 public class GetProjectRequest {
 
     private final String userId;
@@ -33,8 +32,6 @@ public class GetProjectRequest {
     public static Builder builder() {
         return new Builder();
     }
-
-    @JsonPOJOBuilder
     public static class Builder {
         private String userId;
         private String projectId;
