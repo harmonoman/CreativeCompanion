@@ -16,7 +16,8 @@ export default class CreativeCompanionClient extends BindingClass {
         super();
 
         const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createProject', 'getProject',
-        'getProjectList', 'updateProject', 'deleteProject'];
+        'getProjectList', 'updateProject', 'deleteProject', 'createWordPool', 'getWordPool', 'getWordPoolList',
+        'updateWordPool', 'deleteWordPool'];
 
         this.bindClassMethods(methodsToBind, this);
 
@@ -28,7 +29,7 @@ export default class CreativeCompanionClient extends BindingClass {
         this.clientLoaded();
     }
 
-/**
+    /**
      * Run any functions that are supposed to be called once the client has loaded successfully.
      */
     clientLoaded() {
@@ -37,7 +38,7 @@ export default class CreativeCompanionClient extends BindingClass {
         }
     }
 
-/**
+    /**
      * Get the identity of the current user
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The user information for the current user.
@@ -91,6 +92,7 @@ export default class CreativeCompanionClient extends BindingClass {
         return await this.authenticator.getUserToken();
     }
 
+    ///// PROJECT /////
     /**
      * Create a new project owned by the current user.
      * @param projectName The name of the project to create.
@@ -155,7 +157,7 @@ export default class CreativeCompanionClient extends BindingClass {
     }
 
 
-    /*
+    /**
      * Gets the projects for the given ID.
      * @returns The project's metadata.
      */
@@ -178,43 +180,142 @@ export default class CreativeCompanionClient extends BindingClass {
      * Updates the project for the given projectID.
      * @returns The project's metadata.
      */
-     async updateProject(projectId, projectData, errorCallback) {
-         try {
-            const token = await this.getTokenOrThrow("Only authenticated users can update projects.");
-            const response = await this.axiosClient.put(`projects/${projectId}`, projectData, {
+    async updateProject(projectId, projectData, errorCallback) {
+        try {
+           const token = await this.getTokenOrThrow("Only authenticated users can update projects.");
+           const response = await this.axiosClient.put(`projects/${projectId}`, projectData, {
+               headers: {
+                   Authorization: `Bearer ${token}`
+               }
+           });
+           return response.data.project;
+       } catch (error) {
+           this.handleError(error, errorCallback)
+       }
+    }
+
+    /**
+     * Deletes the project for the given projectID.
+     * @returns The project's metadata.
+     */
+    async deleteProject(projectId, errorCallback) {
+        try {
+           const token = await this.getTokenOrThrow("Only authenticated users can update projects.");
+           const response = await this.axiosClient.delete(`projects/${projectId}`, {
+               headers: {
+                   Authorization: `Bearer ${token}`
+               }
+           });
+           return response.data.project;
+       } catch (error) {
+           this.handleError(error, errorCallback)
+       }
+    }
+
+    ///// WORD POOL /////
+
+    /**
+     * Create a new word pool owned by the current user.
+     * @param wordPoolName The name of the word pool to create.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns The word pool that has been created.
+     */
+    async createWordPool(wordPoolName, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can create word pools.");
+            const response = await this.axiosClient.post(`word-pools`, {
+                wordPoolName: wordPoolName
+            }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
-            return response.data.project;
+
+            return response.data.wordPool;
+        } catch (error) {
+            this.handleError(error, errorCallback);
+        }
+    }
+
+    /**
+     * Gets the word pool for the given ID.
+     * @param id Unique identifier for a word pool
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns The word pool's metadata.
+     */
+    async getWordPool(wordPoolId, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can get word pool.");
+            const response = await this.axiosClient.get(`word-pools/${wordPoolId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.wordPool;
         } catch (error) {
             this.handleError(error, errorCallback)
         }
-     }
-
-     /**
-      * Deletes the project for the given projectID.
-      * @returns The project's metadata.
-      */
-      async deleteProject(projectId, errorCallback) {
-          try {
-             const token = await this.getTokenOrThrow("Only authenticated users can update projects.");
-             const response = await this.axiosClient.delete(`projects/${projectId}`, {
-                 headers: {
-                     Authorization: `Bearer ${token}`
-                 }
-             });
-             return response.data.project;
-         } catch (error) {
-             this.handleError(error, errorCallback)
-         }
-      }
+    }
 
     /**
-    * Helper method to log the error and run any error functions.
-    * @param error The error received from the server.
-    * @param errorCallback (Optional) A function to execute if the call fails.
-    */
+     * Gets the word pools for the given ID.
+     * @returns The word pool's metadata.
+     */
+    async getWordPoolList() {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can get word pools.");
+            const response = await this.axiosClient.get(`word-pools`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.wordPools;
+        } catch (error) {
+            this.handleError(error, errorCallback)
+        }
+    }
+
+    /**
+     * Updates the word pool for the given wordPoolID.
+     * @returns The word pool's metadata.
+     */
+    async updateWordPool(wordPoolId, wordPoolData, errorCallback) {
+        try {
+           const token = await this.getTokenOrThrow("Only authenticated users can update word pools.");
+           const response = await this.axiosClient.put(`word-pools/${wordPoolId}`, wordPoolData, {
+               headers: {
+                   Authorization: `Bearer ${token}`
+               }
+           });
+           return response.data.wordPool;
+       } catch (error) {
+           this.handleError(error, errorCallback)
+       }
+    }
+
+    /**
+     * Deletes the word pool for the given wordPoolID.
+     * @returns The word pool's metadata.
+     */
+    async deleteWordPool(wordPoolId, errorCallback) {
+        try {
+           const token = await this.getTokenOrThrow("Only authenticated users can update word pools.");
+           const response = await this.axiosClient.delete(`word-pools/${wordPoolId}`, {
+               headers: {
+                   Authorization: `Bearer ${token}`
+               }
+           });
+           return response.data.wordPool;
+       } catch (error) {
+           this.handleError(error, errorCallback)
+       }
+    }
+
+    /**
+     * Helper method to log the error and run any error functions.
+     * @param error The error received from the server.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     */
     handleError(error, errorCallback) {
         console.error(error);
 

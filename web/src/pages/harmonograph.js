@@ -104,9 +104,6 @@ window.onload = function () {
                 // If any parameter is not present in localStorage, use a default value
             }
 
-
-
-
         // Function to save harmonograph parameters to localStorage
             function saveHarmonographParameters() {
                 sessionStorage.setItem('amplitude1', amplitude1.toString());

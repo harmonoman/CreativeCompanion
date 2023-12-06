@@ -7,9 +7,9 @@ class Project extends BindingClass {
     constructor() {
         super();
 
-        this.bindClassMethods(['mount', 'initDraggableElements', 'dropText', 'openModal', 'closeModal', 'performAction',
-        'updateProject', 'clientLoaded', 'collectAndUpdateProject', 'addWordsToPage', 'clearWordPool', 'clearWorkspace',
-        'deleteProject'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'initDraggableElements', 'dropText', 'openProjectModal',
+        'closeProjectModal', 'performAction','collectAndUpdateProject', 'addWordsToPage', 'clearWordPool',
+        'clearWorkspace','deleteProject'], this);
 
         this.workspaceField = null; // Initialize Workspace Field
 
@@ -18,7 +18,7 @@ class Project extends BindingClass {
 
         this.header = new Header(this.dataStore);
 
-        console.log("project constructor");
+        console.log("Project constructor");
     }
 
     /**
@@ -47,20 +47,20 @@ class Project extends BindingClass {
         window.dropText = this.dropText.bind(this);
         window.dropText = this.dropText;
 
-        window.openModal = this.openModal.bind(this);
-        window.closeModal = this.closeModal.bind(this);
+        window.openProjectModal = this.openProjectModal.bind(this);
+        window.closeProjectModal = this.closeProjectModal.bind(this);
         window.performAction = this.performAction.bind(this);
 
         // Save Project button
         const saveProjectButton = document.getElementById('save-project');
         saveProjectButton.addEventListener('click', this.collectAndUpdateProject);
-
+        // Clear Word Pool button
         const clearWordPoolButton = document.getElementById('clear-wordPool');
         clearWordPoolButton.addEventListener('click', this.clearWordPool);
-
+        // Clear Workspace button
         const clearWorkspaceButton = document.getElementById('clear-workspace');
         clearWorkspaceButton.addEventListener('click', this.clearWorkspace);
-
+        // Delete Project button
         const deleteProjectButton = document.getElementById('delete-project');
         deleteProjectButton.addEventListener('click', this.deleteProject);
 
@@ -117,13 +117,13 @@ class Project extends BindingClass {
 
     }
 
-    openModal() {
-        const modal = document.getElementById('myModal');
+    openProjectModal() {
+        const modal = document.getElementById('myProjectModal');
         modal.style.display = 'block';
     }
 
-    closeModal() {
-        const modal = document.getElementById('myModal');
+    closeProjectModal() {
+        const modal = document.getElementById('myProjectModal');
         modal.style.display = 'none';
     }
 
@@ -165,7 +165,7 @@ class Project extends BindingClass {
         } catch (error) {
             console.error(`Error fetching data from Datamuse API for ${action}:`, error);
         } finally {
-            this.closeModal();
+            this.closeProjectModal();
         }
     }
 
@@ -184,32 +184,32 @@ class Project extends BindingClass {
 
         // Iterate through results and append to Word Pool field
         if (Array.isArray(results)) {
-                results.forEach(result => {
-                    const wordElement = document.createElement('p');
-                    let wordText;
+            results.forEach(result => {
+                const wordElement = document.createElement('p');
+                let wordText;
 
-                    if (typeof result === 'object') {
-                        // If result is an object, assume it has a "word" property
-                        wordText = result.word;
-                    } else if (typeof result === 'string') {
-                        // If result is a string, use it directly
-                        wordText = result;
-                    } else {
-                        console.error('Invalid result format. Expected an object or a string.');
-                        return; // Skip to next iteration
-                    }
+                if (typeof result === 'object') {
+                    // If result is an object, assume it has a "word" property
+                    wordText = result.word;
+                } else if (typeof result === 'string') {
+                    // If result is a string, use it directly
+                    wordText = result;
+                } else {
+                    console.error('Invalid result format. Expected an object or a string.');
+                    return; // Skip to next iteration
+                }
 
-                    wordElement.textContent = wordText;
-                    wordElement.draggable = true;
+                wordElement.textContent = wordText;
+                wordElement.draggable = true;
 
-                    // Dragstart event listener
-                    wordElement.addEventListener('dragstart', (event) => {
-                        event.dataTransfer.setData('text/plain', wordText);
-                    });
-
-                    // Append text to Word Pool
-                    wordPoolField.appendChild(wordElement);
+                // Dragstart event listener
+                wordElement.addEventListener('dragstart', (event) => {
+                    event.dataTransfer.setData('text/plain', wordText);
                 });
+
+                // Append text to Word Pool
+                wordPoolField.appendChild(wordElement);
+            });
 
         } else {
             console.error('Invalid results format. Expected an array.');
@@ -273,26 +273,6 @@ class Project extends BindingClass {
         workspaceField.innerHTML = '';
     }
 
-
-    ///// UPDATE PROJECT /////
-    /**
-     * Updates a project with the specified data.
-     * @param projectId - ID of project to update.
-     * @param updateData - Data to update project.
-     */
-    async updateProject(projectId, updateData) {
-        try {
-            const updatedProject = await this.client.updateProject(projectId, updateData);
-
-            this.dataStore.set('project', updatedProject);
-
-        } catch (error) {
-            console.error('Error updating project:', error);
-            // Handle errors or show error messages to the user
-        }
-    }
-
-
     ///// COLLECT and UPDATE PROJECT /////
     /**
      * Collects data from fields and updates project.
@@ -320,8 +300,10 @@ class Project extends BindingClass {
                 workspace: workspaceData,
             };
 
-            // Call the updateProject method with the collected data
-            this.updateProject(projectIdToUpdate, updateData);
+            // Update project
+            const updatedProject = await this.client.updateProject(projectIdToUpdate, updateData);
+
+            this.dataStore.set('project', updatedProject);
 
         } catch (error) {
             console.error('Error collecting and updating project:', error);
@@ -385,8 +367,9 @@ class Project extends BindingClass {
      */
     async deleteProject() {
         const project = this.dataStore.get('project');
-        const response = this.client.deleteProject(project.projectId);
 
+        // Delete project
+        const response = this.client.deleteProject(project.projectId);
 
         if (response) {
             console.log(project.projectName + " has been deleted.");
@@ -395,9 +378,6 @@ class Project extends BindingClass {
         } else {
             console.error("Failed to delete: " + project.projectName);
         }
-
-
-
     }
 
 }
