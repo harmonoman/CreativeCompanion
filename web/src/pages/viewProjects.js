@@ -2,10 +2,9 @@ import CreativeCompanionClient from '../api/creativeCompanionClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
-//import Project from "../pages/project";
 
 /**
- * Logic needed for the view playlist page of the website.
+ * Logic needed for the view project page of the website.
  */
 class ViewProjects extends BindingClass {
     constructor() {
@@ -66,7 +65,7 @@ class ViewProjects extends BindingClass {
             const option = new Option(project.projectName, project.projectId);
 
             // Add margin or padding to create spacing
-            option.style.marginBottom = '20px'; // Adjust the value as needed
+            option.style.marginBottom = '20px';
 
             optionList.add(option);
         });
