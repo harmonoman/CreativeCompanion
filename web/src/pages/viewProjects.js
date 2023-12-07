@@ -65,7 +65,7 @@ class ViewProjects extends BindingClass {
             const option = new Option(project.projectName, project.projectId);
 
             // Add margin or padding to create spacing
-            option.style.marginBottom = '20px'; // Adjust the value as needed
+            option.style.marginBottom = '20px';
 
             optionList.add(option);
         });

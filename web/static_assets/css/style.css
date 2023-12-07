@@ -257,7 +257,7 @@ canvas {
   cursor: pointer;
 }
 
-#projectsSelect {
+#projectsSelect, #wordPoolsSelect {
     height: 500px; /* Adjust the maximum height as needed */
     width: 500px; /* Adjust the maximum height as needed */
 
@@ -265,7 +265,7 @@ canvas {
     overflow-x: auto; /* Enable vertical scrolling if needed */
     font-size: 30px; /* Adjust the font size as needed */
     padding: 20px;
-        text-align:center
+    text-align:center
 
 }
 
