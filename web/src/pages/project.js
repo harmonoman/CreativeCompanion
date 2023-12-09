@@ -33,6 +33,10 @@ class Project extends BindingClass {
 
         console.log("project: " + project.projectId);
         this.dataStore.set('project', project);
+
+//        const projectNameElement = document.getElementById('projectNameElement');
+
+//        projectNameElement.classList.add('shadow-wrapper');
         document.getElementById('projectNameElement').innerText = project.projectName;
     }
 
@@ -357,7 +361,10 @@ class Project extends BindingClass {
             workspaceField.appendChild(wordElement);
         });
 
+//        const projectNameElement = document.getElementById('projectNameElement');
+
         document.getElementById('projectNameElement').innerText = project.projectName;
+
 
     }
 

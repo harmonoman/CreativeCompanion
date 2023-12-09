@@ -42,6 +42,7 @@ class CreativeCompanionIndex extends BindingClass {
 
     async clientLoaded() {
         const userName = await this.client.getUserName();
+        const welcomeMessage = document.getElementById("welcome-message");
         const buttonGroup = document.querySelector(".button-group");
 
         if (userName == undefined){
@@ -51,6 +52,9 @@ class CreativeCompanionIndex extends BindingClass {
             document.getElementById("welcome-message").innerText = 'Welcome, ' + userName + '!';
             buttonGroup.style.display = 'flex'; // Show the button group
         }
+
+        // Always add the shadow-wrapper class
+         welcomeMessage.classList.add('shadow-wrapper');
 
         // Populate dataStore with existing projects
         const projects = await this.client.getProjectList();
