@@ -9,7 +9,7 @@ import DataStore from "../util/DataStore";
 class ViewProjects extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addProjectsToPage', 'redirectToViewProject', 'submit'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addProjectsToPage', 'redirectToViewProject', 'submit1', 'submit2'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addProjectsToPage);
         this.header = new Header(this.dataStore);
@@ -34,7 +34,8 @@ class ViewProjects extends BindingClass {
      * Add the header to the page and load the MusicPlaylistClient.
      */
     mount() {
-        document.getElementById('projectsSelect').addEventListener('click', this.submit);
+        document.getElementById('projectsSelect').addEventListener('click', this.submit1);
+        document.getElementById('searchProjectBtn').addEventListener('click', this.submit2);
 
         this.header.addHeaderToPage();
 
@@ -78,18 +79,52 @@ class ViewProjects extends BindingClass {
         }
     }
 
-    async submit(evt) {
+    async submit1(evt) {
+             evt.preventDefault();
+
+             const errorMessageDisplay = document.getElementById('error-message');
+             errorMessageDisplay.innerText = ``;
+             errorMessageDisplay.classList.add('hidden');
+
+             const projectId = document.getElementById('projectsSelect').value;
+             console.log("(submit1) selected project's id: " + projectId);
+
+             this.redirectToViewProject(projectId);
+             }
+
+
+    redirectToViewProjectByName(projectId) {
+        // Get project name
+        const projectNameInput = document.getElementById('projectNameInput');
+        const projectName = projectNameInput.value.trim();
+        console.log("projectName: " + projectName);
+
+
+        const project = this.client.getProjectByName(projectName);
+        console.log("(redirectToViewProjectByName) here is the supposed projectId: " + projectId)
+        if (projectId != null) {
+            window.location.href = `/project.html?projectId=${project.projectId}`;
+        }
+    }
+
+    async submit2(evt) {
         evt.preventDefault();
 
         const errorMessageDisplay = document.getElementById('error-message');
         errorMessageDisplay.innerText = ``;
         errorMessageDisplay.classList.add('hidden');
 
-        const projectId = document.getElementById('projectsSelect').value;
-        console.log("(submit) selected project's id: " + projectId);
+        const projectName = document.getElementById('projectNameInput').value.trim();
+        console.log("(submit2) selected project's name: " + projectName);
 
-        this.redirectToViewProject(projectId);
+        const project = await this.client.getProjectByName(projectName);
+        console.log("(submit) here is the supposed projectId based on the name: " + JSON.stringify(project));
+
+        if (project.projectId != null) {
+            this.redirectToViewProject(project.projectId);
+        }
     }
+
 
 }
 

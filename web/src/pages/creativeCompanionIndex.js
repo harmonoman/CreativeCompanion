@@ -51,6 +51,14 @@ class CreativeCompanionIndex extends BindingClass {
             document.getElementById("welcome-message").innerText = 'Welcome, ' + userName + '!';
             buttonGroup.style.display = 'flex'; // Show the button group
         }
+
+        // Populate dataStore with existing projects
+        const projects = await this.client.getProjectList();
+        this.dataStore.set('projects', projects);
+
+        // Populate dataStore with existing projects
+        const wordPools = await this.client.getWordPoolList();
+        this.dataStore.set('wordPools', wordPools);
     }
 
     createLoginButton() {
@@ -79,10 +87,24 @@ class CreativeCompanionIndex extends BindingClass {
      */
     async createProject() {
 
+        // Get existing projects from dataStore
+        const projects = await this.dataStore.get('projects') || [];
+        console.log("projects in createProject(): " + JSON.stringify(projects));
+
         // Get project name
         const projectNameInput = document.getElementById('projectNameInput');
         const projectName = projectNameInput.value.trim();
         console.log("projectName: " + projectName);
+
+        // Check to see if project already exists
+        let projectExists = false;
+
+        for (const project of projects) {
+            if (project.projectName === projectName) {
+                window.alert(`A project with the name "${projectName}" already exists. Please choose a different name.`);
+                return;
+            }
+        }
 
         // Check if element is found
         if (projectNameInput) {
@@ -129,10 +151,24 @@ class CreativeCompanionIndex extends BindingClass {
      */
     async createWordPool() {
 
+        // Get existing word pools from dataStore
+        const wordPools = await this.dataStore.get('wordPools') || [];
+        console.log("wordPools in createWordPool(): " + JSON.stringify(wordPools));
+
         // Get word pool name
         const wordPoolNameInput = document.getElementById('wordPoolNameInput');
         const wordPoolName = wordPoolNameInput.value.trim();
         console.log("wordPoolName: " + wordPoolName);
+
+        // Check to see if project already exists
+        let wordPoolExists = false;
+
+        for (const wordPool of wordPools) {
+            if (wordPool.wordPoolName === wordPoolName) {
+                window.alert(`A word pool with the name "${wordPoolName}" already exists. Please choose a different name.`);
+                return;
+            }
+        }
 
         // Check if element is found
         if (wordPoolNameInput) {

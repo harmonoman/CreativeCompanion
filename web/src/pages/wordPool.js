@@ -232,9 +232,10 @@ class WordPool extends BindingClass {
      */
     async deleteWordPool() {
         const wordPool = this.dataStore.get('wordPool');
+        console.log ("inside deleteWordPool: " + wordPool);
 
         // Delete word pool
-        const response = this.client.deleteProject(wordPool.wordPoolId);
+        const response = this.client.deleteWordPool(wordPool.wordPoolId);
 
         if (response) {
             console.log(wordPool.wordPoolName + " has been deleted.");

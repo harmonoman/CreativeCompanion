@@ -6,11 +6,13 @@ import com.nashss.se.creativecompanion.metrics.MetricsConstants;
 import com.nashss.se.creativecompanion.metrics.MetricsPublisher;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -100,6 +102,26 @@ public class ProjectDao {
         } else {
             // Project not found, deletion unsuccessful
             return false;
+        }
+    }
+
+    public Project getProjectByName(String userId, String projectName) {
+        Map<String, AttributeValue> valueMap = new HashMap<>();
+        valueMap.put(":userId", new AttributeValue().withS(userId));
+        valueMap.put(":projectName", new AttributeValue().withS(projectName));
+        DynamoDBQueryExpression<Project> queryExpression = new DynamoDBQueryExpression<Project>()
+                .withIndexName(Project.PROJECT_NAME_INDEX)
+                .withConsistentRead(false)
+                .withKeyConditionExpression("userId = :userId AND projectName = :projectName")
+                .withExpressionAttributeValues(valueMap)
+                .withLimit(1);
+
+        PaginatedQueryList<Project> queryResult = dynamoDbMapper.query(Project.class,queryExpression);
+
+        if (!queryResult.isEmpty()) {
+            return queryResult.get(0);
+        } else {
+            return null;
         }
     }
 }
