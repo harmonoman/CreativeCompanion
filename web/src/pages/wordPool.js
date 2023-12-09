@@ -197,11 +197,11 @@ class WordPool extends BindingClass {
     /**
      * When the project is updated in the datastore, repopulate the wordPool and workspace fields.
      */
-    addWordsToPage() {
+    async addWordsToPage() {
         const wordPoolField = document.getElementById('wordPool-field');
         wordPoolField.innerHTML = '';
 
-        const wordPool = this.dataStore.get('wordPool');
+        const wordPool = await this.dataStore.get('wordPool');
 
         if (wordPool == null) {
             console.log("wordPool is null")
@@ -230,7 +230,7 @@ class WordPool extends BindingClass {
     /**
      * Deletes a word pool from the database.
      */
-    async deleteWordPool() {
+    deleteWordPool() {
         const wordPool = this.dataStore.get('wordPool');
         console.log ("inside deleteWordPool: " + wordPool);
 
