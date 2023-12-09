@@ -206,7 +206,9 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: dynamodb:*
-                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/projects"
+                Resource:
+                  - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/projects"
+                  - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/projects/index/UserIdProjectNameIndex"
 
         - PolicyName: 'AccessWordPoolsTable'
           PolicyDocument:
@@ -280,6 +282,26 @@ Resources:
           Type: Api
           Properties:
             Path: /projects/{projectId}
+            Method: get
+
+  GetProjectByNameLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: CreativeCompanionLambda
+      Handler: com.nashss.se.creativecompanion.lambda.GetProjectByNameLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        CreativeCompanionService:
+          Type: Api
+          Properties:
+            Path: /projects/name/{projectName}
             Method: get
 
   GetProjectListLambda:
@@ -447,12 +469,14 @@ Resources:
       BillingMode: "PAY_PER_REQUEST"
       TableName: "projects"
       GlobalSecondaryIndexes:
-        - IndexName: ProjectsGSI
+        - IndexName: "UserIdProjectNameIndex"
           KeySchema:
-            - AttributeName: projectName
+            - AttributeName: "userId"
               KeyType: "HASH"
+            - AttributeName: "projectName"
+              KeyType: "RANGE"
           Projection:
-            ProjectionType: ALL
+            ProjectionType: "ALL"
 
   WordPoolsTable:
     Type: AWS::DynamoDB::Table
@@ -472,12 +496,12 @@ Resources:
       BillingMode: "PAY_PER_REQUEST"
       TableName: "word-pools"
       GlobalSecondaryIndexes:
-        - IndexName: WordPoolsGSI
+        - IndexName: "UserIdWordPoolNameIndex"
           KeySchema:
-            - AttributeName: wordPoolName
+            - AttributeName: "wordPoolName"
               KeyType: "HASH"
           Projection:
-            ProjectionType: ALL
+            ProjectionType: "ALL"
 
 #-----------------------------------------------------
 # The outputs defined below will be printed

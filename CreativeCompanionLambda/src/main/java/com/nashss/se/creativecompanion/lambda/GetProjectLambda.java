@@ -18,7 +18,6 @@ public class GetProjectLambda
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetProjectRequest> input, Context context) {
         log.info("handleRequest");
-        System.out.println("***** inside GetProjectLambda *****");
         return super.runActivity(
             () -> {
                 GetProjectRequest unauthenticatedRequest = input.fromPath(path ->

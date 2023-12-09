@@ -1,7 +1,9 @@
 package com.nashss.se.creativecompanion.dependency;
 
+import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.nashss.se.creativecompanion.activity.*;
 
+import com.nashss.se.creativecompanion.requests.GetProjectByNameRequest;
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -37,4 +39,5 @@ public interface ServiceComponent {
 
     DeleteWordPoolActivity provideDeleteWordPoolActivity();
 
+    GetProjectByNameActivity provideGetProjectByNameActivity();
 }

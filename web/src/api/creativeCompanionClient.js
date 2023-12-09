@@ -16,7 +16,7 @@ export default class CreativeCompanionClient extends BindingClass {
         super();
 
         const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createProject', 'getProject',
-        'getProjectList', 'updateProject', 'deleteProject', 'createWordPool', 'getWordPool', 'getWordPoolList',
+        'getProjectList', 'updateProject', 'deleteProject', 'getProjectByName', 'createWordPool', 'getWordPool', 'getWordPoolList',
         'updateWordPool', 'deleteWordPool'];
 
         this.bindClassMethods(methodsToBind, this);
@@ -137,27 +137,6 @@ export default class CreativeCompanionClient extends BindingClass {
     }
 
     /**
-     * Gets the project for the given ID.
-     * @param id Unique identifier for a project
-     * @param errorCallback (Optional) A function to execute if the call fails.
-     * @returns The project's metadata.
-     */
-    async getProject(projectId, errorCallback) {
-        try {
-            const token = await this.getTokenOrThrow("Only authenticated users can create projects.");
-            const response = await this.axiosClient.get(`projects/${projectId}`, {
-                 headers: {
-                     Authorization: `Bearer ${token}`
-                     }
-            });
-            return response.data.project;
-        } catch (error) {
-            this.handleError(error, errorCallback)
-        }
-    }
-
-
-    /**
      * Gets the projects for the given ID.
      * @returns The project's metadata.
      */
@@ -210,6 +189,24 @@ export default class CreativeCompanionClient extends BindingClass {
        } catch (error) {
            this.handleError(error, errorCallback)
        }
+    }
+
+    /**
+     * Gets the project for the given projectName.
+     * @returns The project's metadata.
+     */
+    async getProjectByName(projectName, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can get projects.");
+            const response = await this.axiosClient.get(`projects/name/${projectName}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.projectByName;
+        } catch (error) {
+            this.handleError(error)
+        }
     }
 
     ///// WORD POOL /////
