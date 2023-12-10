@@ -26,6 +26,10 @@ class ViewProjects extends BindingClass {
         this.dataStore.set('projects', projects);
         console.log("(clientLoaded) projects have been set")
         const userName = await this.client.getUserName();
+
+        const userNameElement = document.getElementById('user-name');
+
+        userNameElement.classList.add('shadow-wrapper');
         document.getElementById('user-name').innerText = userName + "'s Projects";
 
     }
