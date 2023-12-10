@@ -1,7 +1,11 @@
 package com.nashss.se.creativecompanion.dynamodb.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
-// import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexRangeKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,7 +15,7 @@ import java.util.Objects;
  */
 @DynamoDBTable(tableName = "projects")
 public class Project {
-    public static final String PROJECT_NAME_INDEX = "UserIdProjectNameIndex"; // should be more accurately named "ProjectNameIndex"
+    public static final String PROJECT_NAME_INDEX = "UserIdProjectNameIndex";
 
     private String userId;
     private String projectId;

@@ -1,10 +1,10 @@
 package com.nashss.se.creativecompanion.activity;
 
+import com.nashss.se.creativecompanion.converters.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
-import com.nashss.se.creativecompanion.dynamodb.models.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.models.Project;
-import com.nashss.se.creativecompanion.dynamodb.models.ProjectModel;
 import com.nashss.se.creativecompanion.metrics.MetricsPublisher;
+import com.nashss.se.creativecompanion.models.ProjectModel;
 import com.nashss.se.creativecompanion.requests.UpdateProjectRequest;
 import com.nashss.se.creativecompanion.results.UpdateProjectResult;
 
@@ -56,7 +56,8 @@ public class UpdateProjectActivity {
         project.setProjectId(updateProjectRequest.getProjectId());
         System.out.println("***** projectId in UpdateProjectActivity *****: " + updateProjectRequest.getProjectId());
         project.setProjectName(updateProjectRequest.getProjectName());
-        System.out.println("***** projectName in UpdateProjectActivity *****: " + updateProjectRequest.getProjectName());
+        System.out.println("***** projectName in UpdateProjectActivity *****: " +
+                updateProjectRequest.getProjectName());
         project.setWordPool(updateProjectRequest.getWordPool());
         project.setWorkspace(updateProjectRequest.getWorkspace());
         project = projectDao.saveProject(project);

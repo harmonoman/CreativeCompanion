@@ -105,6 +105,12 @@ public class ProjectDao {
         }
     }
 
+    /**
+     *
+     * @param userId String for the user Id.
+     * @param projectName String for the project name.
+     * @return Project object.
+     */
     public Project getProjectByName(String userId, String projectName) {
         Map<String, AttributeValue> valueMap = new HashMap<>();
         valueMap.put(":userId", new AttributeValue().withS(userId));
@@ -116,7 +122,7 @@ public class ProjectDao {
                 .withExpressionAttributeValues(valueMap)
                 .withLimit(1);
 
-        PaginatedQueryList<Project> queryResult = dynamoDbMapper.query(Project.class,queryExpression);
+        PaginatedQueryList<Project> queryResult = dynamoDbMapper.query(Project.class, queryExpression);
 
         if (!queryResult.isEmpty()) {
             return queryResult.get(0);

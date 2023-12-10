@@ -1,4 +1,9 @@
-package com.nashss.se.creativecompanion.dynamodb.models;
+package com.nashss.se.creativecompanion.converters;
+
+import com.nashss.se.creativecompanion.dynamodb.models.Project;
+import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
+import com.nashss.se.creativecompanion.models.ProjectModel;
+import com.nashss.se.creativecompanion.models.WordPoolModel;
 
 import java.util.ArrayList;
 import java.util.List;

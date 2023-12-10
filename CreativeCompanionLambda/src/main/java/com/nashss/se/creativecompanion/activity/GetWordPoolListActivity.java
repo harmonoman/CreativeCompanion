@@ -1,9 +1,9 @@
 package com.nashss.se.creativecompanion.activity;
 
+import com.nashss.se.creativecompanion.converters.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
-import com.nashss.se.creativecompanion.dynamodb.models.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
-import com.nashss.se.creativecompanion.dynamodb.models.WordPoolModel;
+import com.nashss.se.creativecompanion.models.WordPoolModel;
 import com.nashss.se.creativecompanion.requests.GetWordPoolListRequest;
 import com.nashss.se.creativecompanion.results.GetWordPoolListResult;
 

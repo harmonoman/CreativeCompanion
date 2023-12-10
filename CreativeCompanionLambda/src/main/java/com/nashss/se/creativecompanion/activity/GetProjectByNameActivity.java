@@ -1,13 +1,12 @@
 package com.nashss.se.creativecompanion.activity;
 
+import com.nashss.se.creativecompanion.converters.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
-import com.nashss.se.creativecompanion.dynamodb.models.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.models.Project;
-import com.nashss.se.creativecompanion.dynamodb.models.ProjectModel;
+import com.nashss.se.creativecompanion.models.ProjectModel;
 import com.nashss.se.creativecompanion.requests.GetProjectByNameRequest;
-import com.nashss.se.creativecompanion.requests.GetProjectRequest;
 import com.nashss.se.creativecompanion.results.GetProjectByNameResult;
-import com.nashss.se.creativecompanion.results.GetProjectResult;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -44,7 +43,8 @@ public class GetProjectByNameActivity {
     public GetProjectByNameResult handleRequest(final GetProjectByNameRequest getProjectByNameRequest) {
         log.info("Received GetProjectByNameRequest {}", getProjectByNameRequest);
 
-        Project result = projectDao.getProjectByName(getProjectByNameRequest.getUserId(), getProjectByNameRequest.getProjectName());
+        Project result = projectDao.getProjectByName(getProjectByNameRequest.getUserId(),
+                getProjectByNameRequest.getProjectName());
         ProjectModel projectModel = new ModelConverter().toProjectModel(result);
         System.out.println("***** inside GetProjectByNameActivity *****: " + result);
         return GetProjectByNameResult.builder()

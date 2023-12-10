@@ -2,10 +2,10 @@ package com.nashss.se.creativecompanion.activity;
 
 //import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 //import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.nashss.se.creativecompanion.converters.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
-import com.nashss.se.creativecompanion.dynamodb.models.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.models.Project;
-import com.nashss.se.creativecompanion.dynamodb.models.ProjectModel;
+import com.nashss.se.creativecompanion.models.ProjectModel;
 import com.nashss.se.creativecompanion.requests.CreateProjectRequest;
 import com.nashss.se.creativecompanion.results.CreateProjectResult;
 import com.nashss.se.creativecompanion.utils.ServiceUtils;

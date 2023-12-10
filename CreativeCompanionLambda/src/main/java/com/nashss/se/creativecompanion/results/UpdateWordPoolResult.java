@@ -1,6 +1,6 @@
 package com.nashss.se.creativecompanion.results;
 
-import com.nashss.se.creativecompanion.dynamodb.models.WordPoolModel;
+import com.nashss.se.creativecompanion.models.WordPoolModel;
 
 public class UpdateWordPoolResult {
 

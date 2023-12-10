@@ -54,7 +54,7 @@ class CreativeCompanionIndex extends BindingClass {
         }
 
         // Always add the shadow-wrapper class
-         welcomeMessage.classList.add('shadow-wrapper');
+        welcomeMessage.classList.add('shadow-wrapper');
 
         // Populate dataStore with existing projects
         const projects = await this.client.getProjectList();
