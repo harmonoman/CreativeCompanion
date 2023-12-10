@@ -27,16 +27,15 @@ class Project extends BindingClass {
     async clientLoaded() {
         const urlParams = new URLSearchParams(window.location.search);
         const projectId = urlParams.get('projectId');
+
+        const projectNameElement = document.getElementById('projectNameElement');
+        projectNameElement.classList.add('shadow-wrapper');
         document.getElementById('projectNameElement').innerText = "Loading Project ...";
         const project = await this.client.getProject(projectId);
         console.log("inside clientLoaded");
 
         console.log("project: " + project.projectId);
         this.dataStore.set('project', project);
-
-        const projectNameElement = document.getElementById('projectNameElement');
-
-        projectNameElement.classList.add('shadow-wrapper');
         document.getElementById('projectNameElement').innerText = project.projectName;
     }
 
