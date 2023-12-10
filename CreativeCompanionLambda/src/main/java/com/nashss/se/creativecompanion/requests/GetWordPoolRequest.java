@@ -26,26 +26,44 @@ public class GetWordPoolRequest {
                 '}';
     }
 
-    public static GetWordPoolRequest.Builder builder() {
-        return new GetWordPoolRequest.Builder();
+    /**
+     * builder method for the GetWordPoolRequest class.
+     * @return Builder object
+     */
+    public static Builder builder() {
+        return new Builder();
     }
 
+    /**
+     * Builder for the GetWordPoolRequest class.
+     */
     public static class Builder {
         private String userId;
         private String wordPoolId;
 
-        public GetWordPoolRequest.Builder withUserId(String newUserId) {
+        /**
+         * withUserId method for the GetWordPoolRequest builder class.
+         * @param newUserId String representing the new userId.
+         * @return Builder
+         */
+        public Builder withUserId(String newUserId) {
             this.userId = newUserId;
             return this;
         }
 
-        public GetWordPoolRequest.Builder withWordPoolId(String newWordPoolId) {
+        /**
+         * withWordPoolId method for the GetWordPoolRequest builder class.
+         * @param newWordPoolId String representing the new wordPoolId.
+         * @return Builder
+         */
+        public Builder withWordPoolId(String newWordPoolId) {
             this.wordPoolId = newWordPoolId;
             return this;
         }
 
-        /*
-        build method for GetWordPoolRequest builder
+        /**
+         * build method for the GetWordPoolRequest builder class.
+         * @return GetWordPoolRequest object
          */
         public GetWordPoolRequest build() {
             return new GetWordPoolRequest(userId, wordPoolId);

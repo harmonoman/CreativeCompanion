@@ -21,15 +21,24 @@ public class GetProjectByNameResult {
                 '}';
     }
 
+    /**
+     * builder method for the GetProjectByNameResult class.
+     * @return Builder object
+     */
     public static Builder builder() {
         return new Builder();
     }
 
     public static class Builder {
-        private ProjectModel project ;
+        private ProjectModel builderProject ;
 
-        public GetProjectByNameResult.Builder withProjectName(ProjectModel project) {
-            this.project = project;
+        /**
+         * withProjectName method for the GetProjectByNameResult builder class.
+         * @param project String representing the ProjectModel.
+         * @return Builder
+         */
+        public Builder withProjectName(ProjectModel project) {
+            this.builderProject = project;
             return this;
         }
 
@@ -38,7 +47,7 @@ public class GetProjectByNameResult {
          * @return GetProjectByNameResult
          */
         public GetProjectByNameResult build() {
-            return new GetProjectByNameResult(project);
+            return new GetProjectByNameResult(builderProject);
         }
     }
 
