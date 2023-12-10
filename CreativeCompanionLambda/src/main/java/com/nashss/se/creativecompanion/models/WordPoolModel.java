@@ -87,21 +87,32 @@ public class WordPoolModel {
             return this;
         }
 
+        /**
+         * withWordPoolName method for the WordPoolModel builder.
+         * @param newWordPoolName String with new WordPoolName
+         * @return Builder
+         */
         public Builder withWordPoolName(String newWordPoolName) {
             this.wordPoolName = newWordPoolName;
             return this;
         }
 
+        /**
+         * withWordPool method for the WordPoolModel builder.
+         * @param newWordPool String with new WordPool
+         * @return Builder
+         */
         public Builder withWordPool(List<String> newWordPool) {
             this.wordPool = new ArrayList<>(newWordPool);
             return this;
         }
 
+        /**
+         * build method for the WordPoolModel builder.
+         * @return WordPoolModel
+         */
         public WordPoolModel build() {
             return new WordPoolModel(userId, wordPoolId, wordPoolName , wordPool);
         }
-
-
-
     }
 }

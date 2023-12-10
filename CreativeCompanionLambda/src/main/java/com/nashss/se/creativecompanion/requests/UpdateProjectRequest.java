@@ -27,6 +27,10 @@ public class UpdateProjectRequest {
         return userId;
     }
 
+    /**
+     * Getter method for the UpdateProjectRequest class.
+     * @return projectId
+     */
     public String getProjectId() {
         System.out.println("***** inside UpdateProjectRequest *****: " + projectId);
         return projectId;
