@@ -1,6 +1,6 @@
 package com.nashss.se.creativecompanion.results;
 
-import com.nashss.se.creativecompanion.dynamodb.models.ProjectModel;
+import com.nashss.se.creativecompanion.models.ProjectModel;
 
 public class GetProjectByNameResult {
 
@@ -33,6 +33,10 @@ public class GetProjectByNameResult {
             return this;
         }
 
+        /**
+         * Builds a result for the project.
+         * @return GetProjectByNameResult
+         */
         public GetProjectByNameResult build() {
             return new GetProjectByNameResult(project);
         }

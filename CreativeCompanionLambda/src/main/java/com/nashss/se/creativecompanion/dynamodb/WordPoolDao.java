@@ -10,7 +10,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 
 import java.util.List;
 import javax.inject.Inject;
-import javax.inject.Singleton;
+
 public class WordPoolDao {
     private final DynamoDBMapper dynamoDbMapper;
     private final MetricsPublisher metricsPublisher;

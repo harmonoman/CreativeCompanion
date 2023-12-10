@@ -1,4 +1,4 @@
-package com.nashss.se.creativecompanion.dynamodb.models;
+package com.nashss.se.creativecompanion.models;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.nashss.se.creativecompanion.dynamodb.models;
+package com.nashss.se.creativecompanion.models;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +53,10 @@ public class WordPoolModel {
         return Objects.hash(userId, wordPoolId, wordPoolName, wordPool);
     }
 
+    /**
+     * builder method for the WordPoolModel.
+     * @return Builder
+     */
     public static Builder builder() {
         return new Builder();
     }
@@ -63,11 +67,21 @@ public class WordPoolModel {
         private String wordPoolName;
         private List<String> wordPool;
 
+        /**
+         * withUserId method for the WordPoolModel builder.
+         * @param newUserId String with new UserId
+         * @return Builder
+         */
         public Builder withUserId(String newUserId) {
             this.userId = newUserId;
             return this;
         }
 
+        /**
+         * withWordPoolId method for the WordPoolModel builder.
+         * @param newWordPoolId String with new WordPoolId
+         * @return Builder
+         */
         public Builder withWordPoolId(String newWordPoolId) {
             this.wordPoolId = newWordPoolId;
             return this;

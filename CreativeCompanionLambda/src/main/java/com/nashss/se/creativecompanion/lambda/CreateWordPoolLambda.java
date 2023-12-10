@@ -11,8 +11,7 @@ public class CreateWordPoolLambda extends LambdaActivityRunner<CreateWordPoolReq
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<CreateWordPoolRequest> input, Context context) {
         return super.runActivity(
-            () ->
-            {
+            () -> {
                 CreateWordPoolRequest unauthenticatedRequest = input.fromBody(CreateWordPoolRequest.class);
                 return input.fromUserClaims(claims ->
                         CreateWordPoolRequest.builder()

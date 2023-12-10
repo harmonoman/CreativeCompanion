@@ -1,6 +1,6 @@
 package com.nashss.se.creativecompanion.results;
 
-import com.nashss.se.creativecompanion.dynamodb.models.ProjectModel;
+import com.nashss.se.creativecompanion.models.ProjectModel;
 
 import java.util.ArrayList;
 import java.util.List;

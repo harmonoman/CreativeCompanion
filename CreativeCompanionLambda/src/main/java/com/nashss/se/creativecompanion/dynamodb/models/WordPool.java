@@ -1,13 +1,17 @@
 package com.nashss.se.creativecompanion.dynamodb.models;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import java.util.List;
 import java.util.Objects;
 
 @DynamoDBTable(tableName = "word-pools")
 public class WordPool {
-    public static final String WORD_POOL_NAME_INDEX = "WordPoolsGSI"; // should be more accurately named "WordPoolNameIndex"
+    public static final String WORD_POOL_NAME_INDEX = "UserIdWordPoolNameIndex";
 
     private String userId;
     private String wordPoolId;

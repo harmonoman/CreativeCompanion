@@ -29,8 +29,8 @@ public class GetProjectLambda
                                     .withUserId(claims.get("email"))
                                     .withProjectId(unauthenticatedRequest.getProjectId())
                                     .build());
-                },
-                (request, serviceComponent) ->
+            },
+            (request, serviceComponent) ->
                         serviceComponent.provideGetProjectActivity().handleRequest(request)
         );
 

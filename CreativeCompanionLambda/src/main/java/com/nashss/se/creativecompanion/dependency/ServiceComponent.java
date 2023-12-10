@@ -1,9 +1,17 @@
 package com.nashss.se.creativecompanion.dependency;
 
-import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.nashss.se.creativecompanion.activity.*;
+import com.nashss.se.creativecompanion.activity.CreateProjectActivity;
+import com.nashss.se.creativecompanion.activity.CreateWordPoolActivity;
+import com.nashss.se.creativecompanion.activity.DeleteProjectActivity;
+import com.nashss.se.creativecompanion.activity.DeleteWordPoolActivity;
+import com.nashss.se.creativecompanion.activity.GetProjectActivity;
+import com.nashss.se.creativecompanion.activity.GetProjectByNameActivity;
+import com.nashss.se.creativecompanion.activity.GetProjectListActivity;
+import com.nashss.se.creativecompanion.activity.GetWordPoolActivity;
+import com.nashss.se.creativecompanion.activity.GetWordPoolListActivity;
+import com.nashss.se.creativecompanion.activity.UpdateProjectActivity;
+import com.nashss.se.creativecompanion.activity.UpdateWordPoolActivity;
 
-import com.nashss.se.creativecompanion.requests.GetProjectByNameRequest;
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -21,23 +29,63 @@ public interface ServiceComponent {
      */
     CreateProjectActivity provideCreateProjectActivity();
 
+    /**
+     * Provides the relevant activity.
+     * @return CreateWordPoolActivity
+     */
     CreateWordPoolActivity provideCreateWordPoolActivity();
 
+    /**
+     * Provides the relevant activity.
+     * @return GetProjectActivity
+     */
     GetProjectActivity provideGetProjectActivity();
 
+    /**
+     * Provides the relevant activity.
+     * @return GetWordPoolActivity
+     */
     GetWordPoolActivity provideGetWordPoolActivity();
 
+    /**
+     * Provides the relevant activity.
+     * @return GetProjectListActivity
+     */
     GetProjectListActivity provideGetProjectListActivity();
 
+    /**
+     * Provides the relevant activity.
+     * @return GetWordPoolListActivity
+     */
     GetWordPoolListActivity provideGetWordPoolListActivity();
 
+    /**
+     * Provides the relevant activity.
+     * @return UpdateProjectActivity
+     */
     UpdateProjectActivity provideUpdateProjectActivity();
 
+    /**
+     * Provides the relevant activity.
+     * @return UpdateWordPoolActivity
+     */
     UpdateWordPoolActivity provideUpdateWordPoolActivity();
 
+    /**
+     * Provides the relevant activity.
+     * @return DeleteProjectActivity
+     */
     DeleteProjectActivity provideDeleteProjectActivity();
 
+    /**
+     * Provides the relevant activity.
+     * @return DeleteWordPoolActivity
+     */
     DeleteWordPoolActivity provideDeleteWordPoolActivity();
 
+    /**
+     * Provides the relevant activity.
+     * @return GetProjectByNameActivity
+     */
     GetProjectByNameActivity provideGetProjectByNameActivity();
 }
