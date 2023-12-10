@@ -33,6 +33,7 @@ window.onload = function () {
         const x = amplitude1 * Math.sin(frequency1 * time + phase1) * Math.exp(-damping * time);
         const y = amplitude2 * Math.sin(frequency2 * time + phase2) * Math.exp(-damping * time);
 
+
         // Calculate the color based on the evolving time
         const red = Math.sin(0.01 * time) * 127 + 128;
         const green = Math.sin(0.02 * time) * 127 + 128;
@@ -45,7 +46,7 @@ window.onload = function () {
         ctx.fill();
 
         // Update time for animation
-        time += 0.01; // Double the speed
+        time += 0.0145; // Double the speed
 
         // Request the next animation frame
         requestAnimationFrame(drawHarmonograph);
@@ -67,14 +68,20 @@ window.onload = function () {
     function resetHarmonograph() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         amplitude1 = getRandomValue(minAmplitude, maxAmplitude);
+        console.log("(resetHarmonograph) amplitude1: " + amplitude1);
         frequency1 = getRandomValue(0.1, 1);
+        console.log("(resetHarmonograph) frequency1: " + frequency1);
         phase1 = 0;
 
         amplitude2 = getRandomValue(minAmplitude, maxAmplitude);
+        console.log("(resetHarmonograph) amplitude2: " + amplitude2);
         frequency2 = getRandomValue(0.1, 1);
+        console.log("(resetHarmonograph) frequency1: " + frequency1);
+
         phase2 = Math.PI / 2;
 
-        damping = getRandomValue(0.0001, 0.001);
+        damping = getRandomValue(0.0003, 0.0004);
+        console.log("(resetHarmonograph) damping: " + damping);
 
         // Save harmonograph parameters to localStorage
         saveHarmonographParameters();
