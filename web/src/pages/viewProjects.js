@@ -20,13 +20,19 @@ class ViewProjects extends BindingClass {
          * Once the client is loaded, get the project metadata and project list.
          */
     async clientLoaded() {
-        document.getElementById('projectsSelect').innerText = "(Loading Projects...)";
+
+        const projectSelect = document.getElementById('projectsSelect');
+            projectSelect.classList.add('shadow-wrapper');
+            document.getElementById('projectsSelect').innerText = "(Loading Projects...)";
         const projects = await this.client.getProjectList();
         console.log("(clientLoaded) projects should be here: " + projects);
         this.dataStore.set('projects', projects);
         console.log("(clientLoaded) projects have been set")
         const userName = await this.client.getUserName();
-        document.getElementById('user-name').innerText = userName + "'s Projects";
+
+        const userNameElement = document.getElementById('user-name');
+            userNameElement.classList.add('shadow-wrapper');
+            document.getElementById('user-name').innerText = userName + "'s Projects";
 
     }
 

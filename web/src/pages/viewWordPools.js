@@ -20,13 +20,20 @@ class ViewWordPools extends BindingClass {
      * Once the client is loaded, get the project metadata and project list.
      */
     async clientLoaded() {
-        document.getElementById('wordPoolsSelect').innerText = "(Loading Word Pools...)";
+        const wordPoolsSelect = document.getElementById('wordPoolsSelect');
+            wordPoolsSelect.classList.add('shadow-wrapper');
+            document.getElementById('wordPoolsSelect').innerText = "(Loading Word Pools...)";
+
         const wordPools = await this.client.getWordPoolList();
         console.log("(clientLoaded) wordPools should be here: " + wordPools);
+
         this.dataStore.set('wordPools', wordPools);
         console.log("(clientLoaded) wordPools have been set")
+
         const userName = await this.client.getUserName();
-        document.getElementById('user-name').innerText = userName + "'s WordPools";
+        const user = document.getElementById('user-name');
+            user.classList.add('shadow-wrapper');
+            document.getElementById('user-name').innerText = userName + "'s WordPools";
 
     }
 
@@ -72,7 +79,7 @@ class ViewWordPools extends BindingClass {
     }
 
     redirectToViewWordPool(wordPoolId) {
-        console.log("(redirectToViewWordPool) here is the supposed wordPoolId: " + wordPoolId)
+        console.log("(redirectToViewWordPool) here is the wordPoolId: " + wordPoolId)
         if (wordPoolId != null) {
             window.location.href = `/wordPool.html?wordPoolId=${wordPoolId}`;
         }

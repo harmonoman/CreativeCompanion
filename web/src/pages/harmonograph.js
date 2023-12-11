@@ -46,7 +46,7 @@ window.onload = function () {
         ctx.fill();
 
         // Update time for animation
-        time += 0.0145; // Double the speed
+        time += 0.0141; // Double the speed
 
         // Request the next animation frame
         requestAnimationFrame(drawHarmonograph);
@@ -80,7 +80,7 @@ window.onload = function () {
 
         phase2 = Math.PI / 2;
 
-        damping = getRandomValue(0.0003, 0.0004);
+        damping = getRandomValue(0.00049, 0.0005);
         console.log("(resetHarmonograph) damping: " + damping);
 
         // Save harmonograph parameters to localStorage
