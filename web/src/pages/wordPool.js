@@ -29,12 +29,11 @@ class WordPool extends BindingClass {
         const wordPoolNameElement = document.getElementById('wordPoolNameElement');
             wordPoolNameElement.classList.add('shadow-wrapper');
             document.getElementById('wordPoolNameElement').innerText = "Loading Word Pool ...";
+
         const wordPool = await this.client.getWordPool(wordPoolId);
-        console.log("inside clientLoaded");
+        console.log("(clientLoaded) wordPoolId: " + wordPool.wordPoolId);
 
-        console.log("wordPool: " + wordPool.wordPoolId);
         this.dataStore.set('wordPool', wordPool);
-
 
         document.getElementById('wordPoolNameElement').innerText = wordPool.wordPoolName;
     }
