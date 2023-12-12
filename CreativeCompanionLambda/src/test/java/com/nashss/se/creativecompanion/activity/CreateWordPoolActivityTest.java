@@ -1,4 +1,4 @@
-package com.nashss.se.creativecompanion;
+package com.nashss.se.creativecompanion.activity;
 
 import com.nashss.se.creativecompanion.activity.CreateWordPoolActivity;
 import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
