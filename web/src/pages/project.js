@@ -38,8 +38,10 @@ class Project extends BindingClass {
         this.dataStore.set('project', project);
         document.getElementById('projectNameElement').innerText = project.projectName;
 
+        // Get Word Pool list for Import Word Pools Modal
         const wordPools = await this.client.getWordPoolList();
-        this.dataStore.set('wordPools', wordPools);    }
+        this.dataStore.set('wordPools', wordPools);
+    }
 
     /**
      * Add the header to the page and loads the CreativeCompanionClient.
