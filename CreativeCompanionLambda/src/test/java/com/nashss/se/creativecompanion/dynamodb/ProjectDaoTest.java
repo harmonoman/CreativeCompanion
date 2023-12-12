@@ -1,4 +1,4 @@
-package com.nashss.se.creativecompanion;
+package com.nashss.se.creativecompanion.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;

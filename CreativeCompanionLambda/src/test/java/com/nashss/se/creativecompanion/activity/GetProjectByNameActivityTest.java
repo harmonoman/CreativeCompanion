@@ -1,4 +1,4 @@
-package com.nashss.se.creativecompanion;
+package com.nashss.se.creativecompanion.activity;
 
 import com.nashss.se.creativecompanion.activity.GetProjectByNameActivity;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;

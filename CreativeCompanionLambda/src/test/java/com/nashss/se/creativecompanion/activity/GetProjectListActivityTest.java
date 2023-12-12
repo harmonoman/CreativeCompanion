@@ -1,4 +1,4 @@
-package com.nashss.se.creativecompanion;
+package com.nashss.se.creativecompanion.activity;
 
 import com.amazonaws.services.dynamodbv2.xspec.S;
 import com.nashss.se.creativecompanion.activity.GetProjectListActivity;

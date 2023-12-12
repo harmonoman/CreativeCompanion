@@ -1,4 +1,4 @@
-package com.nashss.se.creativecompanion;
+package com.nashss.se.creativecompanion.activity;
 
 import com.nashss.se.creativecompanion.activity.CreateProjectActivity;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
@@ -12,7 +12,6 @@ import org.mockito.Mock;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.openMocks;
