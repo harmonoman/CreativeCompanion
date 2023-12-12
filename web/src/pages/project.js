@@ -9,7 +9,7 @@ class Project extends BindingClass {
 
         this.bindClassMethods(['clientLoaded', 'mount', 'initDraggableElements', 'dropText', 'openProjectModal',
         'closeProjectModal', 'performAction','collectAndUpdateProject', 'addWordsToPage', 'clearWordPool',
-        'clearWorkspace','deleteProject'], this);
+        'clearWorkspace','deleteProject', 'openImportWordPoolModal', 'closeImportWordPoolModal'], this);
 
         this.workspaceField = null; // Initialize Workspace Field
 
@@ -66,6 +66,9 @@ class Project extends BindingClass {
         // Delete Project button
         const deleteProjectButton = document.getElementById('delete-project');
         deleteProjectButton.addEventListener('click', this.deleteProject);
+        // Open Import Word Pool Modal button
+        const importWordPoolButton = document.getElementById('import-wordPool');
+        importWordPoolButton.addEventListener('click', this.openImportModal);
 
         this.clientLoaded();
     }
@@ -385,6 +388,18 @@ class Project extends BindingClass {
             console.error("Failed to delete: " + project.projectName);
         }
     }
+
+    ///// IMPORT WORD POOL /////
+    openImportWordPoolModal() {
+        const modal = document.getElementById('importModal');
+        modal.style.display = 'block';
+    }
+
+    closeImportWordPoolModal() {
+        const modal = document.getElementById('importModal');
+        modal.style.display = 'none';
+    }
+
 
 }
 
