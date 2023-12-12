@@ -383,16 +383,23 @@ class Project extends BindingClass {
     async deleteProject() {
         const project = this.dataStore.get('project');
 
+        document.getElementById('projectNameElement').innerText = "Deleting...";
+        document.getElementById('delete-project').innerText = "Deleting...";
+
         // Delete project
         const response = this.client.deleteProject(project.projectId);
 
         if (response) {
             console.log(project.projectName + " has been deleted.");
             // Redirect to the projects page
-            window.location.href = '/viewProjects.html';
+            setTimeout(() => {
+            window.location.href = "/viewProjects.html";
+            }, 2500);
         } else {
             console.error("Failed to delete: " + project.projectName);
         }
+
+
     }
 
     ///// IMPORT WORD POOL /////
