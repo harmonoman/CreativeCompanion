@@ -247,7 +247,9 @@ class WordPool extends BindingClass {
      */
     deleteWordPool() {
         const wordPool = this.dataStore.get('wordPool');
-        console.log ("inside deleteWordPool: " + wordPool);
+
+        document.getElementById('wordPoolNameElement').innerText = "Deleting...";
+        document.getElementById('delete-wordPool').innerText = "Deleting...";
 
         // Delete word pool
         const response = this.client.deleteWordPool(wordPool.wordPoolId);
@@ -255,7 +257,9 @@ class WordPool extends BindingClass {
         if (response) {
             console.log(wordPool.wordPoolName + " has been deleted.");
             // Redirect to the wordPools page
-            window.location.href = '/viewWordPools.html';
+            setTimeout(() => {
+                window.location.href = "/viewWordPools.html";
+            }, 2500);
         } else {
             console.error("Failed to delete: " + wordPool.wordPoolName);
         }
