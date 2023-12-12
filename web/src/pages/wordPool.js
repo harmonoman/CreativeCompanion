@@ -8,8 +8,8 @@ class WordPool extends BindingClass {
             super();
 
             this.bindClassMethods(['clientLoaded', 'mount', 'openWordPoolModal', 'closeWordPoolModal', 'performAction',
-                    'collectAndUpdateWordPool', 'addWordsToPage', 'clearWordPool',
-                    'deleteWordPool'], this);
+                    'collectAndUpdateWordPool', 'addWordsToPage', 'clearWordPool', 'deleteWordPool',
+                    'openImportWordPoolModal', 'closeImportWordPoolModal', 'importWordPool'], this);
 
             this.dataStore = new DataStore();
             this.dataStore.addChangeListener(this.addWordsToPage);
@@ -36,6 +36,10 @@ class WordPool extends BindingClass {
         this.dataStore.set('wordPool', wordPool);
 
         document.getElementById('wordPoolNameElement').innerText = wordPool.wordPoolName;
+
+        // Get Word Pool list for Import Word Pools Modal
+        const wordPools = await this.client.getWordPoolList();
+        this.dataStore.set('wordPools', wordPools);
     }
 
     /**
@@ -49,6 +53,10 @@ class WordPool extends BindingClass {
         window.closeWordPoolModal = this.closeWordPoolModal.bind(this);
         window.performAction = this.performAction.bind(this);
 
+        window.openImportWordPoolModal = this.openImportWordPoolModal.bind(this);
+        window.closeImportWordPoolModal = this.closeImportWordPoolModal.bind(this);
+        window.importWordPool = this.importWordPool.bind(this);
+
         // Save Word Pool button
         const saveWordPoolButton = document.getElementById('save-wordPool');
         saveWordPoolButton.addEventListener('click', this.collectAndUpdateWordPool);
@@ -58,6 +66,9 @@ class WordPool extends BindingClass {
         // Delete Word Pool button
         const deleteWordPoolButton = document.getElementById('delete-wordPool');
         deleteWordPoolButton.addEventListener('click', this.deleteWordPool);
+        // Open Import Word Pool Modal button
+        const importWordPoolButton = document.getElementById('import-wordPool');
+        importWordPoolButton.addEventListener('click', this.openImportWordPoolModal);
 
         this.clientLoaded();
     }
@@ -248,6 +259,73 @@ class WordPool extends BindingClass {
         } else {
             console.error("Failed to delete: " + wordPool.wordPoolName);
         }
+    }
+
+    ///// IMPORT WORD POOL /////
+    /**
+     * Opens a modal and displays wordPools to be selected
+     */
+    openImportWordPoolModal() {
+        const modal = document.getElementById('importModal');
+        modal.style.display = 'block';
+
+        // Get the select element by Id
+        const wordPoolSelectModal = document.getElementById('wordPoolSelectModal');
+        wordPoolSelectModal.innerHTML = '';
+
+        // Get Word Pools from dataStore
+        const userWordPools = this.dataStore.get('wordPools');
+
+        // Populate the select element with user's Word Pools
+        userWordPools.forEach(wordPool => {
+            const option = document.createElement('option');
+            option.value = wordPool.wordPoolName;
+            option.textContent = wordPool.wordPoolName;
+            wordPoolSelectModal.appendChild(option);
+        });
+    }
+
+    closeImportWordPoolModal() {
+        const modal = document.getElementById('importModal');
+        modal.style.display = 'none';
+    }
+
+    /**
+     * Imports selected wordPool into project wordPool
+     */
+    importWordPool() {
+        const wordPoolField = document.getElementById('wordPool-field');
+        const wordPoolSelectModal = document.getElementById('wordPoolSelectModal');
+        // Get the selected Word Pool name
+        const selectedWordPoolName = wordPoolSelectModal.value;
+
+        // Get wordPools from dataStore
+        const userWordPools = this.dataStore.get('wordPools');
+
+        // Find the selected Word Pool object
+        const selectedWordPool = userWordPools.find(wordPool => wordPool.wordPoolName === selectedWordPoolName);
+
+        if (selectedWordPool == null) {
+            console.log("selectedWordPool is null")
+            return;
+        }
+
+        selectedWordPool.wordPool.forEach(wordPoolText => {
+            const wordElement = document.createElement('p');
+
+            wordElement.textContent = wordPoolText;
+            wordElement.draggable = true;
+
+            // Dragstart event listener
+            wordElement.addEventListener('dragstart', (event) => {
+                event.dataTransfer.setData('text/plain', wordPoolText);
+            });
+
+            // Append text to Word Pool
+            wordPoolField.appendChild(wordElement);
+        });
+
+        this.closeImportWordPoolModal();
     }
 
 }
