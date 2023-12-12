@@ -9,7 +9,7 @@ class Project extends BindingClass {
 
         this.bindClassMethods(['clientLoaded', 'mount', 'initDraggableElements', 'dropText', 'openProjectModal',
         'closeProjectModal', 'performAction','collectAndUpdateProject', 'addWordsToPage', 'clearWordPool',
-        'clearWorkspace','deleteProject'], this);
+        'clearWorkspace','deleteProject', 'openImportWordPoolModal', 'closeImportWordPoolModal', 'importWordPool'], this);
 
         this.workspaceField = null; // Initialize Workspace Field
 
@@ -37,7 +37,9 @@ class Project extends BindingClass {
         console.log("project: " + project.projectId);
         this.dataStore.set('project', project);
         document.getElementById('projectNameElement').innerText = project.projectName;
-    }
+
+        const wordPools = await this.client.getWordPoolList();
+        this.dataStore.set('wordPools', wordPools);    }
 
     /**
      * Add the header to the page and loads the CreativeCompanionClient.
@@ -46,13 +48,18 @@ class Project extends BindingClass {
         this.header.addHeaderToPage();
         this.client = new CreativeCompanionClient();
 
-        this.initDraggableElements(); // Initialize draggable elements
+        // Initialize draggable elements
+        this.initDraggableElements();
         window.dropText = this.dropText.bind(this);
         window.dropText = this.dropText;
 
         window.openProjectModal = this.openProjectModal.bind(this);
         window.closeProjectModal = this.closeProjectModal.bind(this);
         window.performAction = this.performAction.bind(this);
+
+        window.openImportWordPoolModal = this.openImportWordPoolModal.bind(this);
+        window.closeImportWordPoolModal = this.closeImportWordPoolModal.bind(this);
+        window.importWordPool = this.importWordPool.bind(this);
 
         // Save Project button
         const saveProjectButton = document.getElementById('save-project');
@@ -66,6 +73,9 @@ class Project extends BindingClass {
         // Delete Project button
         const deleteProjectButton = document.getElementById('delete-project');
         deleteProjectButton.addEventListener('click', this.deleteProject);
+        // Open Import Word Pool Modal button
+        const importWordPoolButton = document.getElementById('import-wordPool');
+        importWordPoolButton.addEventListener('click', this.openImportWordPoolModal);
 
         this.clientLoaded();
     }
@@ -360,10 +370,7 @@ class Project extends BindingClass {
             workspaceField.appendChild(wordElement);
         });
 
-//        const projectNameElement = document.getElementById('projectNameElement');
-
         document.getElementById('projectNameElement').innerText = project.projectName;
-
 
     }
 
@@ -385,6 +392,77 @@ class Project extends BindingClass {
             console.error("Failed to delete: " + project.projectName);
         }
     }
+
+    ///// IMPORT WORD POOL /////
+    /**
+     * Opens a modal and displays wordPools to be selected
+     */
+    openImportWordPoolModal() {
+        const modal = document.getElementById('importModal');
+        modal.style.display = 'block';
+
+        // Get the select element by Id
+        const wordPoolSelectModal = document.getElementById('wordPoolSelectModal');
+        wordPoolSelectModal.innerHTML = '';
+
+        // Get Word Pools from dataStore
+        const userWordPools = this.dataStore.get('wordPools');
+
+        // Populate the select element with user's Word Pools
+        userWordPools.forEach(wordPool => {
+            const option = document.createElement('option');
+            option.value = wordPool.wordPoolName;
+            option.textContent = wordPool.wordPoolName;
+            wordPoolSelectModal.appendChild(option);
+        });
+    }
+
+    closeImportWordPoolModal() {
+        const modal = document.getElementById('importModal');
+        modal.style.display = 'none';
+    }
+
+    /**
+     * Imports selected wordPool into project wordPool
+     */
+    importWordPool() {
+        const wordPoolField = document.getElementById('wordPool-field');
+        const wordPoolSelectModal = document.getElementById('wordPoolSelectModal');
+        // Get the selected Word Pool name
+        const selectedWordPoolName = wordPoolSelectModal.value;
+
+        // Get wordPools from dataStore
+        const userWordPools = this.dataStore.get('wordPools');
+
+        // Find the selected Word Pool object
+        const selectedWordPool = userWordPools.find(wordPool => wordPool.wordPoolName === selectedWordPoolName);
+
+        if (selectedWordPool == null) {
+            console.log("selectedWordPool is null")
+            return;
+        }
+
+        selectedWordPool.wordPool.forEach(wordPoolText => {
+            const wordElement = document.createElement('p');
+
+            wordElement.textContent = wordPoolText;
+            wordElement.draggable = true;
+
+            // Dragstart event listener
+            wordElement.addEventListener('dragstart', (event) => {
+                event.dataTransfer.setData('text/plain', wordPoolText);
+            });
+
+            // Append text to Word Pool
+            wordPoolField.appendChild(wordElement);
+        });
+
+        this.closeImportWordPoolModal();
+    }
+
+
+
+
 
 }
 
