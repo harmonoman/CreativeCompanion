@@ -20,20 +20,16 @@
     <!--    <button class="button" id="change-wordPool-name-button">Change Name</button>-->
 </div>
 
-<!--    Word Pool and Workspace container-->
-<div id="container">
+<!--    Word Pool Field container-->
+<div id="wordPool-container">
+    <h2 class="shadow-wrapper"> Word Pool </h2>
+    <div id="wordPool-field" contenteditable="true"></div>
+    <button class="button" id="clear-wordPool" >Clear Word Pool</button>
+    <button class="button" id="import-wordPool">Import Word Pool</button>
+    <button class="button" id="add-wordPool" onclick="openWordPoolModal()">Add Words</button>
+    <button class="button" id="delete-wordPool">Delete Word Pool</button>
+    <button class="button" id="save-wordPool">Save Word Pool</button>
 
-    <!--        Word Pool Field-->
-    <div id="wordPool-container">
-        <h2 class="shadow-wrapper"> Word Pool </h2>
-        <div id="wordPool-field"></div>
-        <button class="button" id="clear-wordPool" >Clear Word Pool</button>
-        <button class="button" id="import-wordPool">Import Word Pool</button>
-        <button class="button" id="add-wordPool" onclick="openWordPoolModal()">Add Words</button>
-        <button class="button" id="delete-wordPool">Delete Word Pool</button>
-        <button class="button" id="save-wordPool">Save Word Pool</button>
-
-    </div>
 </div>
 
 <!--    Add Words modal-->
