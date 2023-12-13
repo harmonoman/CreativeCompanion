@@ -2,6 +2,7 @@ import CreativeCompanionClient from '../api/creativeCompanionClient';
 import Header from '../components/header';
 import BindingClass from '../util/bindingClass';
 import DataStore from '../util/DataStore';
+import LoadingSpinner from '../util/LoadingSpinner';
 
 class Project extends BindingClass {
     constructor() {
@@ -17,6 +18,7 @@ class Project extends BindingClass {
         this.dataStore.addChangeListener(this.addWordsToPage);
 
         this.header = new Header(this.dataStore);
+        this.loadingSpinner = new LoadingSpinner();
 
         console.log("Project constructor");
     }
@@ -381,6 +383,8 @@ class Project extends BindingClass {
      * Deletes a project from the database.
      */
     async deleteProject() {
+//        const message = "Deleting Project";
+//        this.showLoadingSpinner(message);
         const project = this.dataStore.get('project');
 
         document.getElementById('projectNameElement').innerText = "Deleting...";
@@ -392,9 +396,12 @@ class Project extends BindingClass {
         if (response) {
             console.log(project.projectName + " has been deleted.");
             // Redirect to the projects page
+
             setTimeout(() => {
             window.location.href = "/viewProjects.html";
+//            this.hideLoadingSpinner();
             }, 2500);
+
         } else {
             console.error("Failed to delete: " + project.projectName);
         }
