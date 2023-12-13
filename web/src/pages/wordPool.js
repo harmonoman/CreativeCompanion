@@ -2,6 +2,7 @@ import CreativeCompanionClient from '../api/creativeCompanionClient';
 import Header from '../components/header';
 import BindingClass from '../util/bindingClass';
 import DataStore from '../util/DataStore';
+import LoadingSpinner from '../util/LoadingSpinner';
 
 class WordPool extends BindingClass {
     constructor() {
@@ -15,6 +16,8 @@ class WordPool extends BindingClass {
             this.dataStore.addChangeListener(this.addWordsToPage);
 
             this.header = new Header(this.dataStore);
+            this.loadingSpinner = new LoadingSpinner();
+
 
             console.log("WordPool constructor");
     }
@@ -48,6 +51,7 @@ class WordPool extends BindingClass {
     mount() {
         this.header.addHeaderToPage();
         this.client = new CreativeCompanionClient();
+        this.spinner = new LoadingSpinner();
 
         window.openWordPoolModal = this.openWordPoolModal.bind(this);
         window.closeWordPoolModal = this.closeWordPoolModal.bind(this);
@@ -245,24 +249,29 @@ class WordPool extends BindingClass {
     /**
      * Deletes a word pool from the database.
      */
-    deleteWordPool() {
+    async deleteWordPool() {
         const wordPool = this.dataStore.get('wordPool');
+
+        // Message to LoadingSpinner
+        const message = `Deleting ${wordPool.wordPoolName}. `;
+        this.spinner.showLoadingSpinner(message);
 
         document.getElementById('wordPoolNameElement').innerText = "Deleting...";
         document.getElementById('delete-wordPool').innerText = "Deleting...";
 
         // Delete word pool
-        const response = this.client.deleteWordPool(wordPool.wordPoolId);
+        const response = await this.client.deleteWordPool(wordPool.wordPoolId);
 
         if (response) {
             console.log(wordPool.wordPoolName + " has been deleted.");
-            // Redirect to the wordPools page
-            setTimeout(() => {
-                window.location.href = "/viewWordPools.html";
-            }, 2500);
         } else {
             console.error("Failed to delete: " + wordPool.wordPoolName);
         }
+
+        this.spinner.hideLoadingSpinner();
+
+        // Redirect to the wordPools page
+        window.location.href = "/viewWordPools.html";
     }
 
     ///// IMPORT WORD POOL /////

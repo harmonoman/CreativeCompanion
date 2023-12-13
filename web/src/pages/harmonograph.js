@@ -20,8 +20,6 @@ window.onload = function () {
     // Initialize harmonograph parameters
     loadHarmonographParameters();
 
-
-
     // Simulation parameters
     let time = 50;
 
@@ -32,7 +30,6 @@ window.onload = function () {
 
         const x = amplitude1 * Math.sin(frequency1 * time + phase1) * Math.exp(-damping * time);
         const y = amplitude2 * Math.sin(frequency2 * time + phase2) * Math.exp(-damping * time);
-
 
         // Calculate the color based on the evolving time
         const red = Math.sin(0.01 * time) * 127 + 128;
@@ -61,7 +58,6 @@ window.onload = function () {
         amplitude1 = getRandomValue(50, canvas.width / 2);
         amplitude2 = getRandomValue(50, canvas.width / 2);
     });
-
 
     ///// RESET HARMONONGRAPH /////
     // Function to reset harmonograph parameters
@@ -111,12 +107,6 @@ window.onload = function () {
 
         const storedDamping = sessionStorage.getItem('damping');
         damping = storedDamping ? parseFloat(storedDamping) : getRandomValue(0.0001, 0.001);
-
-        // Load time value from sessionStorage
-//            const storedTime = sessionStorage.getItem('time');
-//            time = storedTime ? parseFloat(storedTime) : 50;
-
-        // If any parameter is not present in localStorage, use a default value
     }
 
     ///// SAVE HARMONOGRAPH PARAMETERS /////
@@ -129,9 +119,6 @@ window.onload = function () {
 
         sessionStorage.setItem('damping', damping.toString());
 
-        // Save the time value to sessionStorage
-//            sessionStorage.setItem('time', time.toString());
-        // Repeat for other parameters...
     }
 
     // Function to generate a random value within a specified range

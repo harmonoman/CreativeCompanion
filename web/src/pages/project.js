@@ -51,6 +51,7 @@ class Project extends BindingClass {
     mount() {
         this.header.addHeaderToPage();
         this.client = new CreativeCompanionClient();
+        this.spinner = new LoadingSpinner();
 
         // Initialize draggable elements
         this.initDraggableElements();
@@ -383,30 +384,29 @@ class Project extends BindingClass {
      * Deletes a project from the database.
      */
     async deleteProject() {
-//        const message = "Deleting Project";
-//        this.showLoadingSpinner(message);
+
         const project = this.dataStore.get('project');
+
+        // Message to LoadingSpinner
+        const message = `Deleting ${project.projectName}. `;
+        this.spinner.showLoadingSpinner(message);
 
         document.getElementById('projectNameElement').innerText = "Deleting...";
         document.getElementById('delete-project').innerText = "Deleting...";
 
         // Delete project
-        const response = this.client.deleteProject(project.projectId);
+        const response = await this.client.deleteProject(project.projectId);
 
         if (response) {
             console.log(project.projectName + " has been deleted.");
-            // Redirect to the projects page
-
-            setTimeout(() => {
-            window.location.href = "/viewProjects.html";
-//            this.hideLoadingSpinner();
-            }, 2500);
-
         } else {
             console.error("Failed to delete: " + project.projectName);
         }
 
+        this.spinner.hideLoadingSpinner();
 
+        // Redirect to the projects page
+        window.location.href = "/viewProjects.html";
     }
 
     ///// IMPORT WORD POOL /////

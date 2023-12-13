@@ -3,6 +3,7 @@ import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
 import './harmonograph'; // Importing the harmonograph code
+import LoadingSpinner from '../util/LoadingSpinner';
 
 /**
  * Logic needed for the home page of the website.
@@ -16,12 +17,14 @@ class CreativeCompanionIndex extends BindingClass {
 
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
-        console.log("creativeCompanionIndex constructor");
+        this.loadingSpinner = new LoadingSpinner();
 
         window.openProjectModal = this.openProjectModal.bind(this);
         window.closeProjectModal = this.closeProjectModal.bind(this);
         window.openWordPoolModal = this.openWordPoolModal.bind(this);
         window.closeWordPoolModal = this.closeWordPoolModal.bind(this);
+
+        console.log("creativeCompanionIndex constructor");
     }
 
     /**
@@ -30,6 +33,7 @@ class CreativeCompanionIndex extends BindingClass {
     mount() {
         this.header.addHeaderToPage();
         this.client = new CreativeCompanionClient();
+        this.spinner = new LoadingSpinner();
 
         this.clientLoaded();
 
@@ -123,8 +127,14 @@ class CreativeCompanionIndex extends BindingClass {
             return;
         }
 
+        // Message to LoadingSpinner
+        const message = `Creating ${projectName}. `;
+        this.spinner.showLoadingSpinner(message);
+
         // Call createProject
         const project = await this.client.createProject(projectName);
+
+
 
         // Navigate to project.html with project ID
         window.location.href = `project.html?projectId=${project.projectId}`;
@@ -187,14 +197,18 @@ class CreativeCompanionIndex extends BindingClass {
             return;
         }
 
+        // Message to LoadingSpinner
+        const message = `Creating ${wordPoolName}. `;
+        this.spinner.showLoadingSpinner(message);
+
         // Call createWordPool
         const wordPool = await this.client.createWordPool(wordPoolName);
 
-        // Navigate to project.html with project ID
-        window.location.href = `wordPool.html?wordPoolId=${wordPool.wordPoolId}`;
-
         // Close modal
         this.closeWordPoolModal();
+
+        // Navigate to project.html with project ID
+        window.location.href = `wordPool.html?wordPoolId=${wordPool.wordPoolId}`;
     }
 
 }
