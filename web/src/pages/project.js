@@ -2,6 +2,7 @@ import CreativeCompanionClient from '../api/creativeCompanionClient';
 import Header from '../components/header';
 import BindingClass from '../util/bindingClass';
 import DataStore from '../util/DataStore';
+import LoadingSpinner from '../util/LoadingSpinner';
 
 class Project extends BindingClass {
     constructor() {
@@ -17,6 +18,7 @@ class Project extends BindingClass {
         this.dataStore.addChangeListener(this.addWordsToPage);
 
         this.header = new Header(this.dataStore);
+        this.loadingSpinner = new LoadingSpinner();
 
         console.log("Project constructor");
     }
@@ -49,6 +51,7 @@ class Project extends BindingClass {
     mount() {
         this.header.addHeaderToPage();
         this.client = new CreativeCompanionClient();
+        this.spinner = new LoadingSpinner();
 
         // Initialize draggable elements
         this.initDraggableElements();
@@ -381,25 +384,29 @@ class Project extends BindingClass {
      * Deletes a project from the database.
      */
     async deleteProject() {
+
         const project = this.dataStore.get('project');
+
+        // Message to LoadingSpinner
+        const message = `Deleting ${project.projectName}. `;
+        this.spinner.showLoadingSpinner(message);
 
         document.getElementById('projectNameElement').innerText = "Deleting...";
         document.getElementById('delete-project').innerText = "Deleting...";
 
         // Delete project
-        const response = this.client.deleteProject(project.projectId);
+        const response = await this.client.deleteProject(project.projectId);
 
         if (response) {
             console.log(project.projectName + " has been deleted.");
-            // Redirect to the projects page
-            setTimeout(() => {
-            window.location.href = "/viewProjects.html";
-            }, 2500);
         } else {
             console.error("Failed to delete: " + project.projectName);
         }
 
+        this.spinner.hideLoadingSpinner();
 
+        // Redirect to the projects page
+        window.location.href = "/viewProjects.html";
     }
 
     ///// IMPORT WORD POOL /////

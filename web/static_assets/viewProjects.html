@@ -4,6 +4,8 @@
 <head>
     <script type="text/javascript" src="assets/viewProjects.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="icon" href="favicon.png" type="image/png">
+
 
 </head>
 
@@ -30,6 +32,12 @@
 <div class="action-item">
     <label for="projectNameInput"></label> <input type="text" id="projectNameInput" placeholder="Project Name">
     <button id="searchProjectBtn">Search for Project</button>
+</div>
+
+<div id="loading-spinner" class="spinner-container">
+    <div class="spinner"></div>
+    <div id="loading-message" class="fast-appear"></div>
+    <div id="loading-message-sub" class="slow-appear"></div>
 </div>
 
 
