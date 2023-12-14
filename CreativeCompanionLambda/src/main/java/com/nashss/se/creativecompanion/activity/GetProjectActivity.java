@@ -4,8 +4,8 @@ import com.nashss.se.creativecompanion.converters.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
 import com.nashss.se.creativecompanion.dynamodb.models.Project;
 import com.nashss.se.creativecompanion.models.ProjectModel;
-import com.nashss.se.creativecompanion.requests.GetProjectRequest;
-import com.nashss.se.creativecompanion.results.GetProjectResult;
+import com.nashss.se.creativecompanion.activity.request.GetProjectRequest;
+import com.nashss.se.creativecompanion.activity.result.GetProjectResult;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

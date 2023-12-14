@@ -1,10 +1,9 @@
 package com.nashss.se.creativecompanion.activity;
 
-import com.nashss.se.creativecompanion.activity.GetProjectByNameActivity;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
 import com.nashss.se.creativecompanion.dynamodb.models.Project;
-import com.nashss.se.creativecompanion.requests.GetProjectByNameRequest;
-import com.nashss.se.creativecompanion.results.GetProjectByNameResult;
+import com.nashss.se.creativecompanion.activity.request.GetProjectByNameRequest;
+import com.nashss.se.creativecompanion.activity.result.GetProjectByNameResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

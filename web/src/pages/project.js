@@ -77,7 +77,14 @@ class Project extends BindingClass {
         clearWorkspaceButton.addEventListener('click', this.clearWorkspace);
         // Delete Project button
         const deleteProjectButton = document.getElementById('delete-project');
-        deleteProjectButton.addEventListener('click', this.deleteProject);
+        deleteProjectButton.addEventListener('click', () => {
+            // Prompt user for confirmation before deleting the project
+            const confirmation = confirm("Are you sure you want to delete this Project?");
+            if (confirmation) {
+                this.deleteProject();
+            }
+            // If the user clicks "Cancel" in the confirmation, do nothing.
+        });
         // Open Import Word Pool Modal button
         const importWordPoolButton = document.getElementById('import-wordPool');
         importWordPoolButton.addEventListener('click', this.openImportWordPoolModal);
@@ -297,6 +304,9 @@ class Project extends BindingClass {
      */
     async collectAndUpdateProject() {
         try {
+
+            document.getElementById('save-project').innerText = "Saving...";
+
             // Collect data from fields
             const wordPoolData = Array.from(document.getElementById('wordPool-field').children)
                 .map(element => element.textContent.trim());
@@ -326,6 +336,9 @@ class Project extends BindingClass {
         } catch (error) {
             console.error('Error collecting and updating project:', error);
         }
+
+        document.getElementById('save-project').innerText = "Save Project";
+
     }
 
 

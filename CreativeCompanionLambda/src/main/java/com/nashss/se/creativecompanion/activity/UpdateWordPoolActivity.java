@@ -7,9 +7,9 @@ import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
 import com.nashss.se.creativecompanion.metrics.MetricsPublisher;
 import com.nashss.se.creativecompanion.models.WordPoolModel;
 
-import com.nashss.se.creativecompanion.requests.UpdateWordPoolRequest;
+import com.nashss.se.creativecompanion.activity.request.UpdateWordPoolRequest;
 
-import com.nashss.se.creativecompanion.results.UpdateWordPoolResult;
+import com.nashss.se.creativecompanion.activity.result.UpdateWordPoolResult;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -53,6 +53,9 @@ public class UpdateWordPoolActivity {
      * @return updateWordPoolResult result object containing the API defined {@link WordPoolModel}
      */
     public UpdateWordPoolResult handleRequest(final UpdateWordPoolRequest updateWordPoolRequest) {
+
+        long startTime = System.currentTimeMillis();
+
         log.info("Received UpdateWordPoolRequest {}", updateWordPoolRequest);
 
         WordPool wordPool = new WordPool();
@@ -64,13 +67,12 @@ public class UpdateWordPoolActivity {
 
         WordPoolModel wordPoolModel = new ModelConverter().toWordPoolModel(wordPool);
 
+        long endTime = System.currentTimeMillis();
+        double elapsedTime = endTime - startTime;
+        metricsPublisher.addTime("UpdateWordPoolHandlingTime", elapsedTime);
+
         return UpdateWordPoolResult.builder()
                 .withWordPool(wordPoolModel)
                 .build();
     }
-
-
-
-
-
 }

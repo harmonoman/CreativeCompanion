@@ -1,10 +1,9 @@
 package com.nashss.se.creativecompanion.activity;
 
-import com.nashss.se.creativecompanion.activity.GetProjectActivity;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
 import com.nashss.se.creativecompanion.dynamodb.models.Project;
-import com.nashss.se.creativecompanion.requests.GetProjectRequest;
-import com.nashss.se.creativecompanion.results.GetProjectResult;
+import com.nashss.se.creativecompanion.activity.request.GetProjectRequest;
+import com.nashss.se.creativecompanion.activity.result.GetProjectResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -36,7 +35,6 @@ public class GetProjectActivityTest {
         String expectedProjectName = "expectedProjectName";
         List<String> expectedWordPool = List.of("words");
         List<String> expectedWorkspace = List.of("workspace");
-
 
         Project project = new Project();
         project.setUserId(expectedUserId);

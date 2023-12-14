@@ -1,7 +1,7 @@
 package com.nashss.se.creativecompanion.lambda;
 
-import com.nashss.se.creativecompanion.requests.DeleteWordPoolRequest;
-import com.nashss.se.creativecompanion.results.DeleteWordPoolResult;
+import com.nashss.se.creativecompanion.activity.request.DeleteWordPoolRequest;
+import com.nashss.se.creativecompanion.activity.result.DeleteWordPoolResult;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;

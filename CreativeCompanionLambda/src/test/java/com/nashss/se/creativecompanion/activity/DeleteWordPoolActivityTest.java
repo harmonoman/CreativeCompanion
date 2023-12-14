@@ -1,9 +1,8 @@
 package com.nashss.se.creativecompanion.activity;
 
-import com.nashss.se.creativecompanion.activity.DeleteWordPoolActivity;
 import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
-import com.nashss.se.creativecompanion.requests.DeleteWordPoolRequest;
-import com.nashss.se.creativecompanion.results.DeleteWordPoolResult;
+import com.nashss.se.creativecompanion.activity.request.DeleteWordPoolRequest;
+import com.nashss.se.creativecompanion.activity.result.DeleteWordPoolResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

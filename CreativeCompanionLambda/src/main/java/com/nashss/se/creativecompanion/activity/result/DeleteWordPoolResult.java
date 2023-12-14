@@ -1,10 +1,10 @@
-package com.nashss.se.creativecompanion.results;
+package com.nashss.se.creativecompanion.activity.result;
 
-public class DeleteProjectResult {
+public class DeleteWordPoolResult {
 
     private final Boolean success;
 
-    private DeleteProjectResult(Boolean success) {
+    private DeleteWordPoolResult(Boolean success) {
         this.success = success;
     }
 
@@ -14,7 +14,7 @@ public class DeleteProjectResult {
 
     @Override
     public String toString() {
-        return "DeleteProjectResult{" +
+        return "DeleteWordPoolResult{" +
                 "success=" + success +
                 '}';
     }
@@ -33,8 +33,8 @@ public class DeleteProjectResult {
             return this;
         }
 
-        public DeleteProjectResult build() {
-            return new DeleteProjectResult(success);
+        public DeleteWordPoolResult build() {
+            return new DeleteWordPoolResult(success);
         }
     }
 }

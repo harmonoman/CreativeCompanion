@@ -1,10 +1,10 @@
-package com.nashss.se.creativecompanion.requests;
+package com.nashss.se.creativecompanion.activity.request;
 
-public class GetWordPoolListRequest {
+public class GetProjectListRequest {
 
     private final String userId;
 
-    private GetWordPoolListRequest(String userId) {
+    private GetProjectListRequest(String userId) {
         this.userId = userId;
     }
 
@@ -14,7 +14,7 @@ public class GetWordPoolListRequest {
 
     @Override
     public String toString() {
-        return "GetWordPoolListRequest{" +
+        return "GetProjectListRequest{" +
                 "userId='" + userId + '\'' +
                 '}';
     }
@@ -32,9 +32,6 @@ public class GetWordPoolListRequest {
             return this;
         }
 
-        public GetWordPoolListRequest build() {
-            return new GetWordPoolListRequest(userId);
-        }
+        public GetProjectListRequest build() { return new GetProjectListRequest(userId); }
     }
-
 }

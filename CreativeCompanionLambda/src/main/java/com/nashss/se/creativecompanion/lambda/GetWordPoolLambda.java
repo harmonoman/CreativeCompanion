@@ -1,7 +1,7 @@
 package com.nashss.se.creativecompanion.lambda;
 
-import com.nashss.se.creativecompanion.requests.GetWordPoolRequest;
-import com.nashss.se.creativecompanion.results.GetWordPoolResult;
+import com.nashss.se.creativecompanion.activity.request.GetWordPoolRequest;
+import com.nashss.se.creativecompanion.activity.result.GetWordPoolResult;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;

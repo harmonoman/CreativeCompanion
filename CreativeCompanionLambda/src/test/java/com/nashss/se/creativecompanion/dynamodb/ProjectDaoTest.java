@@ -1,7 +1,6 @@
 package com.nashss.se.creativecompanion.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
 import com.nashss.se.creativecompanion.dynamodb.models.Project;
 import com.nashss.se.creativecompanion.exceptions.ProjectNotFoundException;
 import com.nashss.se.creativecompanion.metrics.MetricsConstants;

@@ -1,7 +1,7 @@
 package com.nashss.se.creativecompanion.lambda;
 
-import com.nashss.se.creativecompanion.requests.UpdateProjectRequest;
-import com.nashss.se.creativecompanion.results.UpdateProjectResult;
+import com.nashss.se.creativecompanion.activity.request.UpdateProjectRequest;
+import com.nashss.se.creativecompanion.activity.result.UpdateProjectResult;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;

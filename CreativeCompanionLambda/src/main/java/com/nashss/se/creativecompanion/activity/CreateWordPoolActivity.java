@@ -1,13 +1,11 @@
 package com.nashss.se.creativecompanion.activity;
 
-//import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-//import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.nashss.se.creativecompanion.converters.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
 import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
 import com.nashss.se.creativecompanion.models.WordPoolModel;
-import com.nashss.se.creativecompanion.requests.CreateWordPoolRequest;
-import com.nashss.se.creativecompanion.results.CreateWordPoolResult;
+import com.nashss.se.creativecompanion.activity.request.CreateWordPoolRequest;
+import com.nashss.se.creativecompanion.activity.result.CreateWordPoolResult;
 import com.nashss.se.creativecompanion.utils.ServiceUtils;
 
 import org.apache.logging.log4j.LogManager;
@@ -57,9 +55,6 @@ public class CreateWordPoolActivity {
         newWordPool.setWordPoolId(ServiceUtils.generateWordPoolId());
         newWordPool.setWordPoolName(createWordPoolRequest.getWordPoolName());
         newWordPool.setWordPool(new ArrayList<>());
-
-
-        //newProject.setInventory(new HashSet<>()); // what should this be? what does a Project hold?
 
         wordPoolDao.saveWordPool(newWordPool);
 

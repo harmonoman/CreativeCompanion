@@ -1,10 +1,9 @@
 package com.nashss.se.creativecompanion.activity;
 
-import com.nashss.se.creativecompanion.activity.GetWordPoolActivity;
 import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
 import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
-import com.nashss.se.creativecompanion.requests.GetWordPoolRequest;
-import com.nashss.se.creativecompanion.results.GetWordPoolResult;
+import com.nashss.se.creativecompanion.activity.request.GetWordPoolRequest;
+import com.nashss.se.creativecompanion.activity.result.GetWordPoolResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

@@ -4,8 +4,8 @@ import com.nashss.se.creativecompanion.converters.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
 import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
 import com.nashss.se.creativecompanion.models.WordPoolModel;
-import com.nashss.se.creativecompanion.requests.GetWordPoolListRequest;
-import com.nashss.se.creativecompanion.results.GetWordPoolListResult;
+import com.nashss.se.creativecompanion.activity.request.GetWordPoolListRequest;
+import com.nashss.se.creativecompanion.activity.result.GetWordPoolListResult;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,5 +51,4 @@ public class GetWordPoolListActivity {
                 .withWordPools(wordPoolModels)
                 .build();
     }
-
 }

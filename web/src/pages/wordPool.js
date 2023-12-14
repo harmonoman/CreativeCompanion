@@ -69,7 +69,14 @@ class WordPool extends BindingClass {
         clearWordPoolButton.addEventListener('click', this.clearWordPool);
         // Delete Word Pool button
         const deleteWordPoolButton = document.getElementById('delete-wordPool');
-        deleteWordPoolButton.addEventListener('click', this.deleteWordPool);
+        deleteWordPoolButton.addEventListener('click', () => {
+        // Prompt user for confirmation before deleting the project
+        const confirmation = confirm("Are you sure you want to delete this Word Pool?");
+            if (confirmation) {
+                this.deleteWordPool();
+            }
+            // If the user clicks "Cancel" in the confirmation, do nothing.
+        });
         // Open Import Word Pool Modal button
         const importWordPoolButton = document.getElementById('import-wordPool');
         importWordPoolButton.addEventListener('click', this.openImportWordPoolModal);
@@ -185,6 +192,9 @@ class WordPool extends BindingClass {
      */
     async collectAndUpdateWordPool() {
         try {
+
+            document.getElementById('save-wordPool').innerText = "Saving...";
+
             // Collect data from fields
             const wordPoolData = Array.from(document.getElementById('wordPool-field').children)
                 .map(element => element.textContent.trim());
@@ -210,6 +220,9 @@ class WordPool extends BindingClass {
         } catch (error) {
             console.error('Error collecting and updating word pool:', error);
         }
+
+        document.getElementById('save-wordPool').innerText = "Save WordPool";
+
     }
 
     ///// addWordsToPage /////

@@ -1,7 +1,7 @@
 package com.nashss.se.creativecompanion.lambda;
 
-import com.nashss.se.creativecompanion.requests.GetProjectByNameRequest;
-import com.nashss.se.creativecompanion.results.GetProjectByNameResult;
+import com.nashss.se.creativecompanion.activity.request.GetProjectByNameRequest;
+import com.nashss.se.creativecompanion.activity.result.GetProjectByNameResult;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
