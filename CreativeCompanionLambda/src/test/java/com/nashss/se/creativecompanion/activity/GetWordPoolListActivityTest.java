@@ -1,19 +1,16 @@
 package com.nashss.se.creativecompanion.activity;
 
-import com.nashss.se.creativecompanion.activity.GetWordPoolListActivity;
 import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
 import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
-import com.nashss.se.creativecompanion.requests.GetWordPoolListRequest;
-import com.nashss.se.creativecompanion.results.GetWordPoolListResult;
+import com.nashss.se.creativecompanion.activity.request.GetWordPoolListRequest;
+import com.nashss.se.creativecompanion.activity.result.GetWordPoolListResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -62,5 +59,4 @@ public class GetWordPoolListActivityTest {
         // THEN
         assertEquals(wordPoolList.get(0).getUserId(), result.getWordPools().get(0).getUserId());
     }
-
 }

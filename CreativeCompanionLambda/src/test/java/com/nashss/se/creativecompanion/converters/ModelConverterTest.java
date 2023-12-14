@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ModelConverterTest {
-    private ModelConverter modelConverter = new ModelConverter();
+    private final ModelConverter modelConverter = new ModelConverter();
 
     @Test
     void toProjectModel_withTestStrings_convertsProject() {
@@ -128,5 +128,4 @@ public class ModelConverterTest {
         assertEquals(wordPool2.getWordPoolName(), wordPoolModelList.get(1).getWordPoolName());
         assertEquals(wordPool2.getWordPool(), wordPoolModelList.get(1).getWordPool());
     }
-
 }

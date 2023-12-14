@@ -1,4 +1,4 @@
-package com.nashss.se.creativecompanion.results;
+package com.nashss.se.creativecompanion.activity.result;
 
 import com.nashss.se.creativecompanion.models.WordPoolModel;
 

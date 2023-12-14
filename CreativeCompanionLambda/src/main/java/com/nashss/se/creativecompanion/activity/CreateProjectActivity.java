@@ -1,13 +1,11 @@
 package com.nashss.se.creativecompanion.activity;
 
-//import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-//import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.nashss.se.creativecompanion.converters.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
 import com.nashss.se.creativecompanion.dynamodb.models.Project;
 import com.nashss.se.creativecompanion.models.ProjectModel;
-import com.nashss.se.creativecompanion.requests.CreateProjectRequest;
-import com.nashss.se.creativecompanion.results.CreateProjectResult;
+import com.nashss.se.creativecompanion.activity.request.CreateProjectRequest;
+import com.nashss.se.creativecompanion.activity.result.CreateProjectResult;
 import com.nashss.se.creativecompanion.utils.ServiceUtils;
 
 import org.apache.logging.log4j.LogManager;
@@ -49,7 +47,7 @@ public class CreateProjectActivity {
      * @return createProjectResult result object containing the API defined {@link ProjectModel}
      */
     public CreateProjectResult handleRequest(final CreateProjectRequest createProjectRequest) {
-        System.out.println("Received CreateProjectRequest {}" + createProjectRequest);
+        log.info("Received CreateProjectRequest {}", createProjectRequest);
 
         Project newProject = new Project();
         newProject.setUserId(createProjectRequest.getUserId());
@@ -57,9 +55,6 @@ public class CreateProjectActivity {
         newProject.setProjectName(createProjectRequest.getProjectName());
         newProject.setWordPool(new ArrayList<>());
         newProject.setWorkspace(new ArrayList<>());
-
-
-        //newProject.setInventory(new HashSet<>()); // what should this be? what does a Project hold?
 
         projectDao.saveProject(newProject);
 

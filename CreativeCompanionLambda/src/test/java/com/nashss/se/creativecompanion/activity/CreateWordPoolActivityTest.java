@@ -1,18 +1,14 @@
 package com.nashss.se.creativecompanion.activity;
 
-import com.nashss.se.creativecompanion.activity.CreateWordPoolActivity;
 import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
 import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
-import com.nashss.se.creativecompanion.requests.CreateWordPoolRequest;
-import com.nashss.se.creativecompanion.results.CreateWordPoolResult;
+import com.nashss.se.creativecompanion.activity.request.CreateWordPoolRequest;
+import com.nashss.se.creativecompanion.activity.result.CreateWordPoolResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.openMocks;
@@ -34,8 +30,6 @@ public class CreateWordPoolActivityTest {
         // GIVEN
         String expectedUserId = "expectedUserId";
         String expectedWordPoolName = "expectedWordPoolName";
-        //List<String> wordPool = List.of("this", "is", "a" , "wordPool", "list");
-        //List<String> workspace = List.of("this", "is", "a" , "workspace", "list");
 
         CreateWordPoolRequest request = CreateWordPoolRequest.builder()
                 .withUserId(expectedUserId)
@@ -48,11 +42,7 @@ public class CreateWordPoolActivityTest {
         // THEN
         verify(wordPoolDao).saveWordPool(any(WordPool.class));
 
-        //assertNotNull(result.getProject().getUserId());
         assertEquals(expectedUserId, result.getWordPool().getUserId());
         assertEquals(expectedWordPoolName, result.getWordPool().getWordPoolName());
-
     }
-
-
 }

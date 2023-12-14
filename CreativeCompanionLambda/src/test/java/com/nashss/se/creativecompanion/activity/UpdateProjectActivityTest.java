@@ -1,17 +1,14 @@
 package com.nashss.se.creativecompanion.activity;
 
-import com.nashss.se.creativecompanion.activity.UpdateProjectActivity;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
 import com.nashss.se.creativecompanion.dynamodb.models.Project;
-import com.nashss.se.creativecompanion.requests.UpdateProjectRequest;
-import com.nashss.se.creativecompanion.results.UpdateProjectResult;
+import com.nashss.se.creativecompanion.activity.request.UpdateProjectRequest;
+import com.nashss.se.creativecompanion.activity.result.UpdateProjectResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import com.nashss.se.creativecompanion.metrics.MetricsPublisher;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

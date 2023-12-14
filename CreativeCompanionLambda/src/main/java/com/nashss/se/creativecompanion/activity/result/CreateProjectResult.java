@@ -1,12 +1,11 @@
-package com.nashss.se.creativecompanion.results;
+package com.nashss.se.creativecompanion.activity.result;
 
 import com.nashss.se.creativecompanion.models.ProjectModel;
 
-public class UpdateProjectResult {
-
+public class CreateProjectResult {
     private final ProjectModel project;
 
-    private UpdateProjectResult(ProjectModel project) {
+    private CreateProjectResult(ProjectModel project) {
         this.project = project;
     }
 
@@ -16,7 +15,7 @@ public class UpdateProjectResult {
 
     @Override
     public String toString() {
-        return "UpdateProjectResult{" +
+        return "CreateProjectResult{" +
                 "project=" + project +
                 '}';
     }
@@ -34,8 +33,8 @@ public class UpdateProjectResult {
             return this;
         }
 
-        public UpdateProjectResult build() {
-            return new UpdateProjectResult(project);
+        public CreateProjectResult build() {
+            return new CreateProjectResult(project);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.nashss.se.creativecompanion.requests;
+package com.nashss.se.creativecompanion.activity.request;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;

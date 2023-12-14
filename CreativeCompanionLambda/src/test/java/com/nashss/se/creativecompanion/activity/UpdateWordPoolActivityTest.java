@@ -1,10 +1,9 @@
 package com.nashss.se.creativecompanion.activity;
 
-import com.nashss.se.creativecompanion.activity.UpdateWordPoolActivity;
 import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
 import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
-import com.nashss.se.creativecompanion.requests.UpdateWordPoolRequest;
-import com.nashss.se.creativecompanion.results.UpdateWordPoolResult;
+import com.nashss.se.creativecompanion.activity.request.UpdateWordPoolRequest;
+import com.nashss.se.creativecompanion.activity.result.UpdateWordPoolResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -42,7 +41,6 @@ public class UpdateWordPoolActivityTest {
         String expectedWordPoolId = "expectedWordPoolId";
         String expectedWordPoolName = "expectedWordPoolName";
         List<String> wordPool = List.of("this", "is", "a" , "wordPool", "list");
-        List<String> workspace = List.of("this", "is", "a" , "workspace", "list");
 
         UpdateWordPoolRequest request = UpdateWordPoolRequest.builder()
                 .withUserId(expectedUserId)
@@ -66,7 +64,6 @@ public class UpdateWordPoolActivityTest {
         // THEN
         verify(wordPoolDao).saveWordPool(any(WordPool.class));
 
-        //assertNotNull(result.getProject().getUserId());
         assertEquals(expectedUserId, result.getWordPool().getUserId());
         assertEquals(expectedWordPoolId, result.getWordPool().getWordPoolId());
         assertEquals(expectedWordPoolName, result.getWordPool().getWordPoolName());

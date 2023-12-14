@@ -1,12 +1,12 @@
-package com.nashss.se.creativecompanion.results;
+package com.nashss.se.creativecompanion.activity.result;
 
 import com.nashss.se.creativecompanion.models.WordPoolModel;
 
-public class CreateWordPoolResult {
+public class UpdateWordPoolResult {
 
     private final WordPoolModel wordPool;
 
-    private CreateWordPoolResult(WordPoolModel wordPool) {
+    private UpdateWordPoolResult(WordPoolModel wordPool) {
         this.wordPool = wordPool;
     }
 
@@ -16,26 +16,26 @@ public class CreateWordPoolResult {
 
     @Override
     public String toString() {
-        return "CreateWordPoolResult{" +
+        return "UpdateWordPoolResult{" +
                 "wordPool=" + wordPool +
                 '}';
     }
 
     //CHECKSTYLE:OFF:Builder
-    public static CreateWordPoolResult.Builder builder() {
-        return new CreateWordPoolResult.Builder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static class Builder {
         private WordPoolModel wordPool;
 
-        public CreateWordPoolResult.Builder withWordPool(WordPoolModel wordPool) {
+        public Builder withWordPool(WordPoolModel wordPool) {
             this.wordPool = wordPool;
             return this;
         }
 
-        public CreateWordPoolResult build() {
-            return new CreateWordPoolResult(wordPool);
+        public UpdateWordPoolResult build() {
+            return new UpdateWordPoolResult(wordPool);
         }
     }
 }

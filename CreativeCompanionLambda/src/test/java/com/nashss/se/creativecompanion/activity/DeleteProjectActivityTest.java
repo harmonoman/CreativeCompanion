@@ -1,9 +1,8 @@
 package com.nashss.se.creativecompanion.activity;
 
-import com.nashss.se.creativecompanion.activity.DeleteProjectActivity;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
-import com.nashss.se.creativecompanion.requests.DeleteProjectRequest;
-import com.nashss.se.creativecompanion.results.DeleteProjectResult;
+import com.nashss.se.creativecompanion.activity.request.DeleteProjectRequest;
+import com.nashss.se.creativecompanion.activity.result.DeleteProjectResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

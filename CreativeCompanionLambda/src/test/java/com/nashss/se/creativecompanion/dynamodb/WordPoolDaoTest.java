@@ -1,11 +1,7 @@
 package com.nashss.se.creativecompanion.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
-import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
-import com.nashss.se.creativecompanion.dynamodb.models.Project;
 import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
-import com.nashss.se.creativecompanion.exceptions.ProjectNotFoundException;
 import com.nashss.se.creativecompanion.exceptions.WordPoolNotFoundException;
 import com.nashss.se.creativecompanion.metrics.MetricsConstants;
 import com.nashss.se.creativecompanion.metrics.MetricsPublisher;
@@ -82,5 +78,4 @@ public class WordPoolDaoTest {
         verify(dynamoDBMapper).save(wordPool);
         assertEquals(wordPool, result);
     }
-
 }

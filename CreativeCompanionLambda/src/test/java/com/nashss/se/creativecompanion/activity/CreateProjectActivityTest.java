@@ -1,15 +1,12 @@
 package com.nashss.se.creativecompanion.activity;
 
-import com.nashss.se.creativecompanion.activity.CreateProjectActivity;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
 import com.nashss.se.creativecompanion.dynamodb.models.Project;
-import com.nashss.se.creativecompanion.requests.CreateProjectRequest;
-import com.nashss.se.creativecompanion.results.CreateProjectResult;
+import com.nashss.se.creativecompanion.activity.request.CreateProjectRequest;
+import com.nashss.se.creativecompanion.activity.result.CreateProjectResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -33,8 +30,6 @@ public class CreateProjectActivityTest {
         // GIVEN
         String expectedUserId = "expectedUserId";
         String expectedProjectName = "expectedProjectName";
-        //List<String> wordPool = List.of("this", "is", "a" , "wordPool", "list");
-        //List<String> workspace = List.of("this", "is", "a" , "workspace", "list");
 
         CreateProjectRequest request = CreateProjectRequest.builder()
                 .withUserId(expectedUserId)
@@ -47,19 +42,7 @@ public class CreateProjectActivityTest {
         // THEN
         verify(projectDao).saveProject(any(Project.class));
 
-        //assertNotNull(result.getProject().getUserId());
         assertEquals(expectedUserId, result.getProject().getUserId());
         assertEquals(expectedProjectName, result.getProject().getProjectName());
-
     }
-
-
-
-
-
-
-
-
-
-
 }

@@ -4,8 +4,8 @@ import com.nashss.se.creativecompanion.converters.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
 import com.nashss.se.creativecompanion.dynamodb.models.Project;
 import com.nashss.se.creativecompanion.models.ProjectModel;
-import com.nashss.se.creativecompanion.requests.GetProjectByNameRequest;
-import com.nashss.se.creativecompanion.results.GetProjectByNameResult;
+import com.nashss.se.creativecompanion.activity.request.GetProjectByNameRequest;
+import com.nashss.se.creativecompanion.activity.result.GetProjectByNameResult;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,5 +51,4 @@ public class GetProjectByNameActivity {
                 .withProjectName(projectModel)
                 .build();
     }
-
 }
