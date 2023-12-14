@@ -77,7 +77,14 @@ class Project extends BindingClass {
         clearWorkspaceButton.addEventListener('click', this.clearWorkspace);
         // Delete Project button
         const deleteProjectButton = document.getElementById('delete-project');
-        deleteProjectButton.addEventListener('click', this.deleteProject);
+        deleteProjectButton.addEventListener('click', () => {
+            // Prompt user for confirmation before deleting the project
+            const confirmation = confirm("Are you sure you want to delete this Project?");
+            if (confirmation) {
+                this.deleteProject();
+            }
+            // If the user clicks "Cancel" in the confirmation, do nothing.
+        });
         // Open Import Word Pool Modal button
         const importWordPoolButton = document.getElementById('import-wordPool');
         importWordPoolButton.addEventListener('click', this.openImportWordPoolModal);

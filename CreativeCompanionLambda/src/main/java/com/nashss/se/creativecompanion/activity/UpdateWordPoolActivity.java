@@ -53,6 +53,9 @@ public class UpdateWordPoolActivity {
      * @return updateWordPoolResult result object containing the API defined {@link WordPoolModel}
      */
     public UpdateWordPoolResult handleRequest(final UpdateWordPoolRequest updateWordPoolRequest) {
+
+        long startTime = System.currentTimeMillis();
+
         log.info("Received UpdateWordPoolRequest {}", updateWordPoolRequest);
 
         WordPool wordPool = new WordPool();
@@ -63,6 +66,10 @@ public class UpdateWordPoolActivity {
         wordPool = wordPoolDao.saveWordPool(wordPool);
 
         WordPoolModel wordPoolModel = new ModelConverter().toWordPoolModel(wordPool);
+
+        long endTime = System.currentTimeMillis();
+        double elapsedTime = endTime - startTime;
+        metricsPublisher.addTime("UpdateWordPoolHandlingTime", elapsedTime);
 
         return UpdateWordPoolResult.builder()
                 .withWordPool(wordPoolModel)

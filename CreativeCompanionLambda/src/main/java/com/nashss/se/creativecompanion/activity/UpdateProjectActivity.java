@@ -49,6 +49,9 @@ public class UpdateProjectActivity {
      * @return updateProjectResult result object containing the API defined {@link ProjectModel}
      */
     public UpdateProjectResult handleRequest(final UpdateProjectRequest updateProjectRequest) {
+
+        long startTime = System.currentTimeMillis();
+
         log.info("Received UpdateProjectRequest {}", updateProjectRequest);
 
         Project project = new Project();
@@ -60,6 +63,10 @@ public class UpdateProjectActivity {
         project = projectDao.saveProject(project);
 
         ProjectModel projectModel = new ModelConverter().toProjectModel(project);
+
+        long endTime = System.currentTimeMillis();
+        double elapsedTime = endTime - startTime;
+        metricsPublisher.addTime("UpdateProjectHandlingTime", elapsedTime);
 
         return UpdateProjectResult.builder()
                 .withProject(projectModel)
