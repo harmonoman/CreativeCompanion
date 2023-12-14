@@ -297,6 +297,9 @@ class Project extends BindingClass {
      */
     async collectAndUpdateProject() {
         try {
+
+            document.getElementById('save-project').innerText = "Saving...";
+
             // Collect data from fields
             const wordPoolData = Array.from(document.getElementById('wordPool-field').children)
                 .map(element => element.textContent.trim());
@@ -326,6 +329,9 @@ class Project extends BindingClass {
         } catch (error) {
             console.error('Error collecting and updating project:', error);
         }
+
+        document.getElementById('save-project').innerText = "Save Project";
+
     }
 
 

@@ -92,10 +92,18 @@ class ViewWordPools extends BindingClass {
         errorMessageDisplay.innerText = ``;
         errorMessageDisplay.classList.add('hidden');
 
-        const wordPoolId = document.getElementById('wordPoolsSelect').value;
-        console.log("(submit) selected word pool's id: " + wordPoolId);
+        const wordPoolSelect = document.getElementById('wordPoolsSelect');
+        const wordPoolId = wordPoolSelect.value;
 
-        this.redirectToViewWordPool(wordPoolId);
+        // Check if the selected word pool is not empty
+        if (wordPoolId) {
+            console.log("(submit) selected word pool's id: " + wordPoolId);
+            this.redirectToViewWordPool(wordPoolId);
+        } else {
+            // Handle the case where no word pool is selected (e.g., display an error message)
+            errorMessageDisplay.innerText = "Please create a new word pool.";
+            errorMessageDisplay.classList.remove('hidden');
+        }
     }
 
 }

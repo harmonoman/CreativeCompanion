@@ -185,6 +185,9 @@ class WordPool extends BindingClass {
      */
     async collectAndUpdateWordPool() {
         try {
+
+            document.getElementById('save-wordPool').innerText = "Saving...";
+
             // Collect data from fields
             const wordPoolData = Array.from(document.getElementById('wordPool-field').children)
                 .map(element => element.textContent.trim());
@@ -210,6 +213,9 @@ class WordPool extends BindingClass {
         } catch (error) {
             console.error('Error collecting and updating word pool:', error);
         }
+
+        document.getElementById('save-wordPool').innerText = "Save WordPool";
+
     }
 
     ///// addWordsToPage /////

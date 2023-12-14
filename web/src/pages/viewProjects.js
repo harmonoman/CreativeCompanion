@@ -92,26 +92,19 @@ class ViewProjects extends BindingClass {
              errorMessageDisplay.innerText = ``;
              errorMessageDisplay.classList.add('hidden');
 
-             const projectId = document.getElementById('projectsSelect').value;
-             console.log("(submit1) selected project's id: " + projectId);
+             const projectSelect = document.getElementById('projectsSelect');
+             const projectId = projectSelect.value;
 
-             this.redirectToViewProject(projectId);
+             // Check if the selected word pool is not empty
+             if (projectId) {
+                console.log("(submit1) selected project's id: " + projectId);
+                this.redirectToViewProject(projectId);
+             } else {
+                // Handle the case where no word pool is selected (e.g., display an error message)
+                errorMessageDisplay.innerText = "Please create a new project.";
+                errorMessageDisplay.classList.remove('hidden');
              }
-
-
-    redirectToViewProjectByName(projectId) {
-        // Get project name
-        const projectNameInput = document.getElementById('projectNameInput');
-        const projectName = projectNameInput.value.trim();
-        console.log("projectName: " + projectName);
-
-
-        const project = this.client.getProjectByName(projectName);
-        console.log("(redirectToViewProjectByName) here is the supposed projectId: " + projectId)
-        if (projectId != null) {
-            window.location.href = `/project.html?projectId=${project.projectId}`;
-        }
-    }
+             }
 
     async submit2(evt) {
         evt.preventDefault();
@@ -126,8 +119,12 @@ class ViewProjects extends BindingClass {
         const project = await this.client.getProjectByName(projectName);
         console.log("(submit) here is the supposed projectId based on the name: " + JSON.stringify(project));
 
-        if (project.projectId != null) {
+        if (project && project.projectId != null) {
             this.redirectToViewProject(project.projectId);
+        } else {
+            // Handle the case where no word pool is selected (e.g., display an error message)
+            errorMessageDisplay.innerText = "Please create a new project.";
+            errorMessageDisplay.classList.remove('hidden');
         }
     }
 
