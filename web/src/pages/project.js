@@ -175,10 +175,43 @@ class Project extends BindingClass {
 
         // Construct the API URL based on number of inputs
         let apiUrl;
-        if (inputTexts.length === 1) {
-            apiUrl = `https://api.datamuse.com/words?ml=${inputTexts[0]}`;
-        } else if (inputTexts.length === 2) {
-            apiUrl = `https://api.datamuse.com/words?ml=${inputTexts[0]}&sp=${inputTexts[1]}*`;
+        switch (action) {
+            case 'Action 1':
+                apiUrl = `https://api.datamuse.com/words?ml=${inputTexts[0]}`;
+                break;
+            case 'Action 2':
+                apiUrl = `https://api.datamuse.com/words?ml=${inputTexts[0]}&sp=${inputTexts[1]}*`;
+                break;
+            case 'Action 3':
+                apiUrl = `https://api.datamuse.com/words?ml=${inputTexts[0]}&sp=*${inputTexts[1]}`;
+                break;
+            case 'Action 4':
+                apiUrl = `https://api.datamuse.com/words?sl=${inputTexts[0]}`;
+                break;
+            case 'Action 5':
+                apiUrl = `https://api.datamuse.com/words?sp=${inputTexts[0]}??${inputTexts[1]}`;
+                break;
+            case 'Action 6':
+                apiUrl = `https://api.datamuse.com/words?sp=${inputTexts[0]}`;
+                break;
+            case 'Action 7':
+                apiUrl = `https://api.datamuse.com/words?rel_jjb=${inputTexts[0]}`;
+                break;
+            case 'Action 8':
+                apiUrl = `https://api.datamuse.com/words?rel_jjb=${inputTexts[0]}&topics=${inputTexts[1]}`;
+                break;
+            case 'Action 9':
+                apiUrl = `https://api.datamuse.com/words?rel_jja=${inputTexts[0]}`;
+                break;
+            case 'Action 10':
+                apiUrl = `https://api.datamuse.com/words?lc=${inputTexts[0]}&sp=${inputTexts[1]}*`;
+                break;
+            case 'Action 11':
+                apiUrl = `https://api.datamuse.com/words?rel_trg=${inputTexts[0]}`;
+                break;
+            case 'Action 12':
+                apiUrl = `https://api.datamuse.com/sug?s=${inputTexts[0]}`;
+                break;
         }
 
         try {
