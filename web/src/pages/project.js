@@ -560,11 +560,11 @@ class Project extends BindingClass {
 
             // Get existing projects from dataStore
             const projects = await this.dataStore.get('projects') || [];
-            console.log("projects in createProject(): " + JSON.stringify(projects));
+            console.log("projects in changeProjectName(): " + JSON.stringify(projects));
 
             // Get project name
-            const projectNameInput = document.getElementById('projectNameInput');
-            const projectName = projectNameInput.value.trim();
+            const changeProjectNameInput = document.getElementById('changeProjectNameInput');
+            const projectName = changeProjectNameInput.value.trim();
             console.log("projectName: " + projectName);
 
             // Check to see if project already exists
@@ -578,17 +578,20 @@ class Project extends BindingClass {
             }
 
             // Check if element is found
-            if (projectNameInput) {
-                const projectName = projectNameInput.value.trim();
+            if (changeProjectNameInput) {
+                const projectName = changeProjectNameInput.value.trim();
             } else {
-                console.error("Element with ID 'projectNameInput' not found");
+                console.error("Element with ID 'changeProjectNameInput' not found");
             }
 
             // Check if input is valid
             if (projectName === '') {
-                alert('Please enter a valid project name.');
+                window.alert('Please enter a valid project name.');
                 return;
             }
+
+            // Close modal
+            this.closeChangeProjectNameModal();
 
             // Message to LoadingSpinner
             const message = `Changing Project Name to ${projectName}. `;
@@ -626,21 +629,9 @@ class Project extends BindingClass {
                 console.error('Error collecting and updating project:', error);
             }
 
-
-
-            // Navigate to project.html with project ID
-            //window.location.href = `project.html?projectId=${project.projectId}`;
-
-            // Close modal
-            this.closeChangeProjectNameModal();
             this.spinner.hideLoadingSpinner();
             const project = this.dataStore.get('project');
         }
-
-
-
-
-
 
 }
 
