@@ -10,7 +10,8 @@ class Project extends BindingClass {
 
         this.bindClassMethods(['clientLoaded', 'mount', 'initDraggableElements', 'dropText', 'openProjectModal',
         'closeProjectModal', 'performAction','collectAndUpdateProject', 'addWordsToPage', 'clearWordPool',
-        'clearWorkspace','deleteProject', 'openImportWordPoolModal', 'closeImportWordPoolModal', 'importWordPool'], this);
+        'clearWorkspace','deleteProject', 'openImportWordPoolModal', 'closeImportWordPoolModal', 'importWordPool',
+        'changeProjectName', 'openChangeProjectNameModal', 'closeChangeProjectNameModal'], this);
 
         this.workspaceField = null; // Initialize Workspace Field
 
@@ -43,6 +44,10 @@ class Project extends BindingClass {
         // Get Word Pool list for Import Word Pools Modal
         const wordPools = await this.client.getWordPoolList();
         this.dataStore.set('wordPools', wordPools);
+
+        // Get Project list for Change Project Name Modal
+        const projects = await this.client.getProjectList();
+        this.dataStore.set('projects', projects);
     }
 
     /**
@@ -66,6 +71,10 @@ class Project extends BindingClass {
         window.closeImportWordPoolModal = this.closeImportWordPoolModal.bind(this);
         window.importWordPool = this.importWordPool.bind(this);
 
+        window.openChangeProjectNameModal = this.openChangeProjectNameModal.bind(this);
+        window.closeChangeProjectNameModal = this.closeChangeProjectNameModal.bind(this);
+        window.changeProjectName = this.changeProjectName.bind(this);
+
         // Save Project button
         const saveProjectButton = document.getElementById('save-project');
         saveProjectButton.addEventListener('click', this.collectAndUpdateProject);
@@ -88,6 +97,9 @@ class Project extends BindingClass {
         // Open Import Word Pool Modal button
         const importWordPoolButton = document.getElementById('import-wordPool');
         importWordPoolButton.addEventListener('click', this.openImportWordPoolModal);
+        // Open Change Project Name Modal button
+        const changeProjectNameButton = document.getElementById('changeProjectNameBtn');
+        changeProjectNameButton.addEventListener('click', this.changeProjectName);
 
         this.clientLoaded();
     }
@@ -521,6 +533,110 @@ class Project extends BindingClass {
 
         this.closeImportWordPoolModal();
     }
+
+    openChangeProjectNameModal() {
+        const projectModal = document.getElementById('changeProjectNameModal');
+        projectModal.style.display = 'block';
+        console.log("openChangeProjectNameModal");
+    }
+
+    closeChangeProjectNameModal() {
+        const projectModal = document.getElementById('changeProjectNameModal');
+        projectModal.style.display = 'none';
+        console.log("closeChangeProjectNameModal");
+
+    }
+
+    ///// CHANGE PROJECT NAME /////
+
+    /**
+     * Changes a project name using user-provided project name.
+     * Retrieves the project name from the modal, validates it, and initiates the name change process.
+     * Upon successful name change, navigates to the 'project.html' page, passing project details in the URL.
+     * Finally, closes the modal.
+     */
+    async changeProjectName() {
+        try {
+
+            // Get existing projects from dataStore
+            const projects = await this.dataStore.get('projects') || [];
+            console.log("projects in createProject(): " + JSON.stringify(projects));
+
+            // Get project name
+            const projectNameInput = document.getElementById('projectNameInput');
+            const projectName = projectNameInput.value.trim();
+            console.log("projectName: " + projectName);
+
+            // Check to see if project already exists
+            let projectExists = false;
+
+            for (const project of projects) {
+                if (project.projectName === projectName) {
+                    window.alert(`A project with the name "${projectName}" already exists. Please choose a different name.`);
+                    return;
+                }
+            }
+
+            // Check if element is found
+            if (projectNameInput) {
+                const projectName = projectNameInput.value.trim();
+            } else {
+                console.error("Element with ID 'projectNameInput' not found");
+            }
+
+            // Check if input is valid
+            if (projectName === '') {
+                alert('Please enter a valid project name.');
+                return;
+            }
+
+            // Message to LoadingSpinner
+            const message = `Changing Project Name to ${projectName}. `;
+            this.spinner.showLoadingSpinner(message);
+
+            // Collect data from fields
+            const wordPoolData = Array.from(document.getElementById('wordPool-field').children)
+                .map(element => element.textContent.trim());
+
+            const workspaceData = Array.from(document.getElementById('workspace-field').children)
+                .map(element => element.textContent.trim());
+
+            // Get projectId from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectIdToUpdate = urlParams.get('projectId');
+
+            const project = this.dataStore.get('project');
+
+            // Create the update data object
+            const updateData = {
+                projectId: projectIdToUpdate,
+                projectName: projectName,
+                wordPool: wordPoolData,
+                workspace: workspaceData,
+            };
+
+            console.log ("updateData: " + JSON.stringify(updateData));
+
+            // Update project
+            const updatedProject = await this.client.updateProject(projectIdToUpdate, updateData);
+
+            this.dataStore.set('project', updatedProject);
+
+            } catch (error) {
+                console.error('Error collecting and updating project:', error);
+            }
+
+
+
+            // Navigate to project.html with project ID
+            //window.location.href = `project.html?projectId=${project.projectId}`;
+
+            // Close modal
+            this.closeChangeProjectNameModal();
+            this.spinner.hideLoadingSpinner();
+            const project = this.dataStore.get('project');
+        }
+
 
 
 
