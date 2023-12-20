@@ -17,7 +17,7 @@ class CreativeCompanionIndex extends BindingClass {
 
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
-        this.loadingSpinner = new LoadingSpinner();
+//        this.loadingSpinner = new LoadingSpinner();
 
         window.openProjectModal = this.openProjectModal.bind(this);
         window.closeProjectModal = this.closeProjectModal.bind(this);

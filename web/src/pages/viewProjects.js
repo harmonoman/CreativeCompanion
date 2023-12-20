@@ -2,6 +2,7 @@ import CreativeCompanionClient from '../api/creativeCompanionClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
+//import LoadingSpinner from '../util/LoadingSpinner';
 
 /**
  * Logic needed for the view project page of the website.
@@ -17,19 +18,20 @@ class ViewProjects extends BindingClass {
     }
 
     /**
-         * Once the client is loaded, get the project metadata and project list.
-         */
+     * Once the client is loaded, get the project metadata and project list.
+     */
     async clientLoaded() {
-
         const projectSelect = document.getElementById('projectsSelect');
             projectSelect.classList.add('shadow-wrapper');
             document.getElementById('projectsSelect').innerText = "(Loading Projects...)";
+
         const projects = await this.client.getProjectList();
         console.log("(clientLoaded) projects should be here: " + projects);
+
         this.dataStore.set('projects', projects);
         console.log("(clientLoaded) projects have been set")
-        const userName = await this.client.getUserName();
 
+        const userName = await this.client.getUserName();
         const userNameElement = document.getElementById('user-name');
             userNameElement.classList.add('shadow-wrapper');
             document.getElementById('user-name').innerText = userName + "'s Projects";
@@ -37,15 +39,17 @@ class ViewProjects extends BindingClass {
     }
 
     /**
-     * Add the header to the page and load the MusicPlaylistClient.
+     * Add the header to the page and load the CreativeCompanionClient.
      */
     mount() {
+
         document.getElementById('projectsSelect').addEventListener('click', this.submit1);
         document.getElementById('searchProjectBtn').addEventListener('click', this.submit2);
 
         this.header.addHeaderToPage();
 
         this.client = new CreativeCompanionClient();
+//        this.spinner = new LoadingSpinner();
         this.clientLoaded();
     }
 
@@ -86,25 +90,39 @@ class ViewProjects extends BindingClass {
     }
 
     async submit1(evt) {
-             evt.preventDefault();
+        evt.preventDefault();
 
-             const errorMessageDisplay = document.getElementById('error-message');
-             errorMessageDisplay.innerText = ``;
-             errorMessageDisplay.classList.add('hidden');
+        const errorMessageDisplay = document.getElementById('error-message');
+        errorMessageDisplay.innerText = ``;
+        errorMessageDisplay.classList.add('hidden');
 
-             const projectSelect = document.getElementById('projectsSelect');
-             const projectId = projectSelect.value;
+        const projectSelect = document.getElementById('projectsSelect');
+        const projectId = projectSelect.value;
 
-             // Check if the selected word pool is not empty
-             if (projectId) {
-                console.log("(submit1) selected project's id: " + projectId);
-                this.redirectToViewProject(projectId);
-             } else {
-                // Handle the case where no word pool is selected (e.g., display an error message)
-                errorMessageDisplay.innerText = "Please create a new project.";
-                errorMessageDisplay.classList.remove('hidden');
-             }
-             }
+//        // Get projectName from dataStore for LoadingSpinner
+//        const projects = await this.dataStore.get('projects');
+//        projects.forEach(project => {
+//            if (projectId === project.projectId) {
+//                const projectName  = project.projectName;
+//                console.log("projectName: " + projectName);
+//                // Message to LoadingSpinner
+//                const message = `Saving ${projectName}. `;
+//                this.spinner.showLoadingSpinner(message);
+//            }
+//        });
+
+
+
+        // Check if the selected project is not empty
+        if (projectId) {
+            console.log("(submit1) selected project's id: " + projectId);
+            this.redirectToViewProject(projectId);
+        } else {
+            // Handle the case where no project is selected (e.g., display an error message)
+            errorMessageDisplay.innerText = "Please create a new project.";
+            errorMessageDisplay.classList.remove('hidden');
+        }
+    }
 
     async submit2(evt) {
         evt.preventDefault();

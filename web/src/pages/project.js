@@ -28,13 +28,21 @@ class Project extends BindingClass {
      * Once the client is loaded, get the project metadata
      */
     async clientLoaded() {
+
+        // Message to LoadingSpinner
+        const message = `Loading project... `;
+        this.spinner.showLoadingSpinner(message);
+
         const urlParams = new URLSearchParams(window.location.search);
         const projectId = urlParams.get('projectId');
 
         const projectNameElement = document.getElementById('projectNameElement');
         projectNameElement.classList.add('shadow-wrapper');
-        document.getElementById('projectNameElement').innerText = "Loading Project ...";
+        document.getElementById('projectNameElement').innerText = "- - -";
         const project = await this.client.getProject(projectId);
+
+
+
         console.log("inside clientLoaded");
 
         console.log("project: " + project.projectId);
@@ -48,6 +56,8 @@ class Project extends BindingClass {
         // Get Project list for Change Project Name Modal
         const projects = await this.client.getProjectList();
         this.dataStore.set('projects', projects);
+
+        this.spinner.hideLoadingSpinner();
     }
 
     /**
@@ -350,6 +360,7 @@ class Project extends BindingClass {
     async collectAndUpdateProject() {
         try {
 
+
             document.getElementById('save-project').innerText = "Saving...";
 
             // Collect data from fields
@@ -364,6 +375,10 @@ class Project extends BindingClass {
             const projectIdToUpdate = urlParams.get('projectId');
 
             const project = this.dataStore.get('project');
+
+            // Message to LoadingSpinner
+            const message = `Saving ${project.projectName}. `;
+            this.spinner.showLoadingSpinner(message);
 
             // Create the update data object
             const updateData = {
@@ -381,6 +396,8 @@ class Project extends BindingClass {
         } catch (error) {
             console.error('Error collecting and updating project:', error);
         }
+
+        this.spinner.hideLoadingSpinner();
 
         document.getElementById('save-project').innerText = "Save Project";
 
