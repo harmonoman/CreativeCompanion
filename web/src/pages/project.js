@@ -575,6 +575,10 @@ class Project extends BindingClass {
     async changeProjectName() {
         try {
 
+            //Get current project from dataStore
+            const currentName = await this.dataStore.get('project');
+            console.log("currentName: " + currentName.projectName);
+
             // Get existing projects from dataStore
             const projects = await this.dataStore.get('projects') || [];
             console.log("projects in changeProjectName(): " + JSON.stringify(projects));
@@ -611,7 +615,7 @@ class Project extends BindingClass {
             this.closeChangeProjectNameModal();
 
             // Message to LoadingSpinner
-            const message = `Changing Project Name to ${projectName}. `;
+            const message = `Changing ${currentName.projectName} to ${projectName}. `;
             this.spinner.showLoadingSpinner(message);
 
             // Collect data from fields

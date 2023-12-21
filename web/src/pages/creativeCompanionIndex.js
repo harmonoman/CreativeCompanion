@@ -45,6 +45,11 @@ class CreativeCompanionIndex extends BindingClass {
     }
 
     async clientLoaded() {
+
+        // Message to LoadingSpinner
+        const message = `Loading Creative Companion. `;
+        this.spinner.showLoadingSpinner(message);
+
         const userName = await this.client.getUserName();
         const welcomeMessage = document.getElementById("welcome-message");
         const buttonGroup = document.querySelector(".button-group");
@@ -67,6 +72,9 @@ class CreativeCompanionIndex extends BindingClass {
         // Populate dataStore with existing projects
         const wordPools = await this.client.getWordPoolList();
         this.dataStore.set('wordPools', wordPools);
+
+
+        this.spinner.hideLoadingSpinner();
     }
 
     createLoginButton() {
