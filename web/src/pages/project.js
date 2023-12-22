@@ -17,6 +17,7 @@ class Project extends BindingClass {
 
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addWordsToPage);
+//        this.dataStore.addChangeListener(this.changeProjectName);
 
         this.header = new Header(this.dataStore);
         this.loadingSpinner = new LoadingSpinner();
@@ -576,34 +577,20 @@ class Project extends BindingClass {
         try {
 
             //Get current project from dataStore
-            const currentName = await this.dataStore.get('project');
-            console.log("currentName: " + currentName.projectName);
+            const currentProject = await this.dataStore.get('project');
 
             // Get existing projects from dataStore
             const projects = await this.dataStore.get('projects') || [];
-            console.log("projects in changeProjectName(): " + JSON.stringify(projects));
 
-            // Get project name
+            // Get new project name input
             const changeProjectNameInput = document.getElementById('changeProjectNameInput');
-            const projectName = changeProjectNameInput.value.trim();
-            console.log("projectName: " + projectName);
-
-            // Check to see if project already exists
-            let projectExists = false;
-
-            for (const project of projects) {
-                if (project.projectName === projectName) {
-                    window.alert(`A project with the name "${projectName}" already exists. Please choose a different name.`);
-                    return;
-                }
-            }
-
             // Check if element is found
-            if (changeProjectNameInput) {
-                const projectName = changeProjectNameInput.value.trim();
-            } else {
+            if (!changeProjectNameInput) {
                 console.error("Element with ID 'changeProjectNameInput' not found");
+                return;
             }
+
+            const projectName = changeProjectNameInput.value.trim();
 
             // Check if input is valid
             if (projectName === '') {
@@ -611,11 +598,17 @@ class Project extends BindingClass {
                 return;
             }
 
+            // Check if project already exists
+            if (projects.some(project => project.projectName === projectName)) {
+                window.alert(`A project with the name "${projectName}" already exists. Please choose a different name.`);
+                return;
+            }
+
             // Close modal
             this.closeChangeProjectNameModal();
 
             // Message to LoadingSpinner
-            const message = `Changing ${currentName.projectName} to ${projectName}. `;
+            const message = `Changing ${currentProject.projectName} to ${projectName}. `;
             this.spinner.showLoadingSpinner(message);
 
             // Collect data from fields
@@ -629,8 +622,6 @@ class Project extends BindingClass {
             const urlParams = new URLSearchParams(window.location.search);
             const projectIdToUpdate = urlParams.get('projectId');
 
-            const project = this.dataStore.get('project');
-
             // Create the update data object
             const updateData = {
                 projectId: projectIdToUpdate,
@@ -639,19 +630,27 @@ class Project extends BindingClass {
                 workspace: workspaceData,
             };
 
-            console.log ("updateData: " + JSON.stringify(updateData));
-
             // Update project
             const updatedProject = await this.client.updateProject(projectIdToUpdate, updateData);
 
             this.dataStore.set('project', updatedProject);
+
+            // Find the project that needs to be updated
+            const projectToUpdate = projects.find(project => project.projectId === projectIdToUpdate);
+
+            // Update the project name in the array
+            if (projectToUpdate) {
+                projectToUpdate.projectName = projectName;
+            }
+
+            // Set the updated array back to the dataStore
+            await this.dataStore.set('projects', projects);
 
             } catch (error) {
                 console.error('Error collecting and updating project:', error);
             }
 
             this.spinner.hideLoadingSpinner();
-            const project = this.dataStore.get('project');
         }
 
 }
