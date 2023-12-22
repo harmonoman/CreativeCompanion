@@ -105,12 +105,11 @@ class CreativeCompanionIndex extends BindingClass {
 
         // Get existing projects from dataStore
         const projects = await this.dataStore.get('projects') || [];
-        console.log("projects in createProject(): " + JSON.stringify(projects));
 
         // Get project name
         const projectNameInput = document.getElementById('projectNameInput');
         const projectName = projectNameInput.value.trim();
-        console.log("projectName: " + projectName);
+        console.log("(createProject()) projectName: " + projectName);
 
         // Check to see if project already exists
         let projectExists = false;

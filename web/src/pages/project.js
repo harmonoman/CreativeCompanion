@@ -17,10 +17,8 @@ class Project extends BindingClass {
 
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addWordsToPage);
-//        this.dataStore.addChangeListener(this.changeProjectName);
 
         this.header = new Header(this.dataStore);
-        this.loadingSpinner = new LoadingSpinner();
 
         console.log("Project constructor");
     }
@@ -40,13 +38,9 @@ class Project extends BindingClass {
         const projectNameElement = document.getElementById('projectNameElement');
         projectNameElement.classList.add('shadow-wrapper');
         document.getElementById('projectNameElement').innerText = "- - -";
+
+        // Get Project
         const project = await this.client.getProject(projectId);
-
-
-
-        console.log("inside clientLoaded");
-
-        console.log("project: " + project.projectId);
         this.dataStore.set('project', project);
         document.getElementById('projectNameElement').innerText = project.projectName;
 
