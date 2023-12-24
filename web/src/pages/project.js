@@ -10,7 +10,8 @@ class Project extends BindingClass {
 
         this.bindClassMethods(['clientLoaded', 'mount', 'initDraggableElements', 'dropText', 'openProjectModal',
         'closeProjectModal', 'performAction','collectAndUpdateProject', 'addWordsToPage', 'clearWordPool',
-        'clearWorkspace','deleteProject', 'openImportWordPoolModal', 'closeImportWordPoolModal', 'importWordPool'], this);
+        'clearWorkspace','deleteProject', 'openImportWordPoolModal', 'closeImportWordPoolModal', 'importWordPool',
+        'changeProjectName', 'openChangeProjectNameModal', 'closeChangeProjectNameModal'], this);
 
         this.workspaceField = null; // Initialize Workspace Field
 
@@ -18,7 +19,6 @@ class Project extends BindingClass {
         this.dataStore.addChangeListener(this.addWordsToPage);
 
         this.header = new Header(this.dataStore);
-        this.loadingSpinner = new LoadingSpinner();
 
         console.log("Project constructor");
     }
@@ -27,22 +27,32 @@ class Project extends BindingClass {
      * Once the client is loaded, get the project metadata
      */
     async clientLoaded() {
+
+        // Message to LoadingSpinner
+        const message = `Loading project... `;
+        this.spinner.showLoadingSpinner(message);
+
         const urlParams = new URLSearchParams(window.location.search);
         const projectId = urlParams.get('projectId');
 
         const projectNameElement = document.getElementById('projectNameElement');
         projectNameElement.classList.add('shadow-wrapper');
-        document.getElementById('projectNameElement').innerText = "Loading Project ...";
-        const project = await this.client.getProject(projectId);
-        console.log("inside clientLoaded");
+        document.getElementById('projectNameElement').innerText = "- - -";
 
-        console.log("project: " + project.projectId);
+        // Get Project
+        const project = await this.client.getProject(projectId);
         this.dataStore.set('project', project);
         document.getElementById('projectNameElement').innerText = project.projectName;
 
         // Get Word Pool list for Import Word Pools Modal
         const wordPools = await this.client.getWordPoolList();
         this.dataStore.set('wordPools', wordPools);
+
+        // Get Project list for Change Project Name Modal
+        const projects = await this.client.getProjectList();
+        this.dataStore.set('projects', projects);
+
+        this.spinner.hideLoadingSpinner();
     }
 
     /**
@@ -66,6 +76,10 @@ class Project extends BindingClass {
         window.closeImportWordPoolModal = this.closeImportWordPoolModal.bind(this);
         window.importWordPool = this.importWordPool.bind(this);
 
+        window.openChangeProjectNameModal = this.openChangeProjectNameModal.bind(this);
+        window.closeChangeProjectNameModal = this.closeChangeProjectNameModal.bind(this);
+        window.changeProjectName = this.changeProjectName.bind(this);
+
         // Save Project button
         const saveProjectButton = document.getElementById('save-project');
         saveProjectButton.addEventListener('click', this.collectAndUpdateProject);
@@ -88,6 +102,9 @@ class Project extends BindingClass {
         // Open Import Word Pool Modal button
         const importWordPoolButton = document.getElementById('import-wordPool');
         importWordPoolButton.addEventListener('click', this.openImportWordPoolModal);
+        // Open Change Project Name Modal button
+        const changeProjectNameButton = document.getElementById('changeProjectNameBtn');
+        changeProjectNameButton.addEventListener('click', this.changeProjectName);
 
         this.clientLoaded();
     }
@@ -338,6 +355,7 @@ class Project extends BindingClass {
     async collectAndUpdateProject() {
         try {
 
+
             document.getElementById('save-project').innerText = "Saving...";
 
             // Collect data from fields
@@ -352,6 +370,10 @@ class Project extends BindingClass {
             const projectIdToUpdate = urlParams.get('projectId');
 
             const project = this.dataStore.get('project');
+
+            // Message to LoadingSpinner
+            const message = `Saving ${project.projectName}. `;
+            this.spinner.showLoadingSpinner(message);
 
             // Create the update data object
             const updateData = {
@@ -369,6 +391,8 @@ class Project extends BindingClass {
         } catch (error) {
             console.error('Error collecting and updating project:', error);
         }
+
+        this.spinner.hideLoadingSpinner();
 
         document.getElementById('save-project').innerText = "Save Project";
 
@@ -522,9 +546,106 @@ class Project extends BindingClass {
         this.closeImportWordPoolModal();
     }
 
+    openChangeProjectNameModal() {
+        const projectModal = document.getElementById('changeProjectNameModal');
+        projectModal.style.display = 'block';
+        console.log("openChangeProjectNameModal");
+    }
 
+    closeChangeProjectNameModal() {
+        const projectModal = document.getElementById('changeProjectNameModal');
+        projectModal.style.display = 'none';
+        console.log("closeChangeProjectNameModal");
 
+    }
 
+    ///// CHANGE PROJECT NAME /////
+
+    /**
+     * Changes a project name using user-provided project name.
+     * Retrieves the project name from the modal, validates it, and initiates the name change process.
+     * Upon successful name change, navigates to the 'project.html' page, passing project details in the URL.
+     * Finally, closes the modal.
+     */
+    async changeProjectName() {
+        try {
+
+            //Get current project from dataStore
+            const currentProject = await this.dataStore.get('project');
+
+            // Get existing projects from dataStore
+            const projects = await this.dataStore.get('projects') || [];
+
+            // Get new project name input
+            const changeProjectNameInput = document.getElementById('changeProjectNameInput');
+            // Check if element is found
+            if (!changeProjectNameInput) {
+                console.error("Element with ID 'changeProjectNameInput' not found");
+                return;
+            }
+
+            const projectName = changeProjectNameInput.value.trim();
+
+            // Check if input is valid
+            if (projectName === '') {
+                window.alert('Please enter a valid project name.');
+                return;
+            }
+
+            // Check if project already exists
+            if (projects.some(project => project.projectName === projectName)) {
+                window.alert(`A project with the name "${projectName}" already exists. Please choose a different name.`);
+                return;
+            }
+
+            // Close modal
+            this.closeChangeProjectNameModal();
+
+            // Message to LoadingSpinner
+            const message = `Changing ${currentProject.projectName} to ${projectName}. `;
+            this.spinner.showLoadingSpinner(message);
+
+            // Collect data from fields
+            const wordPoolData = Array.from(document.getElementById('wordPool-field').children)
+                .map(element => element.textContent.trim());
+
+            const workspaceData = Array.from(document.getElementById('workspace-field').children)
+                .map(element => element.textContent.trim());
+
+            // Get projectId from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectIdToUpdate = urlParams.get('projectId');
+
+            // Create the update data object
+            const updateData = {
+                projectId: projectIdToUpdate,
+                projectName: projectName,
+                wordPool: wordPoolData,
+                workspace: workspaceData,
+            };
+
+            // Update project
+            const updatedProject = await this.client.updateProject(projectIdToUpdate, updateData);
+
+            this.dataStore.set('project', updatedProject);
+
+            // Find the project that needs to be updated
+            const projectToUpdate = projects.find(project => project.projectId === projectIdToUpdate);
+
+            // Update the project name in the array
+            if (projectToUpdate) {
+                projectToUpdate.projectName = projectName;
+            }
+
+            // Set the updated array back to the dataStore
+            await this.dataStore.set('projects', projects);
+
+            } catch (error) {
+                console.error('Error collecting and updating project:', error);
+            }
+
+            this.spinner.hideLoadingSpinner();
+        }
 
 }
 

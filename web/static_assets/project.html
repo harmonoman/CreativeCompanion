@@ -18,8 +18,9 @@
     <h1 id="projectNameElement"></h1>
     <a href="viewProjects.html" class="button" id="view-projects-btn">View Projects</a>
     <!--        Change Project Name-->
-<!--    <input type="text" id="new-project-name" placeholder="New Project Name">-->
-<!--    <button class="button" id="change-project-name-button">Change Name</button>-->
+    <button class="button" id="change-project-name" onclick="openChangeProjectNameModal()">New Project Name</button>
+
+
 </div>
 
 <!--    Word Pool and Workspace container-->
@@ -161,6 +162,18 @@
         <p>Select a Word Pool to Import:</p>
         <select id="wordPoolSelectModal"></select>
         <button onclick="importWordPool()">Import</button>
+    </div>
+</div>
+
+<!--Modal for creating a New Project-->
+<div id="changeProjectNameModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeChangeProjectNameModal()">&times;</span>
+        <p>Change the Project Name:</p>
+        <div class="action-item">
+            <label for="changeProjectNameInput"></label> <input type="text" id="changeProjectNameInput" placeholder="Project Name">
+            <button id="changeProjectNameBtn">Change Name</button>
+        </div>
     </div>
 </div>
 

@@ -16,8 +16,8 @@ export default class CreativeCompanionClient extends BindingClass {
         super();
 
         const methodsToBind = ['clientLoaded', 'getIdentity', 'login', 'logout', 'createProject', 'getProject',
-        'getProjectList', 'updateProject', 'deleteProject', 'getProjectByName', 'createWordPool', 'getWordPool', 'getWordPoolList',
-        'updateWordPool', 'deleteWordPool'];
+        'getProjectList', 'updateProject', 'deleteProject', 'getProjectByName', 'createWordPool', 'getWordPool',
+        'getWordPoolList', 'updateWordPool', 'deleteWordPool'];
 
         this.bindClassMethods(methodsToBind, this);
 

@@ -17,7 +17,7 @@ class CreativeCompanionIndex extends BindingClass {
 
         this.dataStore = new DataStore();
         this.header = new Header(this.dataStore);
-        this.loadingSpinner = new LoadingSpinner();
+//        this.loadingSpinner = new LoadingSpinner();
 
         window.openProjectModal = this.openProjectModal.bind(this);
         window.closeProjectModal = this.closeProjectModal.bind(this);
@@ -45,6 +45,11 @@ class CreativeCompanionIndex extends BindingClass {
     }
 
     async clientLoaded() {
+
+        // Message to LoadingSpinner
+        const message = `Loading Creative Companion. `;
+        this.spinner.showLoadingSpinner(message);
+
         const userName = await this.client.getUserName();
         const welcomeMessage = document.getElementById("welcome-message");
         const buttonGroup = document.querySelector(".button-group");
@@ -67,6 +72,9 @@ class CreativeCompanionIndex extends BindingClass {
         // Populate dataStore with existing projects
         const wordPools = await this.client.getWordPoolList();
         this.dataStore.set('wordPools', wordPools);
+
+
+        this.spinner.hideLoadingSpinner();
     }
 
     createLoginButton() {
@@ -97,12 +105,11 @@ class CreativeCompanionIndex extends BindingClass {
 
         // Get existing projects from dataStore
         const projects = await this.dataStore.get('projects') || [];
-        console.log("projects in createProject(): " + JSON.stringify(projects));
 
         // Get project name
         const projectNameInput = document.getElementById('projectNameInput');
         const projectName = projectNameInput.value.trim();
-        console.log("projectName: " + projectName);
+        console.log("(createProject()) projectName: " + projectName);
 
         // Check to see if project already exists
         let projectExists = false;

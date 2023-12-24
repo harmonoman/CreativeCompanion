@@ -17,10 +17,12 @@ public class GetProjectListLambda extends LambdaActivityRunner<GetProjectListReq
     @Override
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetProjectListRequest> input, Context context) {
         log.info("handleRequest");
-        return super.runActivity(() -> input.fromUserClaims(claims ->
+        return super.runActivity(
+                () -> input.fromUserClaims(claims ->
                         GetProjectListRequest.builder()
                                 .withUserId(claims.get("email"))
-                                .build()), (request, serviceComponent) ->
+                                .build()),
+                (request, serviceComponent) ->
                         serviceComponent.provideGetProjectListActivity().handleRequest(request));
     }
 }
