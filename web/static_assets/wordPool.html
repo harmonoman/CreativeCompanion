@@ -18,8 +18,7 @@
     <h1 id="wordPoolNameElement"></h1>
     <a href="viewWordPools.html" class="button" id="view-wordPools-btn">View Word Pools</a>
     <!--        Change Word Pool Name-->
-    <!--    <input type="text" id="new-wordPool-name" placeholder="New Word Pool Name">-->
-    <!--    <button class="button" id="change-wordPool-name-button">Change Name</button>-->
+    <button class="button" id="change-wordPool-name" onclick="openChangeWordPoolNameModal()">New Word Pool Name</button>
 </div>
 
 <!--    Word Pool Field container-->
@@ -149,6 +148,18 @@
         <p>Select a Word Pool to Import:</p>
         <select id="wordPoolSelectModal"></select>
         <button onclick="importWordPool()">Import</button>
+    </div>
+</div>
+
+<!--Modal for creating a New Project-->
+<div id="changeWordPoolNameModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeChangeWordPoolNameModal()">&times;</span>
+        <p>Change the Word Pool Name:</p>
+        <div class="action-item">
+            <label for="changeWordPoolNameInput"></label> <input type="text" id="changeWordPoolNameInput" placeholder="Project Name">
+            <button id="changeWordPoolNameBtn">Change Name</button>
+        </div>
     </div>
 </div>
 
