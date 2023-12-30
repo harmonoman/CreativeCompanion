@@ -25,12 +25,19 @@
 <div id="wordPool-container">
     <h2 class="shadow-wrapper"> Word Pool </h2>
     <div id="wordPool-field"></div>
-    <button class="button" id="clear-wordPool" >Clear Word Pool</button>
-    <button class="button" id="import-wordPool">Import Word Pool</button>
-    <button class="button" id="add-wordPool" onclick="openWordPoolModal()">Add Words</button>
-    <button class="button" id="delete-wordPool">Delete Word Pool</button>
-    <button class="button" id="save-wordPool">Save Word Pool</button>
-
+    <div class="button-container">
+        <div class="wordPool-buttons">
+            <button class="button" id="clear-wordPool" >Clear Word Pool</button>
+            <button class="button" id="import-wordPool">Import Word Pool</button>
+        </div>
+        <div class="wordPool-buttons">
+            <button class="button" id="save-wordPool">Save Word Pool</button>
+            <button class="button" id="delete-wordPool">Delete Word Pool</button>
+        </div>
+        <div class="wordPool-buttons">
+            <button class="button" id="add-wordPool" onclick="openWordPoolModal()">Add Words</button>
+        </div>
+    </div>
 </div>
 
 <!--    Add Words modal-->
