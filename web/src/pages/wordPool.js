@@ -10,7 +10,8 @@ class WordPool extends BindingClass {
 
             this.bindClassMethods(['clientLoaded', 'mount', 'openWordPoolModal', 'closeWordPoolModal', 'performAction',
                     'collectAndUpdateWordPool', 'addWordsToPage', 'clearWordPool', 'deleteWordPool',
-                    'openImportWordPoolModal', 'closeImportWordPoolModal', 'importWordPool'], this);
+                    'openImportWordPoolModal', 'closeImportWordPoolModal', 'importWordPool', 'changeWordPoolName',
+                    'openChangeWordPoolNameModal', 'closeChangeWordPoolNameModal'], this);
 
             this.dataStore = new DataStore();
             this.dataStore.addChangeListener(this.addWordsToPage);
@@ -26,6 +27,11 @@ class WordPool extends BindingClass {
      * Once the client is loaded, get the project metadata
      */
     async clientLoaded() {
+
+        // Message to LoadingSpinner
+        const message = `Loading project... `;
+        this.spinner.showLoadingSpinner(message);
+
         const urlParams = new URLSearchParams(window.location.search);
         const wordPoolId = urlParams.get('wordPoolId');
 
@@ -35,14 +41,15 @@ class WordPool extends BindingClass {
 
         const wordPool = await this.client.getWordPool(wordPoolId);
         console.log("(clientLoaded) wordPoolId: " + wordPool.wordPoolId);
+        document.getElementById('wordPoolNameElement').innerText = wordPool.wordPoolName;
 
         this.dataStore.set('wordPool', wordPool);
-
-        document.getElementById('wordPoolNameElement').innerText = wordPool.wordPoolName;
 
         // Get Word Pool list for Import Word Pools Modal
         const wordPools = await this.client.getWordPoolList();
         this.dataStore.set('wordPools', wordPools);
+
+        this.spinner.hideLoadingSpinner();
     }
 
     /**
@@ -60,6 +67,10 @@ class WordPool extends BindingClass {
         window.openImportWordPoolModal = this.openImportWordPoolModal.bind(this);
         window.closeImportWordPoolModal = this.closeImportWordPoolModal.bind(this);
         window.importWordPool = this.importWordPool.bind(this);
+
+        window.openChangeWordPoolNameModal = this.openChangeWordPoolNameModal.bind(this);
+        window.closeChangeWordPoolNameModal = this.closeChangeWordPoolNameModal.bind(this);
+        window.changeWordPoolName = this.changeWordPoolName.bind(this);
 
         // Save Word Pool button
         const saveWordPoolButton = document.getElementById('save-wordPool');
@@ -80,6 +91,10 @@ class WordPool extends BindingClass {
         // Open Import Word Pool Modal button
         const importWordPoolButton = document.getElementById('import-wordPool');
         importWordPoolButton.addEventListener('click', this.openImportWordPoolModal);
+
+        // Open Change Word Pool Name Modal button
+        const changeWordPoolNameButton = document.getElementById('changeWordPoolNameBtn');
+        changeWordPoolNameButton.addEventListener('click', this.changeWordPoolName);
 
         this.clientLoaded();
     }
@@ -386,6 +401,107 @@ class WordPool extends BindingClass {
 
         this.closeImportWordPoolModal();
     }
+
+    openChangeWordPoolNameModal() {
+        const wordPoolModal = document.getElementById('changeWordPoolNameModal');
+        wordPoolModal.style.display = 'block';
+        console.log("openChangeWordPoolNameModal");
+    }
+
+    closeChangeWordPoolNameModal() {
+        const wordPoolModal = document.getElementById('changeWordPoolNameModal');
+        wordPoolModal.style.display = 'none';
+        console.log("closeChangeWordPoolNameModal");
+
+    }
+
+    ///// CHANGE WORD POOL NAME /////
+
+    /**
+     * Changes a wordPool name using user-provided wordPool name.
+     * Retrieves the wordPool name from the modal, validates it, and initiates the name change process.
+     * Upon successful name change, navigates to the 'wordPool.html' page, passing project details in the URL.
+     * Finally, closes the modal.
+     */
+    async changeWordPoolName() {
+        try {
+
+            //Get current wordPool from dataStore
+            const currentWordPool = await this.dataStore.get('wordPool');
+
+            // Get existing wordPools from dataStore
+            const wordPools = await this.dataStore.get('wordPools') || [];
+
+            // Get new wordPool name input
+            const changeWordPoolNameInput = document.getElementById('changeWordPoolNameInput');
+            // Check if element is found
+            if (!changeWordPoolNameInput) {
+                console.error("Element with ID 'changeWordPoolNameInput' not found");
+                return;
+            }
+
+            const wordPoolName = changeWordPoolNameInput.value.trim();
+
+            // Check if input is valid
+            if (wordPoolName === '') {
+                window.alert('Please enter a valid word pool name.');
+                return;
+            }
+
+            // Check if word pool already exists
+            if (wordPools.some(wordPool => wordPool.wordPoolName === wordPoolName)) {
+                window.alert(`A wordPool with the name "${wordPoolName}" already exists. Please choose a different name.`);
+                return;
+            }
+
+            // Close modal
+            this.closeChangeWordPoolNameModal();
+
+            // Message to LoadingSpinner
+            const message = `Changing ${currentWordPool.wordPoolName} to ${wordPoolName}. `;
+            this.spinner.showLoadingSpinner(message);
+
+            // Collect data from fields
+            const wordPoolData = Array.from(document.getElementById('wordPool-field').children)
+                .map(element => element.textContent.trim());
+
+//            const workspaceData = Array.from(document.getElementById('workspace-field').children)
+//                .map(element => element.textContent.trim());
+
+            // Get wordPoolId from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const wordPoolIdToUpdate = urlParams.get('wordPoolId');
+
+            // Create the update data object
+            const updateData = {
+                wordPoolId: wordPoolIdToUpdate,
+                wordPoolName: wordPoolName,
+                wordPool: wordPoolData,
+//                workspace: workspaceData,
+            };
+
+            // Update wordPool
+            const updatedWordPool = await this.client.updateWordPool(wordPoolIdToUpdate, updateData);
+
+            this.dataStore.set('wordPool', updatedWordPool);
+
+            // Find the wordPool that needs to be updated
+            const wordPoolToUpdate = wordPools.find(wordPool => wordPool.wordPoolId === wordPoolIdToUpdate);
+
+            // Update the wordPool name in the array
+            if (wordPoolToUpdate) {
+                wordPoolToUpdate.wordPoolName = wordPoolName;
+            }
+
+            // Set the updated array back to the dataStore
+            await this.dataStore.set('wordPools', wordPools);
+
+            } catch (error) {
+                console.error('Error collecting and updating wordPool:', error);
+            }
+
+            this.spinner.hideLoadingSpinner();
+        }
 
 }
 

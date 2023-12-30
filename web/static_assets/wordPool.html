@@ -18,20 +18,26 @@
     <h1 id="wordPoolNameElement"></h1>
     <a href="viewWordPools.html" class="button" id="view-wordPools-btn">View Word Pools</a>
     <!--        Change Word Pool Name-->
-    <!--    <input type="text" id="new-wordPool-name" placeholder="New Word Pool Name">-->
-    <!--    <button class="button" id="change-wordPool-name-button">Change Name</button>-->
+    <button class="button" id="change-wordPool-name" onclick="openChangeWordPoolNameModal()">New Word Pool Name</button>
 </div>
 
 <!--    Word Pool Field container-->
 <div id="wordPool-container">
     <h2 class="shadow-wrapper"> Word Pool </h2>
     <div id="wordPool-field"></div>
-    <button class="button" id="clear-wordPool" >Clear Word Pool</button>
-    <button class="button" id="import-wordPool">Import Word Pool</button>
-    <button class="button" id="add-wordPool" onclick="openWordPoolModal()">Add Words</button>
-    <button class="button" id="delete-wordPool">Delete Word Pool</button>
-    <button class="button" id="save-wordPool">Save Word Pool</button>
-
+    <div class="button-container">
+        <div class="wordPool-buttons">
+            <button class="button" id="clear-wordPool" >Clear Word Pool</button>
+            <button class="button" id="import-wordPool">Import Word Pool</button>
+        </div>
+        <div class="wordPool-buttons">
+            <button class="button" id="save-wordPool">Save Word Pool</button>
+            <button class="button" id="delete-wordPool">Delete Word Pool</button>
+        </div>
+        <div class="wordPool-buttons">
+            <button class="button" id="add-wordPool" onclick="openWordPoolModal()">Add Words</button>
+        </div>
+    </div>
 </div>
 
 <!--    Add Words modal-->
@@ -149,6 +155,18 @@
         <p>Select a Word Pool to Import:</p>
         <select id="wordPoolSelectModal"></select>
         <button onclick="importWordPool()">Import</button>
+    </div>
+</div>
+
+<!--Modal for creating a New Project-->
+<div id="changeWordPoolNameModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeChangeWordPoolNameModal()">&times;</span>
+        <p>Change the Word Pool Name:</p>
+        <div class="action-item">
+            <label for="changeWordPoolNameInput"></label> <input type="text" id="changeWordPoolNameInput" placeholder="Project Name">
+            <button id="changeWordPoolNameBtn">Change Name</button>
+        </div>
     </div>
 </div>
 
