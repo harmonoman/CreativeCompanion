@@ -399,8 +399,8 @@ class Project extends BindingClass {
             const updatedProject = await this.client.updateProject(projectIdToUpdate, updateData);
 
             // Update the initial state after saving
-//            this.initialWordPoolState = wordPoolData.slice();
-//            this.initialWorkspaceState = workspaceData.slice();
+            this.initialWordPoolState = wordPoolData.slice();
+            this.initialWorkspaceState = workspaceData.slice();
 
             this.dataStore.set('project', updatedProject);
 
@@ -666,6 +666,9 @@ class Project extends BindingClass {
 
     ///// UNSAVED CHANGES /////
     handleBeforeUnload(event) {
+
+        console.log('(handleBeforeUnload) Handling beforeunload event...');
+
         // Check if there are unsaved changes
         if (this.hasUnsavedChanges()) {
             // Display a confirmation message

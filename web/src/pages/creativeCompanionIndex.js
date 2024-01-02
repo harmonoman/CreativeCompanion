@@ -48,7 +48,7 @@ class CreativeCompanionIndex extends BindingClass {
 
         // Message to LoadingSpinner
         const message = `Loading Creative Companion. `;
-        this.spinner.showLoadingSpinner(message);
+        //this.spinner.showLoadingSpinner(message);
 
         const userName = await this.client.getUserName();
         const welcomeMessage = document.getElementById("welcome-message");
