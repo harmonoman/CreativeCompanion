@@ -13,12 +13,17 @@ class Project extends BindingClass {
         'clearWorkspace','deleteProject', 'openImportWordPoolModal', 'closeImportWordPoolModal', 'importWordPool',
         'changeProjectName', 'openChangeProjectNameModal', 'closeChangeProjectNameModal'], this);
 
-        this.workspaceField = null; // Initialize Workspace Field
+        // Initialize Workspace Field
+        this.workspaceField = null;
 
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addWordsToPage);
 
         this.header = new Header(this.dataStore);
+
+        // Initialize variables to track the initial state
+        this.initialWordPoolState = [];
+        this.initialWorkspaceState = [];
 
         console.log("Project constructor");
     }
@@ -52,6 +57,10 @@ class Project extends BindingClass {
         const projects = await this.client.getProjectList();
         this.dataStore.set('projects', projects);
 
+        // Set the initial state when the client is loaded
+        this.initialWordPoolState = this.getWordPoolState();
+        this.initialWorkspaceState = this.getWorkspaceState();
+
         this.spinner.hideLoadingSpinner();
     }
 
@@ -79,6 +88,9 @@ class Project extends BindingClass {
         window.openChangeProjectNameModal = this.openChangeProjectNameModal.bind(this);
         window.closeChangeProjectNameModal = this.closeChangeProjectNameModal.bind(this);
         window.changeProjectName = this.changeProjectName.bind(this);
+
+        // beforeunload Event Listener
+        window.addEventListener('beforeunload', this.handleBeforeUnload.bind(this));
 
         // Save Project button
         const saveProjectButton = document.getElementById('save-project');
@@ -386,6 +398,10 @@ class Project extends BindingClass {
             // Update project
             const updatedProject = await this.client.updateProject(projectIdToUpdate, updateData);
 
+            // Update the initial state after saving
+//            this.initialWordPoolState = wordPoolData.slice();
+//            this.initialWorkspaceState = workspaceData.slice();
+
             this.dataStore.set('project', updatedProject);
 
         } catch (error) {
@@ -646,6 +662,58 @@ class Project extends BindingClass {
 
             this.spinner.hideLoadingSpinner();
         }
+
+
+    ///// UNSAVED CHANGES /////
+    handleBeforeUnload(event) {
+        // Check if there are unsaved changes
+        if (this.hasUnsavedChanges()) {
+            // Display a confirmation message
+            const confirmationMessage = "You have unsaved changes. Are you sure you want to leave?";
+            event.returnValue = confirmationMessage; // Standard for most browsers
+            return confirmationMessage; // For some older browsers
+        }
+    }
+
+    // Helper function to get the current state of the wordPool
+    getWordPoolState() {
+        return Array.from(document.getElementById('wordPool-field').children)
+            .map(element => element.textContent.trim());
+    }
+
+    // Helper function to get the current state of the workspace
+    getWorkspaceState() {
+        return Array.from(document.getElementById('workspace-field').children)
+            .map(element => element.textContent.trim());
+    }
+
+    hasUnsavedChanges() {
+        // Get the current state
+        const currentWordPoolState = this.getWordPoolState();
+        const currentWorkspaceState = this.getWorkspaceState();
+
+        // Compare with the initial state
+        const wordPoolChanged = !this.arraysEqual(currentWordPoolState, this.initialWordPoolState);
+        const workspaceChanged = !this.arraysEqual(currentWorkspaceState, this.initialWorkspaceState);
+
+        // Return true if there are unsaved changes, false otherwise
+        return wordPoolChanged || workspaceChanged;
+    }
+
+    // Helper function to compare arrays for equality
+    arraysEqual(array1, array2) {
+        if (array1.length !== array2.length) {
+            return false;
+        }
+
+        for (let i = 0; i < array1.length; i++) {
+            if (array1[i] !== array2[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
 }
 
