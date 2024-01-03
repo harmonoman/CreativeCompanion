@@ -243,6 +243,12 @@ class Project extends BindingClass {
             case 'Action 12':
                 apiUrl = `https://api.datamuse.com/sug?s=${inputTexts[0]}`;
                 break;
+            case 'Action 13':
+                apiUrl = `https://api.datamuse.com/words?rel_syn=${inputTexts[0]}`;
+                break;
+            case 'Action 14':
+                apiUrl = `https://api.datamuse.com/words?rel_ant=${inputTexts[0]}`;
+                break;
         }
 
         try {
