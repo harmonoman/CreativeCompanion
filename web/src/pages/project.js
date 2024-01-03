@@ -23,6 +23,7 @@ class Project extends BindingClass {
 
         // Initialize variables to track the initial state
         this.initialWordPoolState = [];
+        console.log("(constructor) initialWordPoolState: " + JSON.stringify(this.initialWordPoolState));
         this.initialWorkspaceState = [];
 
         console.log("Project constructor");
@@ -59,6 +60,7 @@ class Project extends BindingClass {
 
         // Set the initial state when the client is loaded
         this.initialWordPoolState = this.getWordPoolState();
+        console.log("(clientLoaded) initialWordPoolState: " + JSON.stringify(this.initialWordPoolState));
         this.initialWorkspaceState = this.getWorkspaceState();
 
         this.spinner.hideLoadingSpinner();

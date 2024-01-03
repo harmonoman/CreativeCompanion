@@ -51,6 +51,9 @@ class WordPool extends BindingClass {
         const wordPools = await this.client.getWordPoolList();
         this.dataStore.set('wordPools', wordPools);
 
+        // Set the initial state when the client is loaded
+        this.initialWordPoolState = this.getWordPoolState();
+
         this.spinner.hideLoadingSpinner();
     }
 
@@ -311,6 +314,9 @@ class WordPool extends BindingClass {
             wordPoolField.appendChild(wordElement);
         });
 
+        // Update initialWordPoolState after setting the word pool
+        this.initialWordPoolState = wordPool.wordPool.slice();
+
         document.getElementById('wordPoolNameElement').innerText = wordPool.wordPoolName;
     }
 
@@ -406,6 +412,9 @@ class WordPool extends BindingClass {
             // Append text to Word Pool
             wordPoolField.appendChild(wordElement);
         });
+
+        // Update initialWordPoolState after importing the word pool
+        this.initialWordPoolState = selectedWordPool.wordPool.slice();
 
         this.closeImportWordPoolModal();
     }
@@ -511,51 +520,55 @@ class WordPool extends BindingClass {
             this.spinner.hideLoadingSpinner();
         }
 
-        ///// UNSAVED CHANGES /////
-        handleBeforeUnload(event) {
+    ///// UNSAVED CHANGES /////
+    handleBeforeUnload(event) {
 
-            console.log('(handleBeforeUnload) Handling beforeunload event...');
+        console.log('(handleBeforeUnload) Handling beforeunload event...');
 
-            // Check if there are unsaved changes
-            if (this.hasUnsavedChanges()) {
-                // Display a confirmation message
-                const confirmationMessage = "You have unsaved changes. Are you sure you want to leave?";
+        // Check if there are unsaved changes
+        if (this.hasUnsavedChanges()) {
+            // Display a confirmation message
+            const confirmationMessage = "You have unsaved changes. Are you sure you want to leave?";
+
+            if (event) {
                 event.returnValue = confirmationMessage; // Standard for most browsers
-                return confirmationMessage; // For some older browsers
             }
+
+            return confirmationMessage; // For some older browsers
+        }
+    }
+
+    // Helper function to get the current state of the wordPool
+    getWordPoolState() {
+        return Array.from(document.getElementById('wordPool-field').children)
+                    .map(element => element.textContent.trim());
+    }
+
+    hasUnsavedChanges() {
+        // Get the current state
+        const currentWordPoolState = this.getWordPoolState();
+
+        // Compare with the initial state
+        const wordPoolChanged = !this.arraysEqual(currentWordPoolState, this.initialWordPoolState);
+
+        // Return true if there are unsaved changes, false otherwise
+        return wordPoolChanged;
+    }
+
+    // Helper function to compare arrays for equality
+    arraysEqual(array1, array2) {
+        if (array1.length !== array2.length) {
+            return false;
         }
 
-        // Helper function to get the current state of the wordPool
-        getWordPoolState() {
-            return Array.from(document.getElementById('wordPool-field').children)
-                .map(element => element.textContent.trim());
-        }
-
-        hasUnsavedChanges() {
-            // Get the current state
-            const currentWordPoolState = this.getWordPoolState();
-
-            // Compare with the initial state
-            const wordPoolChanged = !this.arraysEqual(currentWordPoolState, this.initialWordPoolState);
-
-            // Return true if there are unsaved changes, false otherwise
-            return wordPoolChanged;
-        }
-
-        // Helper function to compare arrays for equality
-        arraysEqual(array1, array2) {
-            if (array1.length !== array2.length) {
+        for (let i = 0; i < array1.length; i++) {
+            if (array1[i] !== array2[i]) {
                 return false;
             }
-
-            for (let i = 0; i < array1.length; i++) {
-                if (array1[i] !== array2[i]) {
-                    return false;
-                }
-            }
-
-            return true;
         }
+
+        return true;
+    }
 
 }
 
