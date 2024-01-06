@@ -25,11 +25,23 @@
     </select><br><br>
     <!--        <input type="submit" class="button" value="hidden" />-->
 </div>
-
-<div class="action-item">
-    <label for="projectNameInput"></label> <input type="text" id="projectNameInput" placeholder="Project Name">
-    <button id="searchProjectBtn">Search for Project</button>
+<div class="button-container">
+    <div class="wordPool-buttons">
+        <button class="button" id="sortProjectsBtn" >Sort Alphabetically</button>
+        <button class="button" id="sortProjectsReverseBtn">Sort Reverse Alphabetically</button>
+    </div>
 </div>
+
+<div class="button-container">
+    <div class="wordPool-buttons">
+        <label for="projectNameInput"></label> <input type="text" id="projectNameInput" placeholder="Project Name">
+    </div>
+    <div class="wordPool-buttons">
+    <button class="button" id="searchProjectBtn">Search for Project</button>
+    </div>
+</div>
+
+
 
 <div id="loading-spinner" class="spinner-container">
     <div class="spinner"></div>

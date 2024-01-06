@@ -39,6 +39,9 @@ class ViewWordPools extends BindingClass {
      */
     mount() {
         document.getElementById('wordPoolsSelect').addEventListener('click', this.submit);
+        // Add an event listener to the button for sorting
+        document.getElementById('sortWordPoolsBtn').addEventListener('click', () => this.sortWordPoolsAlphabetically());
+        document.getElementById('sortWordPoolsReverseBtn').addEventListener('click', () => this.sortWordPoolsReverseAlphabetically());
 
         this.header.addHeaderToPage();
 
@@ -99,6 +102,34 @@ class ViewWordPools extends BindingClass {
             errorMessageDisplay.innerText = "Please create a new word pool.";
             errorMessageDisplay.classList.remove('hidden');
         }
+    }
+
+    sortWordPoolsAlphabetically() {
+        const wordPools = this.dataStore.get('wordPools');
+
+        if (!wordPools) {
+            return;
+        }
+
+        // Sort projects alphabetically by projectName
+        wordPools.sort((a, b) => a.wordPoolName.localeCompare(b.wordPoolName));
+
+        // Update the project metadata on the page
+        this.addWordPoolsToPage();
+    }
+
+    sortWordPoolsReverseAlphabetically() {
+        const wordPools = this.dataStore.get('wordPools');
+
+        if (!wordPools) {
+            return;
+        }
+
+        // Sort projects alphabetically by projectName
+        wordPools.sort((a, b) => b.wordPoolName.localeCompare(a.wordPoolName));
+
+        // Update the project metadata on the page
+        this.addWordPoolsToPage();
     }
 
 }

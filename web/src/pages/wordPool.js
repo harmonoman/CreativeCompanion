@@ -29,7 +29,7 @@ class WordPool extends BindingClass {
     async clientLoaded() {
 
         // Message to LoadingSpinner
-        const message = `Loading project... `;
+        const message = `Loading word pool... `;
         this.spinner.showLoadingSpinner(message);
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -37,7 +37,7 @@ class WordPool extends BindingClass {
 
         const wordPoolNameElement = document.getElementById('wordPoolNameElement');
             wordPoolNameElement.classList.add('shadow-wrapper');
-            document.getElementById('wordPoolNameElement').innerText = "Loading Word Pool ...";
+            document.getElementById('wordPoolNameElement').innerText = "- - -";
 
         const wordPool = await this.client.getWordPool(wordPoolId);
         document.getElementById('wordPoolNameElement').innerText = wordPool.wordPoolName;
@@ -325,7 +325,7 @@ class WordPool extends BindingClass {
         const wordPool = this.dataStore.get('wordPool');
 
         // Message to LoadingSpinner
-        const message = `Deleting ${wordPool.wordPoolName}. `;
+        const message = `Deleting ${wordPool.wordPoolName}... `;
         this.spinner.showLoadingSpinner(message);
 
         document.getElementById('wordPoolNameElement').innerText = "Deleting...";
