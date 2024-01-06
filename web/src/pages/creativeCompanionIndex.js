@@ -35,13 +35,13 @@ class CreativeCompanionIndex extends BindingClass {
         this.client = new CreativeCompanionClient();
         this.spinner = new LoadingSpinner();
 
-        this.clientLoaded();
-
         const createProjectBtn = document.getElementById('createProjectBtn');
         createProjectBtn.addEventListener('click', () => {this.createProject()});
 
         const createWordPoolBtn = document.getElementById('createWordPoolBtn');
         createWordPoolBtn.addEventListener('click', () => {this.createWordPool()});
+
+        this.clientLoaded();
     }
 
     async clientLoaded() {

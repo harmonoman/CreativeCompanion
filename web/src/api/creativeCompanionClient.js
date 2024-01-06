@@ -140,7 +140,7 @@ export default class CreativeCompanionClient extends BindingClass {
      * Gets the projects for the given ID.
      * @returns The project's metadata.
      */
-    async getProjectList() {
+    async getProjectList(errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can get projects.");
             const response = await this.axiosClient.get(`projects`, {
@@ -258,7 +258,7 @@ export default class CreativeCompanionClient extends BindingClass {
      * Gets the word pools for the given ID.
      * @returns The word pool's metadata.
      */
-    async getWordPoolList() {
+    async getWordPoolList(errorCallback) {
         try {
             const token = await this.getTokenOrThrow("Only authenticated users can get word pools.");
             const response = await this.axiosClient.get(`word-pools`, {
