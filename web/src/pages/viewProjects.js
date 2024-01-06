@@ -2,7 +2,7 @@ import CreativeCompanionClient from '../api/creativeCompanionClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
-//import LoadingSpinner from '../util/LoadingSpinner';
+import LoadingSpinner from '../util/LoadingSpinner';
 
 /**
  * Logic needed for the view project page of the website.
@@ -50,7 +50,7 @@ class ViewProjects extends BindingClass {
         this.header.addHeaderToPage();
 
         this.client = new CreativeCompanionClient();
-//        this.spinner = new LoadingSpinner();
+        this.spinner = new LoadingSpinner();
         this.clientLoaded();
     }
 
@@ -118,6 +118,10 @@ class ViewProjects extends BindingClass {
 
         const projectName = document.getElementById('projectNameInput').value.trim();
 
+        // Message to LoadingSpinner
+        const message = `Searching for ${projectName}... `;
+        this.spinner.showLoadingSpinner(message);
+
         const project = await this.client.getProjectByName(projectName);
 
         if (project && project.projectId != null) {
@@ -127,6 +131,9 @@ class ViewProjects extends BindingClass {
             errorMessageDisplay.innerText = "Please create a new project.";
             errorMessageDisplay.classList.remove('hidden');
         }
+
+        this.spinner.hideLoadingSpinner();
+
     }
 
     sortProjectsAlphabetically() {
