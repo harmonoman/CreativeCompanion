@@ -46,10 +46,6 @@ class CreativeCompanionIndex extends BindingClass {
 
     async clientLoaded() {
 
-        // Message to LoadingSpinner
-        const message = `Loading Creative Companion. `;
-        //this.spinner.showLoadingSpinner(message);
-
         const userName = await this.client.getUserName();
         const welcomeMessage = document.getElementById("welcome-message");
         const buttonGroup = document.querySelector(".button-group");
@@ -58,12 +54,18 @@ class CreativeCompanionIndex extends BindingClass {
             document.getElementById("welcome-message").innerText = 'Welcome! Please sign in before continuing.';
             buttonGroup.style.display = 'none'; // Hide the button group
         } else {
+
+
             document.getElementById("welcome-message").innerText = 'Welcome, ' + userName + '!';
             buttonGroup.style.display = 'flex'; // Show the button group
         }
 
         // Always add the shadow-wrapper class
         welcomeMessage.classList.add('shadow-wrapper');
+
+        // Message to LoadingSpinner
+        const message = `Loading Creative Companion. `;
+        this.spinner.showLoadingSpinner(message);
 
         // Populate dataStore with existing projects
         const projects = await this.client.getProjectList();
@@ -72,7 +74,6 @@ class CreativeCompanionIndex extends BindingClass {
         // Populate dataStore with existing projects
         const wordPools = await this.client.getWordPoolList();
         this.dataStore.set('wordPools', wordPools);
-
 
         this.spinner.hideLoadingSpinner();
     }
