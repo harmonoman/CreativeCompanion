@@ -23,8 +23,6 @@ class CreativeCompanionIndex extends BindingClass {
         window.closeProjectModal = this.closeProjectModal.bind(this);
         window.openWordPoolModal = this.openWordPoolModal.bind(this);
         window.closeWordPoolModal = this.closeWordPoolModal.bind(this);
-
-        console.log("creativeCompanionIndex constructor");
     }
 
     /**
@@ -54,28 +52,28 @@ class CreativeCompanionIndex extends BindingClass {
             document.getElementById("welcome-message").innerText = 'Welcome! Please sign in before continuing.';
             buttonGroup.style.display = 'none'; // Hide the button group
         } else {
-
-
             document.getElementById("welcome-message").innerText = 'Welcome, ' + userName + '!';
             buttonGroup.style.display = 'flex'; // Show the button group
+
+            // Message to LoadingSpinner
+            const message = `Loading Creative Companion. `;
+            this.spinner.showLoadingSpinner(message);
+
+            // Populate dataStore with existing projects
+            const projects = await this.client.getProjectList();
+            this.dataStore.set('projects', projects);
+
+            // Populate dataStore with existing projects
+            const wordPools = await this.client.getWordPoolList();
+            this.dataStore.set('wordPools', wordPools);
+
+            this.spinner.hideLoadingSpinner();
         }
 
         // Always add the shadow-wrapper class
         welcomeMessage.classList.add('shadow-wrapper');
 
-        // Message to LoadingSpinner
-        const message = `Loading Creative Companion. `;
-        this.spinner.showLoadingSpinner(message);
 
-        // Populate dataStore with existing projects
-        const projects = await this.client.getProjectList();
-        this.dataStore.set('projects', projects);
-
-        // Populate dataStore with existing projects
-        const wordPools = await this.client.getWordPoolList();
-        this.dataStore.set('wordPools', wordPools);
-
-        this.spinner.hideLoadingSpinner();
     }
 
     createLoginButton() {
@@ -85,8 +83,8 @@ class CreativeCompanionIndex extends BindingClass {
     ///// PROJECT MODAL /////
 
     openProjectModal() {
-            const projectModal = document.getElementById('projectModal');
-            projectModal.style.display = 'block';
+        const projectModal = document.getElementById('projectModal');
+        projectModal.style.display = 'block';
         }
 
     closeProjectModal() {
@@ -110,7 +108,6 @@ class CreativeCompanionIndex extends BindingClass {
         // Get project name
         const projectNameInput = document.getElementById('projectNameInput');
         const projectName = projectNameInput.value.trim();
-        console.log("(createProject()) projectName: " + projectName);
 
         // Check to see if project already exists
         let projectExists = false;
@@ -136,13 +133,11 @@ class CreativeCompanionIndex extends BindingClass {
         }
 
         // Message to LoadingSpinner
-        const message = `Creating ${projectName}. `;
+        message = `Creating ${projectName}. `;
         this.spinner.showLoadingSpinner(message);
 
         // Call createProject
         const project = await this.client.createProject(projectName);
-
-
 
         // Navigate to project.html with project ID
         window.location.href = `project.html?projectId=${project.projectId}`;
@@ -173,14 +168,16 @@ class CreativeCompanionIndex extends BindingClass {
      */
     async createWordPool() {
 
+        // Populate dataStore with existing projects
+        const wordPoolList = await this.client.getWordPoolList();
+        this.dataStore.set('wordPools', wordPoolList);
+
         // Get existing word pools from dataStore
         const wordPools = await this.dataStore.get('wordPools') || [];
-        console.log("wordPools in createWordPool(): " + JSON.stringify(wordPools));
 
         // Get word pool name
         const wordPoolNameInput = document.getElementById('wordPoolNameInput');
         const wordPoolName = wordPoolNameInput.value.trim();
-        console.log("wordPoolName: " + wordPoolName);
 
         // Check to see if project already exists
         let wordPoolExists = false;

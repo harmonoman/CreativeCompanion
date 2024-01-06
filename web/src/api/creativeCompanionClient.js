@@ -60,14 +60,12 @@ export default class CreativeCompanionClient extends BindingClass {
     async getUserName(errorCallback) {
         try {
             const isLoggedIn = await this.authenticator.isUserLoggedIn();
-            console.log("isLoggedIn: " + isLoggedIn);
 
             if (!isLoggedIn) {
                 return undefined;
             }
 
             const userName = await this.authenticator.getCurrentUserName();
-            console.log("userName: " + userName);
             return userName;
         } catch (error) {
             this.handleError(error, errorCallback)
@@ -84,7 +82,6 @@ export default class CreativeCompanionClient extends BindingClass {
 
     async getTokenOrThrow(unauthenticatedErrorMessage) {
         const isLoggedIn = await this.authenticator.isUserLoggedIn();
-        console.log("isLoggedIn: " + isLoggedIn);
         if (!isLoggedIn) {
             throw new Error(unauthenticatedErrorMessage);
         }

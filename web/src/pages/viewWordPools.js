@@ -13,7 +13,6 @@ class ViewWordPools extends BindingClass {
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addWordPoolsToPage);
         this.header = new Header(this.dataStore);
-        console.log("viewWordPools constructor");
     }
 
     /**
@@ -25,10 +24,8 @@ class ViewWordPools extends BindingClass {
             document.getElementById('wordPoolsSelect').innerText = "(Loading Word Pools...)";
 
         const wordPools = await this.client.getWordPoolList();
-        console.log("(clientLoaded) wordPools should be here: " + wordPools);
 
         this.dataStore.set('wordPools', wordPools);
-        console.log("(clientLoaded) wordPools have been set")
 
         const userName = await this.client.getUserName();
         const user = document.getElementById('user-name');
@@ -79,7 +76,6 @@ class ViewWordPools extends BindingClass {
     }
 
     redirectToViewWordPool(wordPoolId) {
-        console.log("(redirectToViewWordPool) here is the wordPoolId: " + wordPoolId)
         if (wordPoolId != null) {
             window.location.href = `/wordPool.html?wordPoolId=${wordPoolId}`;
         }
@@ -97,7 +93,6 @@ class ViewWordPools extends BindingClass {
 
         // Check if the selected word pool is not empty
         if (wordPoolId) {
-            console.log("(submit) selected word pool's id: " + wordPoolId);
             this.redirectToViewWordPool(wordPoolId);
         } else {
             // Handle the case where no word pool is selected (e.g., display an error message)

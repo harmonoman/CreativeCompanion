@@ -23,10 +23,7 @@ class Project extends BindingClass {
 
         // Initialize variables to track the initial state
         this.initialWordPoolState = [];
-        console.log("(constructor) initialWordPoolState: " + JSON.stringify(this.initialWordPoolState));
         this.initialWorkspaceState = [];
-
-        console.log("Project constructor");
     }
 
     /**
@@ -60,7 +57,6 @@ class Project extends BindingClass {
 
         // Set the initial state when the client is loaded
         this.initialWordPoolState = this.getWordPoolState();
-        console.log("(clientLoaded) initialWordPoolState: " + JSON.stringify(this.initialWordPoolState));
         this.initialWorkspaceState = this.getWorkspaceState();
 
         this.spinner.hideLoadingSpinner();
@@ -368,8 +364,6 @@ class Project extends BindingClass {
      */
     async collectAndUpdateProject() {
         try {
-
-
             document.getElementById('save-project').innerText = "Saving...";
 
             // Collect data from fields
@@ -567,14 +561,11 @@ class Project extends BindingClass {
     openChangeProjectNameModal() {
         const projectModal = document.getElementById('changeProjectNameModal');
         projectModal.style.display = 'block';
-        console.log("openChangeProjectNameModal");
     }
 
     closeChangeProjectNameModal() {
         const projectModal = document.getElementById('changeProjectNameModal');
         projectModal.style.display = 'none';
-        console.log("closeChangeProjectNameModal");
-
     }
 
     ///// CHANGE PROJECT NAME /////
@@ -668,9 +659,6 @@ class Project extends BindingClass {
 
     ///// UNSAVED CHANGES /////
     handleBeforeUnload(event) {
-
-        console.log('(handleBeforeUnload) Handling beforeunload event...');
-
         // Check if there are unsaved changes
         if (this.hasUnsavedChanges()) {
             // Display a confirmation message
