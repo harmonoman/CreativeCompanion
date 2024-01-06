@@ -21,8 +21,6 @@ class WordPool extends BindingClass {
 
             // Initialize variables to track the initial state
             this.initialWordPoolState = [];
-
-            console.log("WordPool constructor");
     }
 
     /**
@@ -42,7 +40,6 @@ class WordPool extends BindingClass {
             document.getElementById('wordPoolNameElement').innerText = "Loading Word Pool ...";
 
         const wordPool = await this.client.getWordPool(wordPoolId);
-        console.log("(clientLoaded) wordPoolId: " + wordPool.wordPoolId);
         document.getElementById('wordPoolNameElement').innerText = wordPool.wordPoolName;
 
         this.dataStore.set('wordPool', wordPool);

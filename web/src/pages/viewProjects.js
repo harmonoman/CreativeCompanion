@@ -14,7 +14,6 @@ class ViewProjects extends BindingClass {
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addProjectsToPage);
         this.header = new Header(this.dataStore);
-        console.log("viewProjects constructor");
     }
 
     /**
@@ -26,10 +25,8 @@ class ViewProjects extends BindingClass {
             document.getElementById('projectsSelect').innerText = "(Loading Projects...)";
 
         const projects = await this.client.getProjectList();
-        console.log("(clientLoaded) projects should be here: " + projects);
 
         this.dataStore.set('projects', projects);
-        console.log("(clientLoaded) projects have been set")
 
         const userName = await this.client.getUserName();
         const userNameElement = document.getElementById('user-name');
@@ -83,7 +80,6 @@ class ViewProjects extends BindingClass {
     }
 
     redirectToViewProject(projectId) {
-        console.log("(redirectToViewProject) here is the supposed projectId: " + projectId)
         if (projectId != null) {
             window.location.href = `/project.html?projectId=${projectId}`;
         }
@@ -99,23 +95,8 @@ class ViewProjects extends BindingClass {
         const projectSelect = document.getElementById('projectsSelect');
         const projectId = projectSelect.value;
 
-//        // Get projectName from dataStore for LoadingSpinner
-//        const projects = await this.dataStore.get('projects');
-//        projects.forEach(project => {
-//            if (projectId === project.projectId) {
-//                const projectName  = project.projectName;
-//                console.log("projectName: " + projectName);
-//                // Message to LoadingSpinner
-//                const message = `Saving ${projectName}. `;
-//                this.spinner.showLoadingSpinner(message);
-//            }
-//        });
-
-
-
         // Check if the selected project is not empty
         if (projectId) {
-            console.log("(submit1) selected project's id: " + projectId);
             this.redirectToViewProject(projectId);
         } else {
             // Handle the case where no project is selected (e.g., display an error message)
@@ -132,10 +113,8 @@ class ViewProjects extends BindingClass {
         errorMessageDisplay.classList.add('hidden');
 
         const projectName = document.getElementById('projectNameInput').value.trim();
-        console.log("(submit2) selected project's name: " + projectName);
 
         const project = await this.client.getProjectByName(projectName);
-        console.log("(submit) here is the supposed projectId based on the name: " + JSON.stringify(project));
 
         if (project && project.projectId != null) {
             this.redirectToViewProject(project.projectId);
