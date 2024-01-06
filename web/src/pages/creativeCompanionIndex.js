@@ -56,7 +56,7 @@ class CreativeCompanionIndex extends BindingClass {
             buttonGroup.style.display = 'flex'; // Show the button group
 
             // Message to LoadingSpinner
-            const message = `Loading Creative Companion. `;
+            const message = `Loading Creative Companion... `;
             this.spinner.showLoadingSpinner(message);
 
             // Populate dataStore with existing projects
@@ -133,7 +133,7 @@ class CreativeCompanionIndex extends BindingClass {
         }
 
         // Message to LoadingSpinner
-        message = `Creating ${projectName}. `;
+        const message = `Creating ${projectName}... `;
         this.spinner.showLoadingSpinner(message);
 
         // Call createProject

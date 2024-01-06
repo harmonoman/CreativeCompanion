@@ -380,7 +380,7 @@ class Project extends BindingClass {
             const project = this.dataStore.get('project');
 
             // Message to LoadingSpinner
-            const message = `Saving ${project.projectName}. `;
+            const message = `Saving ${project.projectName}... `;
             this.spinner.showLoadingSpinner(message);
 
             // Create the update data object
@@ -470,7 +470,7 @@ class Project extends BindingClass {
         const project = this.dataStore.get('project');
 
         // Message to LoadingSpinner
-        const message = `Deleting ${project.projectName}. `;
+        const message = `Deleting ${project.projectName}... `;
         this.spinner.showLoadingSpinner(message);
 
         document.getElementById('projectNameElement').innerText = "Deleting...";

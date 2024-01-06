@@ -42,6 +42,10 @@ class ViewProjects extends BindingClass {
 
         document.getElementById('projectsSelect').addEventListener('click', this.submit1);
         document.getElementById('searchProjectBtn').addEventListener('click', this.submit2);
+        // Add an event listener to the button for sorting
+        document.getElementById('sortProjectsBtn').addEventListener('click', () => this.sortProjectsAlphabetically());
+        document.getElementById('sortProjectsReverseBtn').addEventListener('click', () => this.sortProjectsReverseAlphabetically());
+
 
         this.header.addHeaderToPage();
 
@@ -123,6 +127,34 @@ class ViewProjects extends BindingClass {
             errorMessageDisplay.innerText = "Please create a new project.";
             errorMessageDisplay.classList.remove('hidden');
         }
+    }
+
+    sortProjectsAlphabetically() {
+        const projects = this.dataStore.get('projects');
+
+        if (!projects) {
+            return;
+        }
+
+        // Sort projects alphabetically by projectName
+        projects.sort((a, b) => a.projectName.localeCompare(b.projectName));
+
+        // Update the project metadata on the page
+        this.addProjectsToPage();
+    }
+
+    sortProjectsReverseAlphabetically() {
+        const projects = this.dataStore.get('projects');
+
+        if (!projects) {
+            return;
+        }
+
+        // Sort projects alphabetically by projectName
+        projects.sort((a, b) => b.projectName.localeCompare(a.projectName));
+
+        // Update the project metadata on the page
+        this.addProjectsToPage();
     }
 
 
