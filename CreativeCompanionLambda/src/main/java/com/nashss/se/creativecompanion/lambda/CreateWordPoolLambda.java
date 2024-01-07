@@ -17,6 +17,7 @@ public class CreateWordPoolLambda extends LambdaActivityRunner<CreateWordPoolReq
                         CreateWordPoolRequest.builder()
                                 .withUserId(claims.get("email"))
                                 .withWordPoolName(unauthenticatedRequest.getWordPoolName())
+                                .replaceSpaces()
                                 .build());
             },
             (request, serviceComponent) ->

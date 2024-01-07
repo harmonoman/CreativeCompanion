@@ -74,7 +74,11 @@ class ViewProjects extends BindingClass {
         optionList.length = 0;
 
         projects.forEach(project => {
-            const option = new Option(project.projectName, project.projectId);
+            // Replace hyphens with spaces in the project name
+            const projectNameWithoutHyphens = project.projectName.replace(/_/g, ' ');
+
+
+            const option = new Option(projectNameWithoutHyphens, project.projectId);
 
             // Add margin or padding to create spacing
             option.style.marginBottom = '20px';

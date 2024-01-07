@@ -69,7 +69,10 @@ class ViewWordPools extends BindingClass {
         optionList.length = 0;
 
         wordPools.forEach(wordPool => {
-            const option = new Option(wordPool.wordPoolName, wordPool.wordPoolId);
+            // Replace hyphens with spaces in the project name
+            const wordPoolNameWithoutHyphens = wordPool.wordPoolName.replace(/_/g, ' ');
+
+            const option = new Option(wordPoolNameWithoutHyphens, wordPool.wordPoolId);
 
             // Add margin or padding to create spacing
             option.style.marginBottom = '20px';

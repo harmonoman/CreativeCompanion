@@ -27,6 +27,7 @@ public class GetProjectByNameLambda extends LambdaActivityRunner<GetProjectByNam
                             GetProjectByNameRequest.builder()
                                     .withUserId(claims.get("email"))
                                     .withProjectName(unauthenticatedRequest.getProjectName())
+                                    .replaceSpaces('_')
                                     .build());
             },
             (request, serviceComponent) ->

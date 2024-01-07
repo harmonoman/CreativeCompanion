@@ -46,6 +46,8 @@ class Project extends BindingClass {
         const project = await this.client.getProject(projectId);
         this.dataStore.set('project', project);
         document.getElementById('projectNameElement').innerText = project.projectName;
+        projectNameElement.innerText = project.projectName.replace(/_/g, ' '); // Replace hyphens with spaces
+
 
         // Get Word Pool list for Import Word Pools Modal
         const wordPools = await this.client.getWordPoolList();
@@ -457,7 +459,9 @@ class Project extends BindingClass {
             workspaceField.appendChild(wordElement);
         });
 
-        document.getElementById('projectNameElement').innerText = project.projectName;
+        //document.getElementById('projectNameElement').innerText = project.projectName;
+//        const projectNameElement = document.getElementById('projectNameElement');
+//        projectNameElement.innerText = project.projectName.replace(/-/g, ' '); // Replace hyphens with spaces
 
     }
 
@@ -468,16 +472,19 @@ class Project extends BindingClass {
     async deleteProject() {
 
         const project = this.dataStore.get('project');
+        const projectNameWithoutHyphens = project.projectName.replace(/_/g, ' ');
 
         // Message to LoadingSpinner
-        const message = `Deleting ${project.projectName}... `;
+        const message = `Deleting ${projectNameWithoutHyphens}... `;
         this.spinner.showLoadingSpinner(message);
 
         document.getElementById('projectNameElement').innerText = "Deleting...";
         document.getElementById('delete-project').innerText = "Deleting...";
 
+        console.log("(project): " + project + ", " + project.projectId);
         // Delete project
         const response = await this.client.deleteProject(project.projectId);
+        console.log("(response): " + response);
 
         if (response) {
             console.log(project.projectName + " has been deleted.");

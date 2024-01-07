@@ -40,9 +40,11 @@ class WordPool extends BindingClass {
             document.getElementById('wordPoolNameElement').innerText = "- - -";
 
         const wordPool = await this.client.getWordPool(wordPoolId);
-        document.getElementById('wordPoolNameElement').innerText = wordPool.wordPoolName;
-
         this.dataStore.set('wordPool', wordPool);
+        //document.getElementById('wordPoolNameElement').innerText = wordPool.wordPoolName;
+        wordPoolNameElement.innerText = wordPool.wordPoolName.replace(/_/g, ' '); // Replace hyphens with spaces
+
+
 
         // Get Word Pool list for Import Word Pools Modal
         const wordPools = await this.client.getWordPoolList();
@@ -314,7 +316,7 @@ class WordPool extends BindingClass {
         // Update initialWordPoolState after setting the word pool
         this.initialWordPoolState = wordPool.wordPool.slice();
 
-        document.getElementById('wordPoolNameElement').innerText = wordPool.wordPoolName;
+        //document.getElementById('wordPoolNameElement').innerText = wordPool.wordPoolName;
     }
 
     ///// DELETE WORD POOL /////

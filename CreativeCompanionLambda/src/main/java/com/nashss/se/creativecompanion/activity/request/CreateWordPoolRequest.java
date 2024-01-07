@@ -51,6 +51,14 @@ public class CreateWordPoolRequest {
             return this;
         }
 
+        // Method to replace spaces
+        public CreateWordPoolRequest.Builder replaceSpaces() {
+            if (this.wordPoolName != null) {
+                this.wordPoolName = this.wordPoolName.replace(' ', '_');
+            }
+            return this;
+        }
+
         public CreateWordPoolRequest build() {
             return new CreateWordPoolRequest(userId, wordPoolName);
         }
