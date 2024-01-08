@@ -155,12 +155,8 @@
     display: flex;
     color: var(--primary-color);
     background-color: #e6faff;
-    margin: 20px;
-    padding: 10px 20px;
     flex-direction: column;
     align-items: center;
-
-
 
 }
 
@@ -277,10 +273,11 @@ canvas {
     height: 500px;
     overflow: auto;
     background-color: #e0e0e0;
-
     border: 3px solid #333;
     text-align:center
 }
+
+
 
 #add-project {
     margin-top: 10px; /* Add margin to separate the button */
@@ -310,7 +307,7 @@ canvas {
   margin: 15% auto;
   padding: 20px;
   border: 5px solid #333;
-  width: 60%;
+  width: 35%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -338,7 +335,7 @@ canvas {
 #projectsSelect, #wordPoolsSelect {
     height: 500px; /* Adjust the maximum height as needed */
     width: 500px; /* Adjust the maximum height as needed */
-
+    border: 3px solid #333;
     overflow-y: auto; /* Enable vertical scrolling if needed */
     overflow-x: auto; /* Enable vertical scrolling if needed */
     font-size: 30px; /* Adjust the font size as needed */

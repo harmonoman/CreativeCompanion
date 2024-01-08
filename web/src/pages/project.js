@@ -380,9 +380,10 @@ class Project extends BindingClass {
             const projectIdToUpdate = urlParams.get('projectId');
 
             const project = this.dataStore.get('project');
+            const projectNameWithoutHyphens = project.projectName.replace(/_/g, ' ');
 
             // Message to LoadingSpinner
-            const message = `Saving ${project.projectName}... `;
+            const message = `Saving ${projectNameWithoutHyphens}... `;
             this.spinner.showLoadingSpinner(message);
 
             // Create the update data object
