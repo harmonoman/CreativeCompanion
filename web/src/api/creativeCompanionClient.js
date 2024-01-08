@@ -176,16 +176,23 @@ export default class CreativeCompanionClient extends BindingClass {
      */
     async deleteProject(projectId, errorCallback) {
         try {
-           const token = await this.getTokenOrThrow("Only authenticated users can update projects.");
-           const response = await this.axiosClient.delete(`projects/${projectId}`, {
-               headers: {
-                   Authorization: `Bearer ${token}`
-               }
-           });
-           return response.data.project;
-       } catch (error) {
-           this.handleError(error, errorCallback)
-       }
+            const token = await this.getTokenOrThrow("Only authenticated users can update projects.");
+            const response = await this.axiosClient.delete(`projects/${projectId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (response.status === 200) {
+                console.log(projectId + " has been deleted.");
+                return true;
+            } else {
+                console.error("Failed to delete: " + projectId);
+                // Handle error here if needed
+            }
+        } catch (error) {
+            this.handleError(error, errorCallback);
+        }
     }
 
     /**
@@ -299,7 +306,13 @@ export default class CreativeCompanionClient extends BindingClass {
                    Authorization: `Bearer ${token}`
                }
            });
-           return response.data.wordPool;
+           if (response.status === 200) {
+               console.log(wordPoolId + " has been deleted.");
+               return true;
+           } else {
+               console.error("Failed to delete: " + wordPoolId);
+               // Handle error here if needed
+           }
        } catch (error) {
            this.handleError(error, errorCallback)
        }
@@ -311,11 +324,11 @@ export default class CreativeCompanionClient extends BindingClass {
      * @param errorCallback (Optional) A function to execute if the call fails.
      */
     handleError(error, errorCallback) {
-        console.error(error);
+        console.error('API Request Failed:', error);
 
         const errorFromApi = error?.response?.data?.error_message;
         if (errorFromApi) {
-            console.error(errorFromApi)
+            console.error('Error from API:', errorFromApi);
             error.message = errorFromApi;
         }
 

@@ -203,7 +203,7 @@ class CreativeCompanionIndex extends BindingClass {
         }
 
         // Message to LoadingSpinner
-        const message = `Creating ${wordPoolName}. `;
+        const message = `Creating ${wordPoolName}... `;
         this.spinner.showLoadingSpinner(message);
 
         // Call createWordPool

@@ -62,6 +62,18 @@ public class GetProjectByNameRequest {
         }
 
         /**
+         * Replace spaces in the project name with a specified character.
+         * @param replacementChar The character to replace spaces with.
+         * @return Builder object
+         */
+        public Builder replaceSpaces(char replacementChar) {
+            if (this.projectName != null) {
+                this.projectName = this.projectName.replace(' ', replacementChar);
+            }
+            return this;
+        }
+
+        /**
          * build method for the GetProjectByNameRequest builder class.
          * @return GetProjectByNameRequest object
          */

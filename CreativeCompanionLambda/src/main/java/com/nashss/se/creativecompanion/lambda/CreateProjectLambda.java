@@ -19,6 +19,7 @@ public class CreateProjectLambda extends LambdaActivityRunner<CreateProjectReque
                             CreateProjectRequest.builder()
                                     .withUserId(claims.get("email"))
                                     .withProjectName(unauthenticatedRequest.getProjectName())
+                                    .replaceSpaces()
                                     .build());
             },
             (request, serviceComponent) ->

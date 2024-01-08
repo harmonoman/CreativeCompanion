@@ -46,6 +46,8 @@ class Project extends BindingClass {
         const project = await this.client.getProject(projectId);
         this.dataStore.set('project', project);
         document.getElementById('projectNameElement').innerText = project.projectName;
+        projectNameElement.innerText = project.projectName.replace(/_/g, ' '); // Replace hyphens with spaces
+
 
         // Get Word Pool list for Import Word Pools Modal
         const wordPools = await this.client.getWordPoolList();
@@ -457,8 +459,8 @@ class Project extends BindingClass {
             workspaceField.appendChild(wordElement);
         });
 
-        document.getElementById('projectNameElement').innerText = project.projectName;
-
+        const projectNameElement = document.getElementById('projectNameElement');
+        projectNameElement.innerText = project.projectName.replace(/_/g, ' ');
     }
 
     ///// DELETE PROJECT /////
@@ -468,9 +470,10 @@ class Project extends BindingClass {
     async deleteProject() {
 
         const project = this.dataStore.get('project');
+        const projectNameWithoutHyphens = project.projectName.replace(/_/g, ' ');
 
         // Message to LoadingSpinner
-        const message = `Deleting ${project.projectName}... `;
+        const message = `Deleting ${projectNameWithoutHyphens}... `;
         this.spinner.showLoadingSpinner(message);
 
         document.getElementById('projectNameElement').innerText = "Deleting...";
@@ -595,14 +598,17 @@ class Project extends BindingClass {
 
             const projectName = changeProjectNameInput.value.trim();
 
+            // Replace spaces with underscores in the project name
+            const projectNameWithUnderscores = projectName.replace(/ /g, '_');
+
             // Check if input is valid
-            if (projectName === '') {
+            if (projectNameWithUnderscores === '') {
                 window.alert('Please enter a valid project name.');
                 return;
             }
 
             // Check if project already exists
-            if (projects.some(project => project.projectName === projectName)) {
+            if (projects.some(project => project.projectName === projectNameWithUnderscores)) {
                 window.alert(`A project with the name "${projectName}" already exists. Please choose a different name.`);
                 return;
             }
@@ -610,8 +616,11 @@ class Project extends BindingClass {
             // Close modal
             this.closeChangeProjectNameModal();
 
+            const currentProjectWithUnderscores = currentProject.projectName;
+            const currentProjectWithNoUnderscores = currentProjectWithUnderscores.replace(/_/g, ' ');
+            const projectNameWithNoUnderscores = projectNameWithUnderscores.replace(/_/g, ' ');
             // Message to LoadingSpinner
-            const message = `Changing ${currentProject.projectName} to ${projectName}. `;
+            const message = `Changing ${currentProjectWithNoUnderscores} to ${projectNameWithNoUnderscores}... `;
             this.spinner.showLoadingSpinner(message);
 
             // Collect data from fields
@@ -628,7 +637,7 @@ class Project extends BindingClass {
             // Create the update data object
             const updateData = {
                 projectId: projectIdToUpdate,
-                projectName: projectName,
+                projectName: projectNameWithUnderscores,
                 wordPool: wordPoolData,
                 workspace: workspaceData,
             };

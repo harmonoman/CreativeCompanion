@@ -50,6 +50,14 @@ public class CreateProjectRequest {
             return this;
         }
 
+        // Method to replace spaces
+        public Builder replaceSpaces() {
+            if (this.projectName != null) {
+                this.projectName = this.projectName.replace(' ', '_');
+            }
+            return this;
+        }
+
         public CreateProjectRequest build() {
             return new CreateProjectRequest(userId, projectName);
         }

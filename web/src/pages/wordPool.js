@@ -40,9 +40,11 @@ class WordPool extends BindingClass {
             document.getElementById('wordPoolNameElement').innerText = "- - -";
 
         const wordPool = await this.client.getWordPool(wordPoolId);
-        document.getElementById('wordPoolNameElement').innerText = wordPool.wordPoolName;
-
         this.dataStore.set('wordPool', wordPool);
+        //document.getElementById('wordPoolNameElement').innerText = wordPool.wordPoolName;
+        wordPoolNameElement.innerText = wordPool.wordPoolName.replace(/_/g, ' '); // Replace hyphens with spaces
+
+
 
         // Get Word Pool list for Import Word Pools Modal
         const wordPools = await this.client.getWordPoolList();
@@ -314,7 +316,8 @@ class WordPool extends BindingClass {
         // Update initialWordPoolState after setting the word pool
         this.initialWordPoolState = wordPool.wordPool.slice();
 
-        document.getElementById('wordPoolNameElement').innerText = wordPool.wordPoolName;
+        const wordPoolNameElement = document.getElementById('wordPoolNameElement');
+        wordPoolNameElement.innerText = wordPool.wordPoolName.replace(/_/g, ' ');
     }
 
     ///// DELETE WORD POOL /////
@@ -323,9 +326,10 @@ class WordPool extends BindingClass {
      */
     async deleteWordPool() {
         const wordPool = this.dataStore.get('wordPool');
+        const wordPoolNameWithoutHyphens = wordPool.wordPoolName.replace(/_/g, ' ');
 
         // Message to LoadingSpinner
-        const message = `Deleting ${wordPool.wordPoolName}... `;
+        const message = `Deleting ${wordPoolNameWithoutHyphens}... `;
         this.spinner.showLoadingSpinner(message);
 
         document.getElementById('wordPoolNameElement').innerText = "Deleting...";
@@ -419,14 +423,11 @@ class WordPool extends BindingClass {
     openChangeWordPoolNameModal() {
         const wordPoolModal = document.getElementById('changeWordPoolNameModal');
         wordPoolModal.style.display = 'block';
-        console.log("openChangeWordPoolNameModal");
     }
 
     closeChangeWordPoolNameModal() {
         const wordPoolModal = document.getElementById('changeWordPoolNameModal');
         wordPoolModal.style.display = 'none';
-        console.log("closeChangeWordPoolNameModal");
-
     }
 
     ///// CHANGE WORD POOL NAME /////
@@ -456,14 +457,17 @@ class WordPool extends BindingClass {
 
             const wordPoolName = changeWordPoolNameInput.value.trim();
 
+            // Replace spaces with underscores in the word pool name
+            const wordPoolNameWithUnderscores = wordPoolName.replace(/ /g, '_');
+
             // Check if input is valid
-            if (wordPoolName === '') {
+            if (wordPoolNameWithUnderscores === '') {
                 window.alert('Please enter a valid word pool name.');
                 return;
             }
 
             // Check if word pool already exists
-            if (wordPools.some(wordPool => wordPool.wordPoolName === wordPoolName)) {
+            if (wordPools.some(wordPool => wordPool.wordPoolName === wordPoolNameWithUnderscores)) {
                 window.alert(`A wordPool with the name "${wordPoolName}" already exists. Please choose a different name.`);
                 return;
             }
@@ -471,8 +475,12 @@ class WordPool extends BindingClass {
             // Close modal
             this.closeChangeWordPoolNameModal();
 
+            const currentWordPoolWithUnderscores = currentWordPool.wordPoolName;
+            const currentWordPoolWithNoUnderscores = currentWordPoolWithUnderscores.replace(/_/g, ' ');
+            const wordPoolNameWithNoUnderscores = wordPoolNameWithUnderscores.replace(/_/g, ' ');
+
             // Message to LoadingSpinner
-            const message = `Changing ${currentWordPool.wordPoolName} to ${wordPoolName}. `;
+            const message = `Changing ${currentWordPoolWithNoUnderscores} to ${wordPoolNameWithNoUnderscores}... `;
             this.spinner.showLoadingSpinner(message);
 
             // Collect data from fields
