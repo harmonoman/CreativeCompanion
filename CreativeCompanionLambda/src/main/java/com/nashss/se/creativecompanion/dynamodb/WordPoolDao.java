@@ -1,4 +1,6 @@
 package com.nashss.se.creativecompanion.dynamodb;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.nashss.se.creativecompanion.dynamodb.models.Project;
 import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
 import com.nashss.se.creativecompanion.exceptions.WordPoolNotFoundException;
 import com.nashss.se.creativecompanion.metrics.MetricsConstants;
@@ -8,7 +10,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 
 public class WordPoolDao {
@@ -92,6 +96,32 @@ public class WordPoolDao {
         } else {
             // WordPool not found, deletion unsuccessful
             return false;
+        }
+    }
+
+    /**
+     *
+     * @param userId String for the user Id.
+     * @param wordPoolName String for the wordPool name.
+     * @return WordPool object.
+     */
+    public WordPool getWordPoolByName(String userId, String wordPoolName) {
+        Map<String, AttributeValue> valueMap = new HashMap<>();
+        valueMap.put(":userId", new AttributeValue().withS(userId));
+        valueMap.put(":wordPoolName", new AttributeValue().withS(wordPoolName));
+        DynamoDBQueryExpression<WordPool> queryExpression = new DynamoDBQueryExpression<WordPool>()
+                .withIndexName(WordPool.WORD_POOL_NAME_INDEX)
+                .withConsistentRead(false)
+                .withKeyConditionExpression("userId = :userId AND wordPoolName = :wordPoolName")
+                .withExpressionAttributeValues(valueMap)
+                .withLimit(1);
+
+        PaginatedQueryList<WordPool> queryResult = dynamoDbMapper.query(WordPool.class, queryExpression);
+
+        if (!queryResult.isEmpty()) {
+            return queryResult.get(0);
+        } else {
+            return null;
         }
     }
 }

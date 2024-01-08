@@ -8,6 +8,7 @@ import com.nashss.se.creativecompanion.activity.GetProjectActivity;
 import com.nashss.se.creativecompanion.activity.GetProjectByNameActivity;
 import com.nashss.se.creativecompanion.activity.GetProjectListActivity;
 import com.nashss.se.creativecompanion.activity.GetWordPoolActivity;
+import com.nashss.se.creativecompanion.activity.GetWordPoolByNameActivity;
 import com.nashss.se.creativecompanion.activity.GetWordPoolListActivity;
 import com.nashss.se.creativecompanion.activity.UpdateProjectActivity;
 import com.nashss.se.creativecompanion.activity.UpdateWordPoolActivity;
@@ -88,4 +89,10 @@ public interface ServiceComponent {
      * @return GetProjectByNameActivity
      */
     GetProjectByNameActivity provideGetProjectByNameActivity();
+
+    /**
+     * Provides the relevant activity.
+     * @return GetWordPoolByNameActivity
+     */
+    GetWordPoolByNameActivity provideGetWordPoolByNameActivity();
 }
