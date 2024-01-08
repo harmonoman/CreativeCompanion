@@ -259,6 +259,11 @@ class WordPool extends BindingClass {
             const wordPoolIdToUpdate = urlParams.get('wordPoolId');
 
             const wordPool = this.dataStore.get('wordPool');
+            const wordPoolNameWithoutHyphens = wordPool.wordPoolName.replace(/_/g, ' ');
+
+            // Message to LoadingSpinner
+            const message = `Saving ${wordPoolNameWithoutHyphens}... `;
+            this.spinner.showLoadingSpinner(message);
 
             // Create the update data object
             const updateData = {
@@ -278,6 +283,8 @@ class WordPool extends BindingClass {
         } catch (error) {
             console.error('Error collecting and updating word pool:', error);
         }
+
+        this.spinner.hideLoadingSpinner();
 
         document.getElementById('save-wordPool').innerText = "Save WordPool";
 
