@@ -479,10 +479,8 @@ class Project extends BindingClass {
         document.getElementById('projectNameElement').innerText = "Deleting...";
         document.getElementById('delete-project').innerText = "Deleting...";
 
-        console.log("(project): " + JSON.stringify(project) + ", " + project.projectId);
         // Delete project
         const response = await this.client.deleteProject(project.projectId);
-        console.log("(response): " + JSON.stringify(response));
 
         if (response) {
             console.log(project.projectName + " has been deleted.");
@@ -622,7 +620,7 @@ class Project extends BindingClass {
             const currentProjectWithNoUnderscores = currentProjectWithUnderscores.replace(/_/g, ' ');
             const projectNameWithNoUnderscores = projectNameWithUnderscores.replace(/_/g, ' ');
             // Message to LoadingSpinner
-            const message = `Changing ${currentProjectWithNoUnderscores} to ${projectNameWithNoUnderscores}. `;
+            const message = `Changing ${currentProjectWithNoUnderscores} to ${projectNameWithNoUnderscores}... `;
             this.spinner.showLoadingSpinner(message);
 
             // Collect data from fields

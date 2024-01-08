@@ -326,9 +326,10 @@ class WordPool extends BindingClass {
      */
     async deleteWordPool() {
         const wordPool = this.dataStore.get('wordPool');
+        const wordPoolNameWithoutHyphens = wordPool.wordPoolName.replace(/_/g, ' ');
 
         // Message to LoadingSpinner
-        const message = `Deleting ${wordPool.wordPoolName}... `;
+        const message = `Deleting ${wordPoolNameWithoutHyphens}... `;
         this.spinner.showLoadingSpinner(message);
 
         document.getElementById('wordPoolNameElement').innerText = "Deleting...";
@@ -479,7 +480,7 @@ class WordPool extends BindingClass {
             const wordPoolNameWithNoUnderscores = wordPoolNameWithUnderscores.replace(/_/g, ' ');
 
             // Message to LoadingSpinner
-            const message = `Changing ${currentWordPoolWithNoUnderscores} to ${wordPoolNameWithNoUnderscores}. `;
+            const message = `Changing ${currentWordPoolWithNoUnderscores} to ${wordPoolNameWithNoUnderscores}... `;
             this.spinner.showLoadingSpinner(message);
 
             // Collect data from fields
