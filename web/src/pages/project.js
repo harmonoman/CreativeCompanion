@@ -481,10 +481,10 @@ class Project extends BindingClass {
         document.getElementById('projectNameElement').innerText = "Deleting...";
         document.getElementById('delete-project').innerText = "Deleting...";
 
-        console.log("(project): " + project + ", " + project.projectId);
+        console.log("(project): " + JSON.stringify(project) + ", " + project.projectId);
         // Delete project
         const response = await this.client.deleteProject(project.projectId);
-        console.log("(response): " + response);
+        console.log("(response): " + JSON.stringify(response));
 
         if (response) {
             console.log(project.projectName + " has been deleted.");
