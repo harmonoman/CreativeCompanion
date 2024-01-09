@@ -118,7 +118,7 @@ class ViewWordPools extends BindingClass {
         errorMessageDisplay.classList.add('hidden');
 
         const wordPoolName = document.getElementById('wordPoolNameInput').value.trim();
-        const wordPoolNameWithUnderscore = projectName.replace(/ /g, '_');
+        const wordPoolNameWithUnderscore = wordPoolName.replace(/ /g, '_');
 
         // Message to LoadingSpinner
         const message = `Searching for ${wordPoolName}... `;
