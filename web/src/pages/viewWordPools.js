@@ -2,6 +2,7 @@ import CreativeCompanionClient from '../api/creativeCompanionClient';
 import Header from '../components/header';
 import BindingClass from "../util/bindingClass";
 import DataStore from "../util/DataStore";
+import LoadingSpinner from '../util/LoadingSpinner';
 
 /**
  * Logic needed for the view word pool page of the website.
@@ -9,7 +10,7 @@ import DataStore from "../util/DataStore";
 class ViewWordPools extends BindingClass {
     constructor() {
         super();
-        this.bindClassMethods(['clientLoaded', 'mount', 'addWordPoolsToPage', 'redirectToViewWordPool', 'submit'], this);
+        this.bindClassMethods(['clientLoaded', 'mount', 'addWordPoolsToPage', 'redirectToViewWordPool', 'submit1', 'submit2'], this);
         this.dataStore = new DataStore();
         this.dataStore.addChangeListener(this.addWordPoolsToPage);
         this.header = new Header(this.dataStore);
@@ -38,7 +39,8 @@ class ViewWordPools extends BindingClass {
      * Add the header to the page and load the creativeCompanionClient.
      */
     mount() {
-        document.getElementById('wordPoolsSelect').addEventListener('click', this.submit);
+        document.getElementById('wordPoolsSelect').addEventListener('click', this.submit1);
+        document.getElementById('searchWordPoolBtn').addEventListener('click', this.submit2);
         // Add an event listener to the button for sorting
         document.getElementById('sortWordPoolsBtn').addEventListener('click', () => this.sortWordPoolsAlphabetically());
         document.getElementById('sortWordPoolsReverseBtn').addEventListener('click', () => this.sortWordPoolsReverseAlphabetically());
@@ -46,6 +48,7 @@ class ViewWordPools extends BindingClass {
         this.header.addHeaderToPage();
 
         this.client = new CreativeCompanionClient();
+        this.spinner = new LoadingSpinner();
         this.clientLoaded();
     }
 
@@ -87,7 +90,7 @@ class ViewWordPools extends BindingClass {
         }
     }
 
-    async submit(evt) {
+    async submit1(evt) {
         evt.preventDefault();
 
         const errorMessageDisplay = document.getElementById('error-message');
@@ -105,6 +108,33 @@ class ViewWordPools extends BindingClass {
             errorMessageDisplay.innerText = "Please create a new word pool.";
             errorMessageDisplay.classList.remove('hidden');
         }
+    }
+
+    async submit2(evt) {
+        evt.preventDefault();
+
+        const errorMessageDisplay = document.getElementById('error-message');
+        errorMessageDisplay.innerText = ``;
+        errorMessageDisplay.classList.add('hidden');
+
+        const wordPoolName = document.getElementById('wordPoolNameInput').value.trim();
+
+        // Message to LoadingSpinner
+        const message = `Searching for ${wordPoolName}... `;
+        this.spinner.showLoadingSpinner(message);
+
+        const wordPool = await this.client.getWordPoolByName(wordPoolName);
+
+        if (wordPool && wordPool.wordPoolId != null) {
+            this.redirectToViewWordPool(wordPool.wordPoolId);
+        } else {
+            // Handle the case where no word pool is selected (e.g., display an error message)
+            errorMessageDisplay.innerText = "Please create a new word pool.";
+            errorMessageDisplay.classList.remove('hidden');
+        }
+
+        this.spinner.hideLoadingSpinner();
+
     }
 
     sortWordPoolsAlphabetically() {

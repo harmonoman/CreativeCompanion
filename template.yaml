@@ -216,7 +216,9 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: dynamodb:*
-                Resource: !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/word-pools"
+                Resource:
+                  - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/word-pools"
+                  - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/wordpools/index/UserIdWordPoolNameIndex"
 
   #-----------------------------------------------------
   # Lambda Functions Configuration
@@ -405,6 +407,26 @@ Resources:
           Type: Api
           Properties:
             Path: /word-pools/{wordPoolId}
+            Method: get
+
+  GetWordPoolByNameLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Role: !GetAtt AccessRole.Arn
+      CodeUri: CreativeCompanionLambda
+      Handler: com.nashss.se.creativecompanion.lambda.GetWordPoolByNameLambda::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1
+      Events:
+        CreativeCompanionService:
+          Type: Api
+          Properties:
+            Path: /wordPools/name/{wordPoolName}
             Method: get
 
   GetWordPoolListLambda:

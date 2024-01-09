@@ -319,6 +319,24 @@ export default class CreativeCompanionClient extends BindingClass {
     }
 
     /**
+     * Gets the wordPool for the given wordPoolName.
+     * @returns The wordPool's metadata.
+     */
+    async getWordPoolByName(wordPoolName, errorCallback) {
+        try {
+            const token = await this.getTokenOrThrow("Only authenticated users can get word pools.");
+            const response = await this.axiosClient.get(`wordPools/name/${wordPoolName}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data.wordPoolByName;
+        } catch (error) {
+            this.handleError(error)
+        }
+    }
+
+    /**
      * Helper method to log the error and run any error functions.
      * @param error The error received from the server.
      * @param errorCallback (Optional) A function to execute if the call fails.
