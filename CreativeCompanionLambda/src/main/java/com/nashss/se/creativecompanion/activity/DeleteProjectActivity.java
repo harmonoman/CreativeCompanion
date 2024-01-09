@@ -1,8 +1,8 @@
 package com.nashss.se.creativecompanion.activity;
 
-import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
 import com.nashss.se.creativecompanion.activity.request.DeleteProjectRequest;
 import com.nashss.se.creativecompanion.activity.result.DeleteProjectResult;
+import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

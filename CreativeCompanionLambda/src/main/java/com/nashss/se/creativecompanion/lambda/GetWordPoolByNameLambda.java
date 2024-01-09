@@ -18,19 +18,19 @@ public class GetWordPoolByNameLambda extends LambdaActivityRunner<GetWordPoolByN
     public LambdaResponse handleRequest(AuthenticatedLambdaRequest<GetWordPoolByNameRequest> input, Context context) {
         log.info("handleRequest");
         return super.runActivity(
-                () -> {
-                    GetWordPoolByNameRequest unauthenticatedRequest = input.fromPath(path ->
+            () -> {
+                GetWordPoolByNameRequest unauthenticatedRequest = input.fromPath(path ->
                             GetWordPoolByNameRequest.builder()
                                     .withWordPoolName(path.get("wordPoolName"))
                                     .build());
-                    return input.fromUserClaims(claims ->
+                return input.fromUserClaims(claims ->
                             GetWordPoolByNameRequest.builder()
                                     .withUserId(claims.get("email"))
                                     .withWordPoolName(unauthenticatedRequest.getWordPoolName())
                                     .replaceSpaces('_')
                                     .build());
-                },
-                (request, serviceComponent) ->
+            },
+            (request, serviceComponent) ->
                         serviceComponent.provideGetWordPoolByNameActivity().handleRequest(request)
         );
 

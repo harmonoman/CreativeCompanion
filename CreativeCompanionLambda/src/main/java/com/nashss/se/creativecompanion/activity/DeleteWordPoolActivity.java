@@ -1,8 +1,8 @@
 package com.nashss.se.creativecompanion.activity;
 
-import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
 import com.nashss.se.creativecompanion.activity.request.DeleteWordPoolRequest;
 import com.nashss.se.creativecompanion.activity.result.DeleteWordPoolResult;
+import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
