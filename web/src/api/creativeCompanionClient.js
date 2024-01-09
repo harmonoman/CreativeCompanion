@@ -317,7 +317,7 @@ export default class CreativeCompanionClient extends BindingClass {
            this.handleError(error, errorCallback)
        }
     }
-    
+
     /**
      * Gets the wordPool for the given wordPoolName.
      * @returns The wordPool's metadata.
