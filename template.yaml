@@ -218,7 +218,7 @@ Resources:
                 Action: dynamodb:*
                 Resource:
                   - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/word-pools"
-                  - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/wordpools/index/UserIdWordPoolNameIndex"
+                  - !Sub "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/word-pools/index/UserIdWordPoolNameIndex"
 
   #-----------------------------------------------------
   # Lambda Functions Configuration
