@@ -121,12 +121,15 @@ class ViewProjects extends BindingClass {
         errorMessageDisplay.classList.add('hidden');
 
         const projectName = document.getElementById('projectNameInput').value.trim();
+        console.log("(projectName)" + projectName);
+        const projectNameWithUnderscore = projectName.replace(/ /g, '_');
+        console.log("(projectNameWithUnderscore)" + projectNameWithUnderscore);
 
         // Message to LoadingSpinner
         const message = `Searching for ${projectName}... `;
         this.spinner.showLoadingSpinner(message);
 
-        const project = await this.client.getProjectByName(projectName);
+        const project = await this.client.getProjectByName(projectNameWithUnderscore);
 
         if (project && project.projectId != null) {
             this.redirectToViewProject(project.projectId);

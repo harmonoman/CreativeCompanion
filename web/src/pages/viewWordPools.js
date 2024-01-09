@@ -118,12 +118,13 @@ class ViewWordPools extends BindingClass {
         errorMessageDisplay.classList.add('hidden');
 
         const wordPoolName = document.getElementById('wordPoolNameInput').value.trim();
+        const wordPoolNameWithUnderscore = projectName.replace(/ /g, '_');
 
         // Message to LoadingSpinner
         const message = `Searching for ${wordPoolName}... `;
         this.spinner.showLoadingSpinner(message);
 
-        const wordPool = await this.client.getWordPoolByName(wordPoolName);
+        const wordPool = await this.client.getWordPoolByName(wordPoolNameWithUnderscore);
 
         if (wordPool && wordPool.wordPoolId != null) {
             this.redirectToViewWordPool(wordPool.wordPoolId);
