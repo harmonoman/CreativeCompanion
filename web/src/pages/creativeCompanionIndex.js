@@ -108,12 +108,13 @@ class CreativeCompanionIndex extends BindingClass {
         // Get project name
         const projectNameInput = document.getElementById('projectNameInput');
         const projectName = projectNameInput.value.trim();
+        const projectNameWithUnderscore = projectName.replace(/ /g, '_');
 
         // Check to see if project already exists
         let projectExists = false;
 
         for (const project of projects) {
-            if (project.projectName === projectName) {
+            if (project.projectName === projectNameWithUnderscore) {
                 window.alert(`A project with the name "${projectName}" already exists. Please choose a different name.`);
                 return;
             }
@@ -178,12 +179,13 @@ class CreativeCompanionIndex extends BindingClass {
         // Get word pool name
         const wordPoolNameInput = document.getElementById('wordPoolNameInput');
         const wordPoolName = wordPoolNameInput.value.trim();
+        const wordPoolNameWithUnderscore = wordPoolName.replace(/ /g, '_');
 
         // Check to see if project already exists
         let wordPoolExists = false;
 
         for (const wordPool of wordPools) {
-            if (wordPool.wordPoolName === wordPoolName) {
+            if (wordPool.wordPoolName === wordPoolNameWithUnderscore) {
                 window.alert(`A word pool with the name "${wordPoolName}" already exists. Please choose a different name.`);
                 return;
             }

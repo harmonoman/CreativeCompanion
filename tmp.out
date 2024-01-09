@@ -1,0 +1,1 @@
+{"statusCode":500,"headers":{"Access-Control-Allow-Headers":"Content-Type,Authorization","Access-Control-Allow-Origin":"*","Access-Control-Allow-Methods":"GET,POST,PUT,DELETE,OPTIONS"},"body":"{ \"error_message\": \"Unable to get user information from request.\" }"}
