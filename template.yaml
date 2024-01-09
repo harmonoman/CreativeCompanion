@@ -520,8 +520,10 @@ Resources:
       GlobalSecondaryIndexes:
         - IndexName: "UserIdWordPoolNameIndex"
           KeySchema:
-            - AttributeName: "wordPoolName"
+            - AttributeName: "userId"
               KeyType: "HASH"
+            - AttributeName: "wordPoolName"
+              KeyType: "RANGE"
           Projection:
             ProjectionType: "ALL"
 
