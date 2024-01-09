@@ -1,11 +1,11 @@
 package com.nashss.se.creativecompanion.activity;
 
+import com.nashss.se.creativecompanion.activity.request.CreateWordPoolRequest;
+import com.nashss.se.creativecompanion.activity.result.CreateWordPoolResult;
 import com.nashss.se.creativecompanion.converters.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.WordPoolDao;
 import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
 import com.nashss.se.creativecompanion.models.WordPoolModel;
-import com.nashss.se.creativecompanion.activity.request.CreateWordPoolRequest;
-import com.nashss.se.creativecompanion.activity.result.CreateWordPoolResult;
 import com.nashss.se.creativecompanion.utils.ServiceUtils;
 
 import org.apache.logging.log4j.LogManager;

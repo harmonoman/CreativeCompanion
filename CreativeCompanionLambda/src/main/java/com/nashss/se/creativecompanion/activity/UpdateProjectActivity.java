@@ -1,12 +1,12 @@
 package com.nashss.se.creativecompanion.activity;
 
+import com.nashss.se.creativecompanion.activity.request.UpdateProjectRequest;
+import com.nashss.se.creativecompanion.activity.result.UpdateProjectResult;
 import com.nashss.se.creativecompanion.converters.ModelConverter;
 import com.nashss.se.creativecompanion.dynamodb.ProjectDao;
 import com.nashss.se.creativecompanion.dynamodb.models.Project;
 import com.nashss.se.creativecompanion.metrics.MetricsPublisher;
 import com.nashss.se.creativecompanion.models.ProjectModel;
-import com.nashss.se.creativecompanion.activity.request.UpdateProjectRequest;
-import com.nashss.se.creativecompanion.activity.result.UpdateProjectResult;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -1,6 +1,5 @@
 package com.nashss.se.creativecompanion.dynamodb;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.nashss.se.creativecompanion.dynamodb.models.Project;
+
 import com.nashss.se.creativecompanion.dynamodb.models.WordPool;
 import com.nashss.se.creativecompanion.exceptions.WordPoolNotFoundException;
 import com.nashss.se.creativecompanion.metrics.MetricsConstants;
@@ -9,6 +8,7 @@ import com.nashss.se.creativecompanion.metrics.MetricsPublisher;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 
 import java.util.HashMap;
 import java.util.List;
